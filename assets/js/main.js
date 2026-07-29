@@ -31,21 +31,73 @@
   /* ---- Mobile drawer ---- */
   const toggle = $("#navToggle");
   const nav = $("#mainnav");
-  const closeDrawer = () => {
-    if (!toggle) return;
-    toggle.classList.remove("is-open");
-    nav.classList.remove("is-open");
-    toggle.setAttribute("aria-expanded", "false");
-    document.body.style.overflow = "";
+  let scrim = null;
+
+  const setDrawer = (open) => {
+    if (!toggle || !nav) return;
+    toggle.classList.toggle("is-open", open);
+    nav.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
+    if (scrim) scrim.classList.toggle("is-shown", open);
+    if (open) {
+      const first = nav.querySelector("a[href], button");
+      if (first) first.focus({ preventScroll: true });
+    }
   };
+  const closeDrawer = () => setDrawer(false);
+
   if (toggle && nav) {
-    toggle.addEventListener("click", () => {
-      const open = toggle.classList.toggle("is-open");
-      nav.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", String(open));
-      document.body.style.overflow = open ? "hidden" : "";
+    /* Scrim: dims and blurs the page behind the drawer, and gives a
+       tap-anywhere-to-close target. There was previously no way to dismiss
+       the drawer by tapping outside it. */
+    scrim = document.createElement("div");
+    scrim.className = "nav-scrim";
+    scrim.setAttribute("aria-hidden", "true");
+    document.body.appendChild(scrim);
+    scrim.addEventListener("click", closeDrawer);
+
+    toggle.addEventListener("click", () => setDrawer(!nav.classList.contains("is-open")));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape" || !nav.classList.contains("is-open")) return;
+      closeDrawer();
+      toggle.focus({ preventScroll: true });   // return focus where it came from
     });
-    document.addEventListener("keydown", (e) => e.key === "Escape" && closeDrawer());
+
+    // Following a link should always leave the drawer closed — otherwise an
+    // in-page anchor scrolls the content while the panel still covers it.
+    nav.addEventListener("click", (e) => {
+      if (e.target.closest("a[href]")) closeDrawer();
+    });
+
+    /* A drawer left open while the viewport grows past the breakpoint used
+       to strand body{overflow:hidden}: the desktop layout resumed but the
+       whole page stayed unscrollable with no way to recover — a rotation
+       from portrait to landscape was enough to trigger it.
+
+       Guarded from three directions on purpose. matchMedia is the cheap,
+       precise signal, but it does not fire in every environment (it stays
+       silent under devtools/CDP viewport overrides), and orientationchange
+       does not always coincide with a resize on iOS. Any one of them
+       recovering the page is enough. */
+    const releaseIfDesktop = () => { if (desktop() && nav.classList.contains("is-open")) closeDrawer(); };
+    const mq = window.matchMedia("(min-width: 901px)");
+    if (mq.addEventListener) mq.addEventListener("change", releaseIfDesktop);
+    else if (mq.addListener) mq.addListener(releaseIfDesktop);   // Safari < 14
+    window.addEventListener("resize", releaseIfDesktop, { passive: true });
+    window.addEventListener("orientationchange", releaseIfDesktop, { passive: true });
+
+    /* Keep Tab inside the panel while it is open. */
+    nav.addEventListener("keydown", (e) => {
+      if (e.key !== "Tab" || !nav.classList.contains("is-open") || desktop()) return;
+      const items = $$("a[href], button:not([disabled])", nav)
+        .filter((el) => el.offsetWidth > 0 || el.offsetHeight > 0);
+      if (!items.length) return;
+      const first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
   }
 
   /* ---- Mega menu (hover on desktop, click on mobile) ---- */

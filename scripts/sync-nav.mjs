@@ -55,22 +55,90 @@ const footerCol = () =>
     categories.slice(0, 6).map((c) => `<a href="cat-${c.slug}.html">${c.name.replace(/&/g, "&amp;")}</a>`).join("")
   }</nav>`;
 
+/* ---------- social / structured metadata ----------
+   The generated pages get Open Graph, Twitter cards and JSON-LD from
+   build.mjs. The hand-written pages had title, description and canonical
+   only, so they shared as a bare link. Values are derived from what each
+   page already declares — nothing is invented. */
+const BASE = "https://www.latascientific.com/";
+const SHARE_IMG = "assets/img/products/pipe-section.png";   // 1536×1024
+const pick = (html, re) => { const m = re.exec(html); return m ? m[1] : null; };
+
+const socialBlock = (html, page) => {
+  const title = pick(html, /<title>([\s\S]*?)<\/title>/);
+  const desc = pick(html, /<meta\s+name="description"\s+content="([^"]*)"/);
+  const canonical = pick(html, /<link\s+rel="canonical"\s+href="([^"]*)"/) || BASE + (page === "index.html" ? "" : page);
+  // keep any hand-tuned og:title / og:description already on the page
+  const ogTitle = pick(html, /<meta\s+property="og:title"\s+content="([^"]*)"/) || title;
+  const ogDesc = pick(html, /<meta\s+property="og:description"\s+content="([^"]*)"/) || desc;
+  if (!title || !desc) return null;
+  return [
+    `  <meta property="og:type" content="website" />`,
+    `  <meta property="og:site_name" content="Lata Scientific" />`,
+    `  <meta property="og:url" content="${canonical}" />`,
+    `  <meta property="og:title" content="${ogTitle}" />`,
+    `  <meta property="og:description" content="${ogDesc}" />`,
+    `  <meta property="og:image" content="${BASE}${SHARE_IMG}" />`,
+    `  <meta property="og:image:alt" content="Lata Scientific — borosilicate glass and lined process components" />`,
+    `  <meta name="twitter:card" content="summary_large_image" />`,
+    `  <meta name="twitter:title" content="${ogTitle}" />`,
+    `  <meta name="twitter:description" content="${ogDesc}" />`,
+    `  <meta name="twitter:image" content="${BASE}${SHARE_IMG}" />`,
+  ].join("\n");
+};
+
 let changed = 0;
 for (const page of PAGES) {
   const file = resolve(ROOT, page);
   let html = readFileSync(file, "utf8");
   const before = html;
 
+  /* 0a. Asset parity. about/capabilities/quality/contact only ever linked
+         styles.css, so none of the premium-layer fixes (header fit at
+         901–1119px and ≤379px, drawer behaviour, touch targets, safe-area
+         insets, ultra-wide container) reached them — those pages still
+         overflowed their header while the rest of the site was fixed. */
+  if (!/assets\/css\/premium\.css/.test(html)) {
+    html = html.replace(
+      /([ \t]*<link rel="stylesheet" href="assets\/css\/styles\.css"[^>]*>)/,
+      `$1\n  <link rel="stylesheet" href="assets/css/premium.css" />`
+    );
+  }
+  if (!/assets\/css\/catalogue\.css/.test(html)) {
+    html = html.replace(
+      /([ \t]*<link rel="stylesheet" href="assets\/css\/premium\.css"[^>]*>)/,
+      `$1\n  <link rel="stylesheet" href="assets/css/catalogue.css" />`
+    );
+  }
+  if (!/assets\/js\/premium\.js/.test(html)) {
+    html = html.replace(
+      /([ \t]*<script src="assets\/js\/main\.js"[^>]*><\/script>)/,
+      `$1\n<script type="module" src="assets/js/premium.js"></script>`
+    );
+  }
+
+  /* 0b. Social metadata — strip the block we manage, then re-insert it after
+         the canonical link so repeated runs stay idempotent. */
+  const block = socialBlock(html, page);
+  if (block) {
+    html = html.replace(/^[ \t]*<meta\s+(?:property="og:[^"]*"|name="twitter:[^"]*")[^>]*>\r?\n/gm, "");
+    html = html.replace(/(<link\s+rel="canonical"[^>]*>)/, `$1\n${block}`);
+  }
+
   const usesMenuItem = /class="mega__link"[^>]*role="menuitem"/.test(html);
   const roleAttr = usesMenuItem ? ' role="menuitem"' : "";
 
-  /* 1. Mega menu — everything between the menu container and the promo card */
-  const megaRe = /(<div class="mega" role="menu">)([\s\S]*?)(\s*<div class="mega__promo">)/;
+  /* 1. Mega menu — everything between the menu container and the promo card.
+        The promo marker is matched WITHOUT its leading whitespace and the
+        indent is re-emitted explicitly; capturing that whitespace and
+        re-inserting it added a blank line on every run, so the files churned
+        endlessly instead of settling. */
+  const megaRe = /(<div class="mega" role="menu">)[\s\S]*?\s*(<div class="mega__promo">)/;
   if (megaRe.test(html)) {
     html = html.replace(
       megaRe,
-      (_m, open, _body, promo) =>
-        `${open}\n${megaCol("Glass &amp; Process Equipment", glass, roleAttr)}\n${megaCol("Fluid Transfer &amp; Fittings", fluid, roleAttr)}\n${promo}`
+      (_m, open, promo) =>
+        `${open}\n${megaCol("Glass &amp; Process Equipment", glass, roleAttr)}\n${megaCol("Fluid Transfer &amp; Fittings", fluid, roleAttr)}\n          ${promo}`
     );
   } else {
     console.warn(`  ! ${page}: mega menu block not found — left untouched`);

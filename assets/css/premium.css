@@ -253,3 +253,189 @@ html.no-js .loader { display: none; }
    the compositor to re-rasterise the page beneath them. */
 .site-fx, .hero__fx, .pagehero__fx { contain: strict; }
 .site-aura { contain: layout paint size; }
+
+/* =========================================================
+   HEADER FIT — measured fixes, no visual redesign
+   ========================================================= */
+
+/* The desktop header (logo 259 + nav 579 + CTA 169 + gaps) needs ~1105px,
+   but the drawer only takes over at 900px. Between 901px and 1104px the
+   header overflowed and pushed "Request a quote" clean off the right edge
+   — invisible and unclickable on iPad Pro portrait (1024), Nest Hub and
+   small laptops. Hide the CTA (as ≤900px already does) and drop the logo
+   strapline so the nav has real breathing room. Every other route to the
+   CTA — mega-menu promo, page CTAs, footer — is untouched. */
+@media (min-width: 901px) and (max-width: 1119px) {
+  .header__cta { display: none; }
+  .logo__tag { display: none; }
+}
+
+/* At 320px the logo (259px) plus the 44px hamburger plus gutters came to
+   341px — the menu button was ~21px outside the viewport. */
+@media (max-width: 379px) {
+  .logo__tag { display: none; }
+  .logo__name { font-size: 19px; }
+  .logo__mark { width: 38px; height: 38px; }
+}
+
+/* =========================================================
+   MOBILE DRAWER
+   ========================================================= */
+@media (max-width: 900px) {
+  /* Nothing in the drawer may be compressed. .btn--primary carries
+     overflow:hidden for its sheen sweep, and on a flex item that changes
+     the automatic minimum size from min-content to 0 — so once the drawer
+     content grew past the viewport, flex-shrink crushed the "Request a
+     quote" button from ~59px to 28px. Pinning flex on every child fixes
+     it and lets the drawer scroll instead of squashing. */
+  .mainnav > *, .mainnav > .has-mega { flex: 0 0 auto; }
+
+  .mainnav {
+    /* Above the reading gauge (z-index 200) — it was drawing over the drawer. */
+    z-index: 210;
+    overscroll-behavior: contain;          /* no scroll-chaining to the page */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: max(30px, env(safe-area-inset-bottom, 0px));
+    /* A closed drawer sits off-canvas but was still in the tab order, so
+       keyboard users tabbed into an invisible menu. visibility removes it
+       from the tree; transitioning it keeps the slide-out animation intact. */
+    visibility: hidden;
+    transition: transform .4s var(--ease), visibility .4s var(--ease);
+  }
+  .mainnav.is-open { visibility: visible; }
+
+  /* Safety net: if the category list ever outgrows the transition ceiling,
+     the submenu scrolls rather than silently hiding items. */
+  .has-mega.is-open .mega { overflow-y: auto; overscroll-behavior: contain; }
+
+  /* Scrim behind the drawer — dims and blurs the page, and gives a
+     tap-anywhere-to-close target. Injected by main.js. */
+  .nav-scrim {
+    position: fixed; inset: 0; z-index: 205;
+    background: rgba(10, 14, 23, 0.45);
+    backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+    opacity: 0; visibility: hidden;
+    transition: opacity .35s var(--ease), visibility .35s;
+  }
+  .nav-scrim.is-shown { opacity: 1; visibility: visible; }
+}
+/* The scrim is a mobile-only device; never let it linger on desktop. */
+@media (min-width: 901px) { .nav-scrim { display: none; } }
+
+/* =========================================================
+   TOUCH TARGETS — coarse pointers only, so desktop is unchanged
+   ========================================================= */
+@media (pointer: coarse) {
+  .topbar__contacts a,
+  .breadcrumb a,
+  .footer__legal a { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer__col a { display: flex; align-items: center; min-height: 44px; }
+  .footer__social a { width: 44px; height: 44px; }
+  .pcard__arrow { width: 44px; height: 44px; }
+  .acc__q { min-height: 56px; }
+  .chip { min-height: 44px; display: inline-flex; align-items: center; }
+}
+
+/* Product cards link only through their small arrow, so on a phone the
+   tappable area was 34×34 in a full-width card. Stretch the existing link
+   over the whole card — no markup change, no visual change. */
+.pcard { position: relative; }
+.pcard__arrow::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+/* Keep genuinely interactive children above the stretched hit area. */
+.pcard a:not(.pcard__arrow), .pcard button { position: relative; z-index: 1; }
+
+/* Cleaner tap feedback than the default grey flash. */
+a, button, .btn, summary, [role="button"] { -webkit-tap-highlight-color: rgba(30, 107, 255, 0.14); }
+
+/* =========================================================
+   GRID DENSITY AT TABLET
+   Three 230px cards on a 768px tablet was cramped; two reads far better.
+   ========================================================= */
+@media (min-width: 621px) and (max-width: 900px) {
+  .grid--3, .grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .ctagrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* =========================================================
+   ULTRA-WIDE — let the measure grow a little rather than
+   stranding the content in a 1200px ribbon on a 4K panel.
+   ========================================================= */
+@media (min-width: 1800px) { :root { --container: 1320px; } }
+@media (min-width: 2400px) { :root { --container: 1440px; } }
+
+/* =========================================================
+   NOTCHED / SAFE-AREA DEVICES (iPhone landscape, foldables)
+   ========================================================= */
+@supports (padding: max(0px, env(safe-area-inset-left))) {
+  .container {
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+  }
+  .wa-float {
+    right: max(20px, env(safe-area-inset-right));
+    bottom: max(20px, env(safe-area-inset-bottom));
+  }
+  .to-top {
+    right: max(24px, env(safe-area-inset-right));
+    bottom: max(92px, calc(env(safe-area-inset-bottom) + 72px));
+  }
+}
+
+/* Keep the sticky in-page nav clear of a stuck header on short screens. */
+@media (max-height: 520px) {
+  .pdnav { position: static; }
+}
+
+/* =========================================================
+   SHRINK-TO-FIT
+   Grid and flex children default to min-width:auto, so they refuse to go
+   below their content's minimum size. At 320px that pushed the footer
+   columns, the contact form and the info cards ~25-40px past the viewport
+   (clipped by overflow-x, but the content was genuinely cut off).
+   ========================================================= */
+.footer__inner > *,
+.contact > *,
+.formgrid > *,
+.catlayout > *,
+.applayout > *,
+.pd > *,
+.split > * { min-width: 0; }
+
+.field input, .field textarea, .field select { min-width: 0; width: 100%; }
+/* The newsletter row is a flex pair; the input's default intrinsic width
+   pushed the subscribe button off the edge at 320px. */
+.news { min-width: 0; }
+.news input { min-width: 0; }
+.footer__blurb { max-width: min(34ch, 100%); }
+
+/* Long words and unbroken strings (product codes, emails) must wrap rather
+   than widen their container. Data tables are excluded — their cells are
+   deliberately nowrap and scroll horizontally instead. */
+h1, h2, h3, h4, p, li, figcaption, .bcard, .chip { overflow-wrap: break-word; }
+
+/* A long product name pushed the final breadcrumb item off the right edge
+   on phones — the row could not wrap. */
+.breadcrumb { flex-wrap: wrap; row-gap: 4px; }
+
+/* capabilities.html pinned its process grid to three columns with an inline
+   style, which outranks every media query — so it stayed three columns at
+   320px and ran ~90px past the screen. As a modifier it keeps the intended
+   three-up desktop layout and inherits .steps' responsive collapse below. */
+@media (min-width: 1041px) {
+  .steps--3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Sideways reveals start 52px off-axis and only settle once they fire.
+   styles.css already converts them to a rise below 680px; the split layout
+   actually goes single-column at 900px, so extend it to match. */
+@media (max-width: 900px) {
+  .js .reveal.reveal--left,
+  .js .reveal.reveal--right { transform: translateY(30px); }
+}
+/* Above that, cap the slide distance to the page gutter so the pre-reveal
+   offset can never sit outside the viewport (it was 52px against a 41px
+   gutter at 912–1024px). Full 52px is retained once there is room for it. */
+@media (min-width: 901px) {
+  .js .reveal.reveal--left { transform: translateX(calc(-1 * min(52px, 3vw))); }
+  .js .reveal.reveal--right { transform: translateX(min(52px, 3vw)); }
+}
