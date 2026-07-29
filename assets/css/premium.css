@@ -282,6 +282,34 @@ html.no-js .loader { display: none; }
    MOBILE DRAWER
    ========================================================= */
 @media (max-width: 900px) {
+  /* THE mobile-menu bug.
+     .site-header carries backdrop-filter for its frosted look, and any
+     element with a backdrop-filter becomes the containing block for its
+     position:fixed descendants. The drawer lives inside the header, so its
+     `inset: 0 0 0 auto` resolved against the HEADER box rather than the
+     viewport — computed height 122px instead of 800px. Only "Home" and part
+     of "About" were ever on screen; every other item was clipped away, which
+     is why the panel looked empty behind the scrim.
+
+     Moving the frosted layer to a pseudo-element keeps the appearance
+     pixel-identical while taking the containing block off the header, so the
+     drawer measures against the viewport again and fills the screen. */
+  .site-header {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
+  }
+
   /* Nothing in the drawer may be compressed. .btn--primary carries
      overflow:hidden for its sheen sweep, and on a flex item that changes
      the automatic minimum size from min-content to 0 — so once the drawer
@@ -291,8 +319,11 @@ html.no-js .loader { display: none; }
   .mainnav > *, .mainnav > .has-mega { flex: 0 0 auto; }
 
   .mainnav {
-    /* Above the reading gauge (z-index 200) — it was drawing over the drawer. */
-    z-index: 210;
+    /* No z-index here on purpose. .site-header is position:sticky with
+       z-index:100, which makes it a stacking context — so the drawer inside
+       it is painted at the header's level whatever value it is given, and
+       styles.css's z-index:130 already orders it correctly against its own
+       siblings. Raising it here only looked like it worked. */
     overscroll-behavior: contain;          /* no scroll-chaining to the page */
     -webkit-overflow-scrolling: touch;
     padding-bottom: max(30px, env(safe-area-inset-bottom, 0px));
@@ -304,14 +335,26 @@ html.no-js .loader { display: none; }
   }
   .mainnav.is-open { visibility: visible; }
 
-  /* Safety net: if the category list ever outgrows the transition ceiling,
-     the submenu scrolls rather than silently hiding items. */
-  .has-mega.is-open .mega { overflow-y: auto; overscroll-behavior: contain; }
+  /* styles.css animates the submenu open to a max-height of 1400px. With ten
+     categories on a 320px screen the list wraps to ~1400px and was sitting
+     right on that ceiling, so the last entries risked being cut off. Raise
+     the ceiling well clear of the content — max-height does not stretch the
+     box, so the panel is still only as tall as it needs to be — and keep an
+     overflow fallback in case the range grows again. */
+  .has-mega.is-open .mega { max-height: 3000px; overflow-y: auto; overscroll-behavior: contain; }
 
   /* Scrim behind the drawer — dims and blurs the page, and gives a
-     tap-anywhere-to-close target. Injected by main.js. */
+     tap-anywhere-to-close target. Injected by main.js.
+
+     z-index must sit BELOW the header's 100. The drawer lives inside the
+     header's stacking context, so anything above 100 at body level covers
+     the menu — which is exactly what happened: the blur painted over the
+     whole screen and the menu items disappeared behind it. 96 clears the
+     page content and both floating buttons (.to-top 90, .wa-float 95)
+     while staying under the header, so the drawer and the close button
+     remain on top and tappable. */
   .nav-scrim {
-    position: fixed; inset: 0; z-index: 205;
+    position: fixed; inset: 0; z-index: 96;
     background: rgba(10, 14, 23, 0.45);
     backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
     opacity: 0; visibility: hidden;
