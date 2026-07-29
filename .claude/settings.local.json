@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s https://api.github.com/repos/nextlevelbuilder/ui-ux-pro-max-skill/contents/)",
+      "Bash(curl -s https://raw.githubusercontent.com/nextlevelbuilder/ui-ux-pro-max-skill/main/README.md)",
+      "Bash(npm --version)",
+      "Bash(npm install *)",
+      "Bash(uipro init *)",
+      "PowerShell(foreach \\($c in @\\('node','npm','python','python3','py','pwsh'\\)\\) { $r = Get-Command $c -ErrorAction SilentlyContinue; if \\($r\\) { \"$c -> $\\($r.Source\\)\" } else { \"$c -> MISSING\" } })"
+    ]
+  }
+}

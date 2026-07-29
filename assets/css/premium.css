@@ -1,0 +1,255 @@
+/* =========================================================
+   LATA SCIENTIFIC — premium layer
+   Every page already links this file; it was missing, which left the
+   cinematic loader and the hero visual completely unstyled (23 classes
+   with no rules at all) and produced 200+ 404s across the site.
+
+   This restores the intended presentation using the existing tokens in
+   styles.css. Nothing here overrides an existing rule — it only styles
+   markup that previously had none.
+
+   SAFETY: the loader dismisses itself with CSS alone. premium.js only
+   makes it faster. If the script fails to load again, the page still
+   becomes usable — the overlay can never trap the site.
+   ========================================================= */
+
+/* =========================================================
+   CINEMATIC LOADER (index.html only)
+   ========================================================= */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(70% 100% at 82% 0%, rgba(37, 99, 235, 0.28), transparent 55%),
+    radial-gradient(50% 90% at 8% 100%, rgba(14, 165, 183, 0.20), transparent 60%),
+    var(--brand);
+  color: var(--on-brand);
+  /* Self-dismissing: runs without any JavaScript at all. */
+  animation: loaderAuto 0.55s var(--ease) 1.5s forwards;
+  will-change: opacity;
+}
+/* JS-driven early exit — whichever fires first wins. */
+.loader.is-done {
+  animation: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.45s var(--ease), visibility 0.45s;
+}
+@keyframes loaderAuto {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+/* Lock scroll only while the overlay is genuinely up. */
+html.is-loading, html.is-loading body { overflow: hidden; }
+
+.loader__grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(120% 90% at 50% 45%, #000, transparent 72%);
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 45%, #000, transparent 72%);
+}
+.loader__particles {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.6;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, rgba(97, 233, 255, 0.9), transparent 60%),
+    radial-gradient(1.5px 1.5px at 72% 22%, rgba(255, 255, 255, 0.7), transparent 60%),
+    radial-gradient(2px 2px at 45% 72%, rgba(30, 107, 255, 0.8), transparent 60%),
+    radial-gradient(1.5px 1.5px at 85% 66%, rgba(97, 233, 255, 0.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 12% 80%, rgba(255, 255, 255, 0.5), transparent 60%);
+  animation: loaderDrift 6s ease-in-out infinite alternate;
+}
+@keyframes loaderDrift {
+  to { transform: translate3d(0, -14px, 0); opacity: 0.35; }
+}
+
+.loader__stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 26px;
+  padding-inline: 24px;
+  width: min(460px, calc(100vw - 48px));
+}
+.loader__pipe { width: 100%; height: auto; overflow: visible; }
+
+/* Glass tube: each segment draws itself in, in sequence. */
+.loader__pipe .tube {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.30);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: var(--len) var(--len);
+  stroke-dashoffset: var(--len);
+  animation: tubeDraw 0.55s var(--ease-out) forwards;
+}
+.loader__pipe .tube--1 { animation-delay: 0.05s; }
+.loader__pipe .tube--2 { animation-delay: 0.35s; }
+.loader__pipe .tube--3 { animation-delay: 0.62s; }
+@keyframes tubeDraw { to { stroke-dashoffset: 0; } }
+
+/* Product flows through the drawn tube. */
+.loader__pipe .flow {
+  fill: none;
+  stroke: url(#loaderFlow);
+  stroke-width: 5.5;
+  stroke-linecap: round;
+  stroke-dasharray: 60 620;
+  stroke-dashoffset: 680;
+  animation: flowRun 1.15s linear 0.75s infinite;
+}
+@keyframes flowRun { to { stroke-dashoffset: 0; } }
+
+.loader__pipe .joint {
+  fill: var(--brand);
+  stroke: var(--cyan);
+  stroke-width: 3;
+  opacity: 0;
+  animation: jointPop 0.4s var(--ease-out) forwards;
+}
+.loader__pipe .joint--1 { animation-delay: 0.45s; }
+.loader__pipe .joint--2 { animation-delay: 0.68s; }
+.loader__pipe .joint--3 { animation-delay: 0.9s; }
+@keyframes jointPop { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
+.loader__pipe .joint { transform-box: fill-box; transform-origin: center; }
+
+.loader__readout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--on-brand-dim);
+}
+.loader__gauge {
+  flex: 1;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+.loader__gauge > span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: gaugeFillAuto 1.45s var(--ease-out) forwards;
+}
+@keyframes gaugeFillAuto { to { transform: scaleX(1); } }
+.loader__pct { color: var(--teal); font-variant-numeric: tabular-nums; }
+
+.loader__logo {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(28px, 7vh, 64px);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: logoIn 0.6s var(--ease-out) 0.3s forwards;
+}
+@keyframes logoIn { to { opacity: 1; } }
+.loader__logo .mk {
+  display: grid; place-content: center;
+  width: 36px; height: 36px; border-radius: 10px;
+  color: #fff; background: var(--grad);
+}
+.loader__logo .wm {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 19px;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.loader__logo .wm span { color: var(--teal); }
+
+/* Reduced motion, or no-JS: never show a blocking overlay. */
+@media (prefers-reduced-motion: reduce) {
+  .loader { display: none; }
+  html.is-loading, html.is-loading body { overflow: auto; }
+}
+html.no-js .loader { display: none; }
+
+/* =========================================================
+   HERO — ambient depth layer behind the copy
+   `.hero__webgl` had no rules at all, so it rendered as a dead box.
+   ========================================================= */
+.hero__webgl {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background:
+    radial-gradient(38% 55% at 78% 30%, rgba(97, 233, 255, 0.16), transparent 70%),
+    radial-gradient(42% 60% at 12% 78%, rgba(30, 107, 255, 0.13), transparent 72%);
+  will-change: transform;
+  animation: heroAmbient 18s ease-in-out infinite alternate;
+}
+@keyframes heroAmbient {
+  to { transform: translate3d(0, -18px, 0) scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__webgl { animation: none; }
+}
+
+/* The hero copy column sits above the ambient layer and the canvas field. */
+.hero__copy { position: relative; z-index: 2; }
+.hero__media { position: relative; z-index: 2; }
+
+/* Supplied product renders are centred subjects on a light ground —
+   `cover` (the styles.css default for this box) crops the product out of
+   frame. Contain them and give the tile a soft studio backdrop instead. */
+.hero__figure { background: linear-gradient(160deg, #F4F8FD, #E4EDF7); }
+.hero__figure img {
+  object-fit: contain;
+  padding: clamp(14px, 3.2vw, 34px);
+}
+
+/* =========================================================
+   Category card artwork (products.html + category pages)
+   ========================================================= */
+.pcard__media img.pcard__shot,
+.featcat__media img.featcat__shot {
+  object-fit: contain;
+  padding: 10%;
+  background: linear-gradient(160deg, #F6F9FD, #E9F0F8);
+}
+
+/* =========================================================
+   PERFORMANCE
+   Long catalogue pages carry 40+ sections and several wide tables.
+   Skipping layout/paint for off-screen blocks removes most of the
+   scroll cost without changing a single pixel of the design.
+   `contain-intrinsic-size` reserves height so the scrollbar stays stable.
+   ========================================================= */
+@supports (content-visibility: auto) {
+  main > section:not(:first-of-type) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 620px;
+  }
+  .site-footer { content-visibility: auto; contain-intrinsic-size: auto 480px; }
+}
+
+/* Promote only what actually moves, and only while it moves. */
+.hero__slide.is-active { will-change: opacity, transform; }
+.hero__slide:not(.is-active) { will-change: auto; }
+.showcase__track, .ttrack { will-change: transform; }
+
+/* Decorative full-screen canvases must never intercept input or force
+   the compositor to re-rasterise the page beneath them. */
+.site-fx, .hero__fx, .pagehero__fx { contain: strict; }
+.site-aura { contain: layout paint size; }

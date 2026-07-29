@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 96" width="340" height="96">
+  <!-- Lata Scientific — full horizontal lockup: LS mark + wordmark.
+       Wordmark uses Space Grotesk when available (falls back to system sans). -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0EA5B7"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="22" fill="url(#g)"/>
+  <g transform="translate(14.4 6) scale(2.1)">
+    <g fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 9v15a5 5 0 0 0 5 5h3"/>
+      <path d="M27 14a4.5 4.5 0 0 0-4.5-4h-.5a4.8 4.8 0 0 0 0 9.6h1.5a4.8 4.8 0 0 1 0 9.6h-.8a4.5 4.5 0 0 1-4.3-3.6"/>
+    </g>
+    <g stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".75">
+      <path d="M5.5 13h2.5M5.5 17h2.5M5.5 21h2.5"/>
+    </g>
+  </g>
+  <text x="114" y="52" font-family="'Space Grotesk','Inter',system-ui,sans-serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="#0E1A2B">Lata<tspan fill="#0B7C93">Scientific</tspan></text>
+  <text x="115" y="74" font-family="'JetBrains Mono',ui-monospace,monospace" font-size="10.5" letter-spacing="4.5" fill="#8A94A8">GLASS · PROCESS · FLUID</text>
+</svg>

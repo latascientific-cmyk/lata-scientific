@@ -1,0 +1,12 @@
+{
+  "name": "Lata Scientific",
+  "short_name": "Lata Scientific",
+  "description": "Precision borosilicate glassware and industrial process equipment.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070B16",
+  "theme_color": "#070B16",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
