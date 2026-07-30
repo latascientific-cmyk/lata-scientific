@@ -461,6 +461,15 @@ a, button, .btn, summary, [role="button"] { -webkit-tap-highlight-color: rgba(30
 .pd > *,
 .split > * { min-width: 0; }
 
+/* .infostack is a single-column grid, and an implicit `auto` track floors at
+   its cards' min-content — so the cards sat ~25px wider than the column at
+   320px and had their right edge clipped. minmax(0,1fr) lets the track
+   shrink; the contact strings then wrap instead of forcing the width back. */
+.infostack { grid-template-columns: minmax(0, 1fr); }
+.infostack > *,
+.inforow > div { min-width: 0; }
+.inforow a, .inforow span { overflow-wrap: anywhere; }
+
 .field input, .field textarea, .field select { min-width: 0; width: 100%; }
 /* The newsletter row is a flex pair; the input's default intrinsic width
    pushed the subscribe button off the edge at 320px. */

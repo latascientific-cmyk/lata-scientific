@@ -100,7 +100,6 @@ const ICON = {
   scrubbers: '<path d="M8 5h8l-1.5 15a2 2 0 0 1-2 1.8h-1a2 2 0 0 1-2-1.8z"/><path d="M10 11q2 2 4 0"/>',
   ptfe: '<path d="M4 8c6 0 6 8 12 8"/><path d="M16 4h4v16h-4"/>',
   silicone: '<path d="M4 12h16M8 9v6M12 9v6M16 9v6"/>',
-  valves: '<path d="M4 12h5M15 12h5"/><path d="M9 7l6 10M15 7L9 17"/><circle cx="12" cy="12" r="2"/>',
   fittings: '<path d="M6 9h6v6H6zM12 11h6"/>',
   filters: '<path d="M5 5h14l-5 7v6l-4 2v-8z"/>',
   pipeline: '<path d="M2 9h5v6H2zM17 9h5v6h-5"/><path d="M7 12h10"/>',

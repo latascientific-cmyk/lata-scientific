@@ -137,13 +137,8 @@ export const categories = [
       { slug: "tubular-sight-glass", name: "Tubular Sight Flow Indicators", products: tubular },
     ],
   },
-  {
-    /* Slug deliberately kept as "valves" so the existing cat-valves.html
-       URL keeps resolving instead of turning into a 404. */
-    slug: "valves", name: "Valves", group: "fluid",
-    tagline: "Isolation, control and non-return",
-    blurb: "Process valves for corrosive and general duty — isolation, throttling, non-return and bottom-outlet patterns across glass, lined and metallic construction.",
-    brochure: "valves.pdf",
-    products: [],
-  },
+  /* The standalone "Valves" category was retired — it never held products of
+     its own and duplicated ground already covered by Glass Valves and PTFE
+     Lined Valves. cat-valves.html is kept as a redirect to Glass Valves so
+     old links and search results do not land on a 404. */
 ];
