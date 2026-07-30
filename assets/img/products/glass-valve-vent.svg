@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 330" width="380" height="330" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Vent Valve — dimension schematic, Type A</title>
+  <desc id="dsc">Borosilicate glass vent valve, Type A. Vertical body of length L on a DN line, vent bore d and cap diameter D.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+
+  <path class="ctr" d="M190 40V300"/>
+  <!-- vent cap -->
+  <circle class="metal" cx="190" cy="66" r="15"/>
+  <path class="line" d="M175 66h30M190 51v30"/>
+  <path class="body" d="M180 81h20v34h-20z"/>
+  <!-- cone body -->
+  <path class="body" d="M180 115h20l34 96h-88z"/>
+  <!-- DN line -->
+  <path class="body" d="M146 211h88v34h-88z"/>
+  <path class="line" d="M142 245h96"/>
+  <path class="dim" d="M300 66V245"/><text class="t" x="312" y="160">L</text>
+  <path class="ext" d="M206 66h94M238 245h62"/>
+  <path class="dim" d="M175 40h30"/><text class="t" x="182" y="34">D</text>
+  <path class="ext" d="M175 44v18M205 44v18"/>
+  <path class="dim" d="M60 98h120"/><text class="s" x="112" y="94">d</text>
+  <path class="ext" d="M180 98H60"/>
+  <text class="s" x="252" y="238">DN</text>
+  <text class="s" x="146" y="292">TYPE A</text>
+</svg>

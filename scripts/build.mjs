@@ -18,10 +18,39 @@ import { categories } from "../data/catalogue.mjs";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const out = (name, html) => writeFileSync(resolve(ROOT, name), html, "utf8");
 
+/* ---------- contact details, defined once ----------
+   assets/js/enquiry.js holds the same values for the runtime side
+   (floating button, WhatsApp message, mailto subject). Change both
+   together — scripts/sync-nav.mjs checks that they agree. */
+const CONTACT = {
+  waDigits: "919033630547",          // wa.me format: country code first, digits only
+  waDisplay: "+91 90336 30547",
+  waTel: "+919033630547",
+  email: "latascientific@gmail.com",
+  floatMessage: "Hello Lata Scientific, I would like to enquire about your products.",
+};
+const waHref = (msg) =>
+  `https://wa.me/${CONTACT.waDigits}?text=${encodeURIComponent(msg)}`;
+
 /* ---------- intrinsic image size ----------
    Emitting width/height on every <img> reserves the box before the file
    arrives, so lazy-loaded product shots cannot shift the layout as they
    pop in. Read straight from the file header — no dependency needed. */
+/* ---------- datasheet resolution ----------
+   Most category brochures have not been supplied yet, so linking to them
+   unconditionally shipped a 404 on every product page whose item has no
+   PDF of its own. Resolve against the filesystem instead: a real file gets
+   a real download, a missing one degrades into an enquiry. */
+const missingPdfs = new Set();
+function datasheet(p, cat) {
+  const own = p.downloads && p.downloads.length ? p.downloads[0].file : null;
+  if (own && existsSync(resolve(ROOT, own))) return { href: own, download: true };
+  const brochure = cat.brochure ? `assets/pdfs/${cat.brochure}` : null;
+  if (brochure && existsSync(resolve(ROOT, brochure))) return { href: brochure, download: false };
+  if (brochure) missingPdfs.add(cat.brochure);
+  return null;
+}
+
 const sizeCache = new Map();
 function imgSize(rel) {
   if (!rel) return null;
@@ -31,7 +60,16 @@ function imgSize(rel) {
     const file = resolve(ROOT, rel);
     if (existsSync(file)) {
       const b = readFileSync(file);
-      if (b.length > 24 && b[0] === 0x89 && b[1] === 0x50) {
+      if (rel.endsWith(".svg")) {
+        // width/height attrs first, else fall back to the viewBox extents
+        const s = b.toString("utf8").slice(0, 900);
+        const wm = /\bwidth="([\d.]+)"/.exec(s), hm = /\bheight="([\d.]+)"/.exec(s);
+        if (wm && hm) out = { w: Math.round(+wm[1]), h: Math.round(+hm[1]) };
+        else {
+          const vb = /viewBox="([\d.\-\s]+)"/.exec(s);
+          if (vb) { const p = vb[1].trim().split(/\s+/).map(Number); if (p.length === 4) out = { w: Math.round(p[2]), h: Math.round(p[3]) }; }
+        }
+      } else if (b.length > 24 && b[0] === 0x89 && b[1] === 0x50) {
         out = { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };            // PNG IHDR
       } else if (b[0] === 0xff && b[1] === 0xd8) {
         let i = 2;
@@ -70,6 +108,7 @@ const ICON = {
   "lined-valves": '<path d="M3 12h5M16 12h5"/><path d="M8 7h8v10H8z"/><circle cx="12" cy="12" r="2.2"/><path d="M12 7V4M10 4h4"/>',
   "sight-flow": '<path d="M2 10h4v4H2zM18 10h4v4h-4"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1.6"/>',
   /* Categories added in the 2026 catalogue restructure */
+  "glass-valves": '<path d="M3 12h5M16 12h5"/><path d="M8 8h8v8H8z"/><path d="M12 8V4M9 4h6"/><path d="M10.5 12h3"/>',
   coupling: '<path d="M3 10h7v4H3zM14 10h7v4h-7"/><path d="M10 7.5v9M14 7.5v9"/>',
   "rotary-evaporator": '<path d="M4 5h6M7 5v5"/><path d="M7 10 4.5 17a3.2 3.2 0 0 0 3 4.4h-.9"/><circle cx="15.5" cy="16" r="4.6"/><path d="M11 9.5h6.5a2.5 2.5 0 0 1 2.5 2.5v1"/>',
   "tubular-structure": '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
@@ -106,8 +145,8 @@ const megaCol = (title, list) => `
 const header = () => `<div class="topbar">
   <div class="container topbar__inner">
     <div class="topbar__contacts">
-      <a href="tel:+910000000000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5c0 9 6 15 15 15l1-4-5-2-2 2a12 12 0 0 1-5-5l2-2-2-5z"/></svg>+91 00000 00000</a>
-      <a href="mailto:sales@latascientific.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg>sales@latascientific.com</a>
+      <a href="${waHref(CONTACT.floatMessage)}" target="_blank" rel="noopener" aria-label="WhatsApp ${CONTACT.waDisplay}"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.55 2 2.1 6.44 2.1 11.92c0 1.75.46 3.45 1.33 4.95L2 22l5.27-1.38a9.9 9.9 0 0 0 4.77 1.21h.01c5.48 0 9.94-4.45 9.94-9.93A9.87 9.87 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 8.24 8.23c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.17.25-.64.8-.79.97-.14.16-.29.19-.54.06-.24-.12-1.04-.38-1.99-1.22-.73-.65-1.23-1.46-1.37-1.7-.15-.25-.02-.38.11-.51.11-.11.24-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.6.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg>${CONTACT.waDisplay}</a>
+      <a href="mailto:${CONTACT.email}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg>${CONTACT.email}</a>
     </div>
     <div class="topbar__meta"><b>ISO-aligned QC</b> · Borosilicate 3.3 · Shipping to 40+ countries</div>
   </div>
@@ -143,6 +182,10 @@ const footer = () => `<footer class="site-footer footer">
     <div>
       <a class="logo" href="index.html" aria-label="Lata Scientific home"><span class="logo__mark" aria-hidden="true"><svg viewBox="0 0 32 40" width="22" height="28"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9v15a5 5 0 0 0 5 5h3"/><path d="M27 14a4.5 4.5 0 0 0-4.5-4h-.5a4.8 4.8 0 0 0 0 9.6h1.5a4.8 4.8 0 0 1 0 9.6h-.8a4.5 4.5 0 0 1-4.3-3.6"/></g><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".75"><path d="M5.5 13h2.5M5.5 17h2.5M5.5 21h2.5"/></g></svg></span><span class="logo__text"><span class="logo__name">Lata<span>Scientific</span></span><span class="logo__tag">Glass · Process · Fluid</span></span></a>
       <p class="footer__blurb">Precision borosilicate glassware, glass process equipment and fluid-transfer components — engineered to the tolerance your method demands.</p>
+      <div class="footer__contact">
+        <a href="${waHref(CONTACT.floatMessage)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.55 2 2.1 6.44 2.1 11.92c0 1.75.46 3.45 1.33 4.95L2 22l5.27-1.38a9.9 9.9 0 0 0 4.77 1.21h.01c5.48 0 9.94-4.45 9.94-9.93A9.87 9.87 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 8.24 8.23c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.17.25-.64.8-.79.97-.14.16-.29.19-.54.06-.24-.12-1.04-.38-1.99-1.22-.73-.65-1.23-1.46-1.37-1.7-.15-.25-.02-.38.11-.51.11-.11.24-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.6.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg><span>${CONTACT.waDisplay}</span></a>
+        <a href="mailto:${CONTACT.email}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg><span>${CONTACT.email}</span></a>
+      </div>
       <div class="footer__social">
         <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.06 3.77-2.06C20.4 8.64 21 11 21 14.1V21h-4v-6.1c0-1.45-.03-3.3-2-3.3s-2.3 1.57-2.3 3.2V21H9z"/></svg></a>
         <a href="#" aria-label="X"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.5 3h3l-6.6 7.6L22 21h-5.9l-4.6-6-5.3 6H3.2l7-8L2 3h6l4.2 5.5zM16 19h1.6L8 5H6.3z"/></svg></a>
@@ -157,6 +200,8 @@ const footer = () => `<footer class="site-footer footer">
 </footer>
 
 <button class="to-top" id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+<script src="assets/js/product-index.js" defer></script>
+<script src="assets/js/enquiry.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 <script type="module" src="assets/js/premium.js"></script>
 </body>
@@ -199,6 +244,7 @@ ${extra.image ? `  <meta name="twitter:image" content="${BASE_URL}${extra.image}
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/premium.css" />
   <link rel="stylesheet" href="assets/css/catalogue.css" />
+  <link rel="stylesheet" href="assets/css/enquiry.css" />
   <!-- Fonts load without blocking first paint; display=swap keeps text visible. -->
   <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" /></noscript>
@@ -298,8 +344,11 @@ const categoryPage = (cat) => head(
         <div class="brochure">
           <span class="brochure__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/><path d="M14 2v6h6"/><path d="M9 15h6M9 18h4"/></svg></span>
           <div><b>Brochure</b><small>${cat.name} — full range</small></div>
-          <a class="btn btn--dark btn--block" href="assets/pdfs/${cat.brochure}" aria-label="Download ${cat.name} brochure">Download PDF <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M5 20h14"/></svg></a>
-          <p class="brochure__hint">Placeholder — drop <code>${cat.brochure}</code> into <code>assets/pdfs/</code>.</p>
+          ${existsSync(resolve(ROOT, `assets/pdfs/${cat.brochure}`))
+            ? `<a class="btn btn--dark btn--block" href="assets/pdfs/${cat.brochure}" aria-label="Download ${cat.name} brochure">Download PDF <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M5 20h14"/></svg></a>`
+            /* Not supplied yet — ask for it rather than linking to a 404. */
+            : `<a class="btn btn--dark btn--block" href="mailto:${CONTACT.email}?subject=${encodeURIComponent(`Brochure request - ${plain(cat.name)}`)}" aria-label="Request the ${cat.name} brochure by email">Request brochure <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="brochure__hint">We will email the ${plain(cat.name).toLowerCase()} brochure straight back.</p>`}
         </div>
         <div class="catside__cta">
           <b>Need something custom?</b>
@@ -412,7 +461,19 @@ const techBlock = (p, cat) => {
       <div class="sec-head"><p class="eyebrow">Technical data</p><h2 class="h2">Specification for ${p.name}.</h2>
         <p>Figures below are for this product only — every item in the range carries its own dimension table.</p></div>
       ${p.spec ? `<div class="reveal">${specTable(p.spec, `${p.name} — technical specification`)}</div>` : ""}
-      ${p.dim ? dataTable(p.dim, "reveal") : ""}
+      ${p.drawing && p.dim
+        /* Dimensioned drawing sits beside its table on desktop so the reader
+           can match a letter to a column without scrolling; .specsplit stacks
+           them on tablet and phone. */
+        ? `<div class="specsplit reveal">
+        <figure class="specsplit__fig">
+          <img src="${p.drawing}"${dimAttrs(p.drawing)} alt="${esc(p.alt || `${plain(p.name)} dimension drawing`)}" loading="lazy" decoding="async" />
+          <figcaption>Dimension references — letters match the table${p.dim.cols ? "" : ""}.</figcaption>
+        </figure>
+        <div class="specsplit__data">${dataTable(p.dim)}</div>
+      </div>
+      <p class="specsplit__cta"><a class="btn btn--primary" href="contact.html?product=${p.slug}">Request a quote ${arrow}</a></p>`
+        : (p.dim ? dataTable(p.dim, "reveal") : "")}
       ${p.matTable ? dataTable(p.matTable, "reveal") : ""}
       ${p.options && p.options.length ? `<div class="optbox reveal">
         <h3 class="h3">Available on request</h3>
@@ -448,11 +509,21 @@ const inquiryBlock = (p, cat) => `
     <div class="container">
       <div class="sec-head"><p class="eyebrow">Enquiry</p><h2 class="h2">Tell us your line size — we'll confirm the spec.</h2>
         <p>Send the bore, the media, the temperature and pressure, and the flange standard you work to. Drawings and custom sizes welcome.</p></div>
-      <div class="ctagrid stagger">
-        <a class="ctacard reveal" href="contact.html?product=${p.slug}"><span class="ctacard__ico">${svg("ptfe", 22)}</span><b>Request a quotation</b><small>Priced against your sizes and lining material</small></a>
-        ${(p.downloads && p.downloads.length
-          ? p.downloads.map((d) => `<a class="ctacard reveal" href="${d.file}" download><span class="ctacard__ico">${svg("pipeline", 22)}</span><b>${d.label}</b><small>Dimensions and catalogue references for this item</small></a>`).join("\n        ")
-          : `<a class="ctacard reveal" href="assets/pdfs/${cat.brochure}"><span class="ctacard__ico">${svg("pipeline", 22)}</span><b>Download datasheet</b><small>Full ${cat.name.toLowerCase()} technical brochure</small></a>`)}
+      <!-- data-product carries this page's product into the form, so the
+           visitor never has to type it. -->
+      <enquiry-form data-product="${esc(p.name)}"></enquiry-form>
+      <div class="ctagrid stagger" style="margin-top:clamp(28px,4vw,44px)">
+        <a class="ctacard reveal" href="${waHref(`Hello Lata Scientific, I would like to enquire about your ${plain(p.name)}.`)}" target="_blank" rel="noopener"><span class="ctacard__ico">${svg("ptfe", 22)}</span><b>Enquire on WhatsApp</b><small>Chat to us on ${CONTACT.waDisplay}</small></a>
+        ${(() => {
+          const own = (p.downloads || []).filter((d) => existsSync(resolve(ROOT, d.file)));
+          if (own.length) {
+            return own.map((d) => `<a class="ctacard reveal" href="${d.file}" download><span class="ctacard__ico">${svg("pipeline", 22)}</span><b>${d.label}</b><small>Dimensions and catalogue references for this item</small></a>`).join("\n        ");
+          }
+          const ds = datasheet(p, cat);
+          return ds
+            ? `<a class="ctacard reveal" href="${ds.href}"><span class="ctacard__ico">${svg("pipeline", 22)}</span><b>Download datasheet</b><small>Full ${cat.name.toLowerCase()} technical brochure</small></a>`
+            : `<a class="ctacard reveal" href="mailto:${CONTACT.email}?subject=${encodeURIComponent(`Datasheet request - ${plain(p.name)}`)}"><span class="ctacard__ico">${svg("pipeline", 22)}</span><b>Request the datasheet</b><small>We will email the drawing for this item</small></a>`;
+        })()}
         <a class="ctacard reveal" href="contact.html?enquiry=technical&amp;product=${p.slug}"><span class="ctacard__ico">${svg("reaction", 22)}</span><b>Talk to a technical expert</b><small>Material selection and duty review</small></a>
         <a class="ctacard reveal" href="contact.html?enquiry=drawing&amp;product=${p.slug}"><span class="ctacard__ico">${svg("columns", 22)}</span><b>Send a drawing</b><small>We fabricate to your isometric or sketch</small></a>
         <a class="ctacard reveal" href="contact.html?enquiry=custom&amp;product=${p.slug}"><span class="ctacard__ico">${svg("fittings", 22)}</span><b>Request a custom size</b><small>Non-standard bores, lengths and drilling</small></a>
@@ -607,13 +678,20 @@ const productPage = (cat, p) => {
           <h1>${p.name}</h1>
           ${p.subtitle ? `<p class="pd__sub">${p.subtitle}</p>` : ""}
           ${p.desc ? `<p class="pd__desc">${p.desc}</p>` : `<p class="pd__desc">Dimensions, bore sizes and drawings for this item are available on request — tell us your line size and we'll confirm the exact specification.</p>`}
-          <div class="pd__actions">
-            <a href="contact.html?product=${p.slug}" class="btn btn--primary">Request a quotation ${arrow}</a>
-            <a href="${p.downloads && p.downloads.length ? p.downloads[0].file : `assets/pdfs/${cat.brochure}`}" class="btn btn--ghost"${p.downloads && p.downloads.length ? " download" : ""}>Download datasheet <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M5 20h14"/></svg></a>
-          </div>
+          <!-- Order is deliberate: quotation, then the technical link, then
+               the datasheet. Visitors check dimensions before downloading. -->
+          <product-cta data-product="${esc(p.name)}">
+            <a href="#inquiry" class="btn btn--primary" data-enq-open>Request a quotation ${arrow}</a>
+            <a class="link pd__more-link" href="#technical">Full technical data and dimensions ${arrow.replace('width="2"', 'width="2" width="15" height="15"')}</a>
+            ${(() => {
+              const ds = datasheet(p, cat);
+              return ds
+                ? `<a href="${ds.href}" class="btn btn--ghost"${ds.download ? " download" : ""}>Download datasheet <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M5 20h14"/></svg></a>`
+                : `<a href="#inquiry" class="btn btn--ghost" data-enq-open>Request the datasheet <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M5 20h14"/></svg></a>`;
+            })()}
+          </product-cta>
           ${p.specs ? specTable(p.specs) : ""}
           ${p.spec ? specTable(p.spec.slice(0, 8), "At a glance") : ""}
-          <p class="pd__more"><a class="link" href="#technical">Full technical data and dimensions ${arrow.replace('width="2"', 'width="2" width="15" height="15"')}</a></p>
         </div>
       </div>
     </div>
@@ -686,6 +764,23 @@ for (const cat of categories) {
   for (const p of allProducts(cat)) { out(`product-${p.slug}.html`, productPage(cat, p)); n++; }
 }
 console.log(`Generated ${n} pages: 1 overview, ${categories.length} categories, ${categories.reduce((a, c) => a + allProducts(c).length, 0)} products.`);
+
+/* ---------- product index for the enquiry form ----------
+   contact.html is reached as contact.html?product=<slug>. The form resolves
+   that slug to the real product name through this map, so no product name is
+   ever hardcoded in the component. */
+const productIndex = {};
+for (const c of categories) for (const p of allProducts(c)) productIndex[p.slug] = plain(p.name);
+out("assets/js/product-index.js",
+  `/* Generated by scripts/build.mjs — do not edit by hand.
+   Maps ?product=<slug> to the product name shown in the enquiry form. */
+window.LATA_PRODUCTS = ${JSON.stringify(productIndex, null, 0)};
+`);
+console.log(`Wrote assets/js/product-index.js with ${Object.keys(productIndex).length} products.`);
+if (missingPdfs.size) {
+  console.log(`\nBrochures not yet supplied (pages ask for them by email instead of linking to a 404):`);
+  for (const f of [...missingPdfs].sort()) console.log(`  assets/pdfs/${f}`);
+}
 
 /* ---------- sitemap ---------- */
 const BASE = "https://www.latascientific.com/";

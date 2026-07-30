@@ -121,6 +121,53 @@
 .optbox .h3 { margin-bottom: 6px; }
 .optbox .checklist { margin-top: 16px; }
 
+/* Dimension schematics are line drawings whose callouts sit at the very
+   edge of the artboard, and card media defaults to object-fit:cover — which
+   cropped the D, L and H labels straight off. Contain them instead; the
+   photographic product renders keep cover. */
+.pcard__media img[src$=".svg"],
+.featcat__media img[src$=".svg"] {
+  object-fit: contain;
+  padding: 6%;
+  background: linear-gradient(160deg, #F8FBFF, #EDF3FA);
+}
+
+/* ---------------------------------------------------------
+   Drawing beside its dimension table
+   Side by side on desktop so a callout letter can be matched to a column
+   at a glance; stacked from tablet down, drawing first.
+   --------------------------------------------------------- */
+.specsplit {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+  margin-top: 28px;
+}
+.specsplit__fig {
+  position: sticky; top: 96px;
+  margin: 0; padding: clamp(12px, 2vw, 22px);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xs);
+}
+.specsplit__fig img { width: 100%; height: auto; }
+.specsplit__fig figcaption {
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-family: var(--f-mono); font-size: 12.5px; letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.specsplit__data { min-width: 0; }
+.specsplit__data .dtable { margin-top: 0; }
+.specsplit__cta { margin-top: 24px; }
+
+@media (max-width: 1040px) {
+  .specsplit { grid-template-columns: 1fr; }
+  .specsplit__fig { position: static; }
+}
+
 /* ---------------------------------------------------------
    Exploded / technical drawing figure
    --------------------------------------------------------- */

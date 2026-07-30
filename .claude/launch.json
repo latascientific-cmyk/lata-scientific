@@ -3,19 +3,13 @@
   "configurations": [
     {
       "name": "static-site",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8123", "--bind", "127.0.0.1"],
-      "port": 8123
-    },
-    {
-      "name": "static-site-node",
       "runtimeExecutable": "C:\\Program Files\\Adobe\\Adobe Creative Cloud Experience\\libs\\node.exe",
       "runtimeArgs": [
-        "C:\\Users\\kurpe\\AppData\\Local\\Temp\\claude\\C--Users-kurpe-OneDrive-Desktop-LATA-SCIRNTIFIC-WEBSITE\\f2941353-4597-49c6-a615-8286950e08ba\\scratchpad\\serve.mjs",
+        "C:\\Users\\kurpe\\AppData\\Local\\Temp\\claude\\C--Users-kurpe-OneDrive-Desktop-LATA-SCIRNTIFIC-WEBSITE\\d8bb3501-7e76-4fd0-b5e5-9df4ee5b13b8\\scratchpad\\serve.mjs",
         "C:\\Users\\kurpe\\OneDrive\\Desktop\\LATA SCIRNTIFIC WEBSITE",
-        "8124"
+        "8123"
       ],
-      "port": 8124
+      "port": 8123
     }
   ]
 }

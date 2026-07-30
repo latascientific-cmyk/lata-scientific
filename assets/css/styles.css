@@ -234,7 +234,7 @@ strong { color: var(--ink-2); }
     radial-gradient(45% 65% at 4% 92%, rgba(97,233,255,0.14), transparent 62%),
     linear-gradient(180deg, #FBFCFF 0%, #EEF3FB 100%);
 }
-.hero h1 { font-weight: 700; }
+.hero h1, .hero .hero__h { font-weight: 700; }
 /* All slides live in ONE grid cell (row 1), so the hero reserves the tallest
    slide's height from first paint and never resizes when slides change —
    no layout shift, nothing above or below moves. Slides cross-fade with
@@ -256,8 +256,8 @@ strong { color: var(--ink-2); }
 .hero__inner { display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: clamp(28px, 5vw, 64px); padding-block: clamp(48px, 6vw, 86px); }
 .hero__badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: var(--paper); border: 1px solid rgba(14,165,183,0.35); font-family: var(--f-mono); font-size: 14px; letter-spacing: 0.05em; color: var(--accent-strong); margin-bottom: 22px; box-shadow: 0 8px 22px -10px rgba(14,165,183,0.45); }
 .hero__badge span { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px var(--accent-soft); }
-.hero h1 { font-size: clamp(2.325rem, 5.2vw, 3.825rem); margin-bottom: 20px; }
-.hero h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.hero h1, .hero .hero__h { font-size: clamp(2.325rem, 5.2vw, 3.825rem); margin-bottom: 20px; }
+.hero h1 .grad, .hero .hero__h .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
 .hero__lead { font-size: clamp(1.145rem, 1.5vw, 1.325rem); max-width: 44ch; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .hero__trust { display: flex; gap: clamp(20px, 3vw, 40px); margin-top: 38px; flex-wrap: wrap; }
@@ -469,7 +469,6 @@ strong { color: var(--ink-2); }
 .field textarea { resize: vertical; min-height: 118px; }
 .field.is-invalid input, .field.is-invalid textarea { border-color: #E5484D; box-shadow: 0 0 0 3px rgba(229,72,77,0.12); }
 .field__err { font-size: 14px; color: #D93A3F; min-height: 14px; }
-.form-note { margin-top: 12px; font-size: 16px; font-weight: 500; color: var(--accent-strong); }
 
 .infostack { display: grid; gap: 14px; }
 .infocard { padding: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-xs); }
@@ -641,18 +640,18 @@ strong { color: var(--ink-2); }
 .gauge__fill { height: 100%; width: 100%; transform: scaleX(0); transform-origin: left; background: linear-gradient(90deg, var(--teal), var(--blue)); box-shadow: 0 0 12px rgba(37,99,235,0.5); }
 
 /* The keyword rides a graduated tick-rule that draws in like a burette scale */
-.hero h1 .grad { position: relative; display: inline-block;
+.hero h1 .grad, .hero .hero__h .grad { position: relative; display: inline-block;
   background: linear-gradient(100deg, var(--teal) 0%, var(--blue) 48%, var(--teal) 100%);
   background-size: 220% auto; -webkit-background-clip: text; background-clip: text;
   -webkit-text-fill-color: transparent; color: transparent; }
-.hero h1 .grad::after {
+.hero h1 .grad::after, .hero .hero__h .grad::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: -0.14em; height: 9px;
   background-image: repeating-linear-gradient(90deg, var(--blue) 0 2px, transparent 2px 10px);
   opacity: 0.55; transform: scaleX(0); transform-origin: left;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .hero h1 .grad { animation: gradShift 7s linear infinite; }
-  .hero h1 .grad::after { animation: ruleDraw 1s var(--ease-out) 0.75s forwards; }
+  .hero h1 .grad, .hero .hero__h .grad { animation: gradShift 7s linear infinite; }
+  .hero h1 .grad::after, .hero .hero__h .grad::after { animation: ruleDraw 1s var(--ease-out) 0.75s forwards; }
 
   /* Hero load choreography — each line of the active slide rises in sequence */
   .hero__slide.is-active .hero__copy > * { opacity: 0; transform: translateY(28px); animation: heroRise 0.9s var(--ease-out) forwards; }

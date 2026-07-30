@@ -377,6 +377,23 @@ html.no-js .loader { display: none; }
   .pcard__arrow { width: 44px; height: 44px; }
   .acc__q { min-height: 56px; }
   .chip { min-height: 44px; display: inline-flex; align-items: center; }
+  /* The enquiry form's country datalist and every field stay comfortable
+     to hit without changing the desktop rhythm. */
+  .enq .field input, .enq .field textarea { min-height: 46px; }
+  .enq__btn { min-height: 48px; }
+}
+
+/* Hero carousel dots read as 34x5 bars by design. That is far too small to
+   hit, so an invisible pseudo-element carries the touch target out to 44px
+   tall while the bar itself is untouched. */
+.hero__dot { position: relative; }
+.hero__dot::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  height: 44px;
+  transform: translateY(-50%);
 }
 
 /* Product cards link only through their small arrow, so on a phone the

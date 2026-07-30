@@ -29,6 +29,7 @@
    ========================================================= */
 
 import { pipeSection, jacketed, otherComponents, madeToOrder } from "./products-pipeline.mjs";
+import { glassValves } from "./products-glass-valves.mjs";
 import { linedPipes, linedFittings, dipPipes, linedAccessories } from "./products-ptfe.mjs";
 import { linedValves, linedSightFlow } from "./products-lined-valves.mjs";
 import { doubleWindow, tubular } from "./products-sightglass.mjs";
@@ -55,6 +56,13 @@ export const categories = [
       { slug: "other-pipeline-components", name: "Other Pipeline Components", products: otherComponents },
       { slug: "made-to-order", name: "Made to Order", products: madeToOrder },
     ],
+  },
+  {
+    slug: "glass-valves", name: "Glass Valves", group: "glass",
+    tagline: "Straight, angle, drain, vent and three way",
+    blurb: "Borosilicate glass valves with PTFE spindles — straight through, drain, angle, vent, bottom outlet and three way patterns for isolating, draining, venting and diverting a glass process line, DN 15 to DN 50.",
+    brochure: "glass-valves.pdf",
+    products: glassValves,
   },
   {
     slug: "coupling", name: "Coupling", group: "glass",

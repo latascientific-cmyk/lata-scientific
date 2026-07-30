@@ -610,21 +610,9 @@
     });
   }
 
-  /* ---- WhatsApp quote button (every page) ---- */
-  (() => {
-    const WA_NUMBER = "910000000000"; // TODO: replace with the real number, country code first, digits only
-    const text = encodeURIComponent("Hello Lata Scientific — I'd like a quote. Product: ");
-    const a = document.createElement("a");
-    a.className = "wa-float";
-    a.href = `https://wa.me/${WA_NUMBER}?text=${text}`;
-    a.target = "_blank";
-    a.rel = "noopener";
-    a.setAttribute("aria-label", "Get a quote on WhatsApp");
-    a.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.55 2 2.1 6.44 2.1 11.92c0 1.75.46 3.45 1.33 4.95L2 22l5.27-1.38a9.9 9.9 0 0 0 4.77 1.21h.01c5.48 0 9.94-4.45 9.94-9.93A9.87 9.87 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 8.24 8.23c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.17.25-.64.8-.79.97-.14.16-.29.19-.54.06-.24-.12-1.04-.38-1.99-1.22-.73-.65-1.23-1.46-1.37-1.7-.15-.25-.02-.38.11-.51.11-.11.24-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.6.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg>' +
-      "<span>WhatsApp quote</span>";
-    document.body.appendChild(a);
-  })();
+  /* ---- WhatsApp button ----
+     Owned by <whatsapp-button> in assets/js/enquiry.js, which reads the
+     number from the one CONTACT block the whole site shares. */
 
   /* ---- Living background (site-wide) ----
      Fine dust drifts over the page. Near the cursor it links up with
@@ -742,32 +730,9 @@
     toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }));
   }
 
-  /* ---- Form validation (contact + newsletter) ---- */
+  /* ---- Form validation (newsletter) ----
+     The enquiry form validates itself inside <enquiry-form>. */
   const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-
-  const contact = $("#quoteForm");
-  if (contact) {
-    const note = $("#formNote");
-    const err = (field, msg) => {
-      const w = field.closest(".field");
-      const e = $(`.field__err[data-for="${field.id}"]`);
-      w && w.classList.toggle("is-invalid", !!msg);
-      if (e) e.textContent = msg || "";
-      return !msg;
-    };
-    contact.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const n = $("#name"), em = $("#email"), m = $("#message");
-      let ok = true;
-      ok = err(n, n.value.trim() ? "" : "Please enter your name.") && ok;
-      ok = err(em, emailOk(em.value.trim()) ? "" : "Enter a valid email.") && ok;
-      ok = err(m, m.value.trim().length >= 8 ? "" : "A little more detail helps us quote.") && ok;
-      if (!ok) { note.style.color = "#D93A3F"; note.textContent = "Please fix the highlighted fields."; return; }
-      note.style.color = ""; note.textContent = "Thank you — your enquiry is ready to send. (Demo form: connect an endpoint to go live.)";
-      contact.reset();
-    });
-    $$("#name, #email, #message", contact).forEach((f) => f.addEventListener("input", () => err(f, "")));
-  }
 
   const news = $("#newsForm");
   if (news) {

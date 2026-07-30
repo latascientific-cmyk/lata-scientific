@@ -21,9 +21,38 @@ import { categories } from "../data/catalogue.mjs";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PAGES = ["index.html", "about.html", "capabilities.html", "quality.html", "contact.html"];
 
+/* ---------- contact details ----------
+   Must stay identical to CONTACT in scripts/build.mjs and to the CONTACT
+   block in assets/js/enquiry.js. */
+const CONTACT = {
+  waDigits: "919033630547",
+  waDisplay: "+91 90336 30547",
+  email: "latascientific@gmail.com",
+  floatMessage: "Hello Lata Scientific, I would like to enquire about your products.",
+};
+const waHref = (msg) => `https://wa.me/${CONTACT.waDigits}?text=${encodeURIComponent(msg)}`;
+
+const WA_GLYPH = '<path d="M12.04 2C6.55 2 2.1 6.44 2.1 11.92c0 1.75.46 3.45 1.33 4.95L2 22l5.27-1.38a9.9 9.9 0 0 0 4.77 1.21h.01c5.48 0 9.94-4.45 9.94-9.93A9.87 9.87 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 8.24 8.23c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.17.25-.64.8-.79.97-.14.16-.29.19-.54.06-.24-.12-1.04-.38-1.99-1.22-.73-.65-1.23-1.46-1.37-1.7-.15-.25-.02-.38.11-.51.11-.11.24-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.6.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29z"/>';
+const MAIL_GLYPH = '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/>';
+
+/* Byte-for-byte the markup build.mjs emits, so generated and hand-written
+   pages carry the same header and footer. */
+const topbarContacts = () =>
+  `<div class="topbar__contacts">
+      <a href="${waHref(CONTACT.floatMessage)}" target="_blank" rel="noopener" aria-label="WhatsApp ${CONTACT.waDisplay}"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${WA_GLYPH}</svg>${CONTACT.waDisplay}</a>
+      <a href="mailto:${CONTACT.email}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">${MAIL_GLYPH}</svg>${CONTACT.email}</a>
+    </div>`;
+
+const footerContact = () =>
+  `<div class="footer__contact">
+        <a href="${waHref(CONTACT.floatMessage)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">${WA_GLYPH}</svg><span>${CONTACT.waDisplay}</span></a>
+        <a href="mailto:${CONTACT.email}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">${MAIL_GLYPH}</svg><span>${CONTACT.email}</span></a>
+      </div>`;
+
 /* Icon set kept in step with build.mjs */
 const ICON = {
   pipeline: '<path d="M2 9h5v6H2zM17 9h5v6h-5"/><path d="M7 12h10"/>',
+  "glass-valves": '<path d="M3 12h5M16 12h5"/><path d="M8 8h8v8H8z"/><path d="M12 8V4M9 4h6"/><path d="M10.5 12h3"/>',
   coupling: '<path d="M3 10h7v4H3zM14 10h7v4h-7"/><path d="M10 7.5v9M14 7.5v9"/>',
   "rotary-evaporator": '<path d="M4 5h6M7 5v5"/><path d="M7 10 4.5 17a3.2 3.2 0 0 0 3 4.4h-.9"/><circle cx="15.5" cy="16" r="4.6"/><path d="M11 9.5h6.5a2.5 2.5 0 0 1 2.5 2.5v1"/>',
   "tubular-structure": '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
@@ -114,6 +143,36 @@ for (const page of PAGES) {
     html = html.replace(
       /([ \t]*<script src="assets\/js\/main\.js"[^>]*><\/script>)/,
       `$1\n<script type="module" src="assets/js/premium.js"></script>`
+    );
+  }
+  if (!/assets\/css\/enquiry\.css/.test(html)) {
+    html = html.replace(
+      /([ \t]*<link rel="stylesheet" href="assets\/css\/catalogue\.css"[^>]*>)/,
+      `$1\n  <link rel="stylesheet" href="assets/css/enquiry.css" />`
+    );
+  }
+  /* The enquiry components and the slug→name index must load before
+     main.js, exactly as build.mjs orders them. */
+  if (!/assets\/js\/enquiry\.js/.test(html)) {
+    html = html.replace(
+      /([ \t]*<script src="assets\/js\/main\.js"[^>]*><\/script>)/,
+      `<script src="assets/js/product-index.js" defer></script>\n<script src="assets/js/enquiry.js" defer></script>\n$1`
+    );
+  }
+
+  /* 0c. Contact details — one number and one address for the whole site. */
+  const topRe = /<div class="topbar__contacts">[\s\S]*?<\/div>/;
+  if (topRe.test(html)) html = html.replace(topRe, topbarContacts());
+  else console.warn(`  ! ${page}: topbar contacts not found — left untouched`);
+
+  const fcRe = /[ \t]*<div class="footer__contact">[\s\S]*?<\/div>\r?\n/;
+  if (fcRe.test(html)) {
+    html = html.replace(fcRe, `      ${footerContact()}\n`);
+  } else {
+    /* first run on this page — insert it between the blurb and the socials */
+    html = html.replace(
+      /([ \t]*<p class="footer__blurb">[\s\S]*?<\/p>\r?\n)/,
+      `$1      ${footerContact()}\n`
     );
   }
 
