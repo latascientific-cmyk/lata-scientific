@@ -33,8 +33,16 @@ import { glassValves } from "./products-glass-valves.mjs";
 import { linedPipes, linedFittings, dipPipes, linedAccessories } from "./products-ptfe.mjs";
 import { linedValves, linedSightFlow } from "./products-lined-valves.mjs";
 import { doubleWindow, tubular } from "./products-sightglass.mjs";
+import { pilotPlant } from "./products-pilot-plant.mjs";
+import { rotaryEvaporator } from "./products-rotary-evaporator.mjs";
+import { bellows, flangesAdaptors } from "./products-coupling.mjs";
+import { structureTube, structureFittings, columnSupports } from "./products-tubular-structure.mjs";
+import { heatExchangers } from "./products-heat-exchanger.mjs";
 import { FLANGE_TABLE, TOLERANCES, TORQUE_TABLE, STUD_TABLE, LINER_THICKNESS } from "./ptfe-shared.mjs";
 import { FLANGE_STANDARDS, ASG_DRILLING } from "./sightglass-shared.mjs";
+import {
+  GENERAL_DATA, TUBE_SIZE, CUT_LENGTHS, STRUCT_COLUMN, STRUCT_EQUIPMENT,
+} from "./tubular-shared.mjs";
 
 export const site = {
   brochureNote: "Full technical brochure (PDF)",
@@ -67,30 +75,48 @@ export const categories = [
   {
     slug: "coupling", name: "Coupling", group: "glass",
     tagline: "Joints that hold the line together",
-    blurb: "Couplings, backing flanges and gasket sets for joining borosilicate pipeline components — bolted assemblies that let a line be extended or reconfigured without cutting glass.",
+    blurb: "PTFE bellows, bellow flanges, backing flanges, inserts and adaptor plates for joining borosilicate pipeline components — bolted assemblies that let a line be extended, branched or reconfigured without cutting glass.",
     brochure: "coupling.pdf",
-    products: [],
+    subcategories: [
+      { slug: "ptfe-bellows", name: "PTFE Bellows", products: bellows },
+      { slug: "flanges-inserts-adaptors", name: "Flanges, Inserts & Adaptors", products: flangesAdaptors },
+    ],
   },
   {
     slug: "rotary-evaporator", name: "Rotary Evaporator", group: "glass",
     tagline: "Solvent recovery, bench to pilot",
-    blurb: "Rotary evaporator assemblies and their glass components — evaporating flasks, condensers, receivers and vapour ducts in borosilicate 3.3.",
+    blurb: "Rotary film evaporators for gentle solvent recovery under full vacuum — the ARE range, from a 1 L bench unit to a 100 L pilot unit, with PTFE vacuum seals and IP-55 protected drives.",
     brochure: "rotary-evaporator.pdf",
-    products: [],
+    products: rotaryEvaporator,
   },
   {
     slug: "tubular-structure", name: "Tubular Structure", group: "glass",
     tagline: "Framed glass assemblies and skids",
-    blurb: "Tubular structural assemblies that carry and support a glass process line — framework, supports and mounted pipework built as one unit.",
+    blurb: "Galvanised tube and cast iron fittings for building the structure that carries a glass plant — slidable fittings fixed with grub screws, so a structure can be modified later without hammering or welding.",
     brochure: "tubular-structure.pdf",
-    products: [],
+    /* Shared references shown once on the category page — the general data,
+       tube sizes, cut lengths and structure-sizing guides govern the whole
+       range rather than any single fitting. */
+    refTables: [GENERAL_DATA, TUBE_SIZE, CUT_LENGTHS, STRUCT_COLUMN, STRUCT_EQUIPMENT],
+    subcategories: [
+      { slug: "structure-tube", name: "Structure Tube", products: structureTube },
+      { slug: "structure-fittings", name: "Structure Fittings", products: structureFittings },
+      { slug: "column-supports", name: "Column Supports", products: columnSupports },
+    ],
   },
   {
     slug: "heat-exchanger", name: "Heat Exchanger", group: "glass",
     tagline: "Coil, shell-and-tube and block",
-    blurb: "Glass heat exchangers for heating, cooling and condensing duty — fully visible, chemically inert exchange surfaces for corrosive service.",
+    blurb: "Shell and tube heat exchangers for heating, cooling and condensing duty — twelve models from 3 m² to 25 m² on 150, 225 and 300 DN shells, with nozzles changed to your requirement.",
     brochure: "heat-exchanger.pdf",
-    products: [],
+    products: heatExchangers,
+  },
+  {
+    slug: "pilot-plant", name: "Pilot Plant Series", group: "glass",
+    tagline: "See-through reactors, research to pilot scale",
+    blurb: "The APPS pilot plant range — see-through glass and glass lined steel reaction assemblies from 15 to 250 litres, plus a high pressure glass reactor to +5 bar, supplied complete with agitation, heating and instrumentation.",
+    brochure: "pilot-plant-series.pdf",
+    products: pilotPlant,
   },
   {
     slug: "column-component", name: "Column Component", group: "glass",
