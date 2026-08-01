@@ -25,6 +25,9 @@ export const pilotPlant = [
   {
     slug: "apps-chemical-reactor",
     name: "APPS Chemical Reactor",
+    image: "assets/img/products/apps-chemical-reactor.svg",
+    drawing: "assets/img/products/apps-chemical-reactor.svg",
+    alt: "Assembly schematic of an APPS pilot plant chemical reactor with jacketed glass vessel, stirrer, condenser and receiver",
     subtitle: "See-through pilot plant reactor, 15 L to 250 L",
     desc: "Pilot plant reaction assembly with a see-through borosilicate glass or glass lined steel vessel — 15 L to 250 L, −25 °C to +200 °C, full vacuum to +0.5 bar.",
     long: [
@@ -104,6 +107,9 @@ export const pilotPlant = [
   {
     slug: "apps-high-pressure-glass-reactor",
     name: "APPS High Pressure Reactor in Glass",
+    image: "assets/img/products/apps-high-pressure-glass-reactor.svg",
+    drawing: "assets/img/products/apps-high-pressure-glass-reactor.svg",
+    alt: "Assembly schematic of an APPS high pressure glass reactor with bolted closure, stirrer drive and pressure gauge",
     subtitle: "Glass reactor for pressure duty, 1 L to 5 L",
     desc: "High pressure reaction vessel in glass for duty a normal glass reactor cannot hold — 1 to 5 litres, −5 °C to +150 °C, up to +5 bar, with only glass and PTFE wetted.",
     long: [

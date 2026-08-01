@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Structure Bend — dimension schematic</title>
+  <desc id="dsc">Cast iron bend forming a corner between a vertical structure tube and a horizontal member, fixed with grub screws. Height H and overall height H1.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M150 40V300"/><path class="ctr" d="M110 226H420"/>
+  <path class="line" d="M128 40h44v112h-44z"/>
+  <rect class="metal" x="118" y="146" width="64" height="80" rx="5"/>
+  <rect class="metal" x="182" y="192" width="98" height="68" rx="5"/>
+  <path class="line" d="M274 202h132M274 250h132"/>
+  <path class="line" d="M406 202v48"/>
+  <rect class="metal" x="140" y="130" width="14" height="12" rx="2"/>
+  <rect class="metal" x="222" y="176" width="12" height="14" rx="2"/>
+  <path class="dim" d="M336 146V226"/><text class="t" x="344" y="192">H</text>
+  <path class="ext" d="M182 146h158"/>
+  <path class="dim" d="M394 130V276"/><text class="t" x="402" y="208">H1</text>
+  <path class="ext" d="M182 130h216M280 276h118"/>
+  <text class="s" x="106" y="66">NB</text>
+  <text class="s" x="352" y="286">NB</text>
+</svg>

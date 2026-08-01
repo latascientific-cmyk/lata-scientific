@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Angled Hose Connector Assembly — dimension schematic</title>
+  <desc id="dsc">Angled hose connector for joining flexible hose to a condenser, supplied with a metal flange, rubber gasket and nut bolt. Connection DN, hose spigot d and length L.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M120 40V220"/><path class="ctr" d="M96 196H400"/>
+  <rect class="metal" x="86" y="46" width="68" height="18" rx="2"/>
+  <circle class="body" cx="98" cy="55" r="5"/>
+  <circle class="body" cx="142" cy="55" r="5"/>
+  <path class="body" d="M104 64h32v12h-32z"/>
+  <path class="metal" d="M102 76h36v74h-36z"/>
+  <path class="metal" d="M102 150h36l0 28h108v36H138a36 36 0 0 1-36-36z"/>
+  <path class="body" d="M246 182h84v26h-84z"/>
+  <path class="line" d="M258 182v26M272 182v26M286 182v26M300 182v26"/>
+  <ellipse class="metal" cx="330" cy="195" rx="8" ry="13"/>
+  <path class="dim" d="M138 258h192"/><text class="t" x="216" y="278">L</text>
+  <path class="ext" d="M138 218v44M330 210v52"/>
+  <path class="dim" d="M368 182V208"/><text class="s" x="376" y="200">d</text>
+  <path class="ext" d="M332 182h40M332 208h40"/>
+  <path class="dim" d="M86 24h68"/><text class="s" x="112" y="18">DN</text>
+  <text class="s" x="160" y="90">Metal flange</text>
+  <text class="s" x="160" y="112">Rubber gasket</text>
+  <text class="s" x="250" y="248">Hose spigot</text>
+</svg>

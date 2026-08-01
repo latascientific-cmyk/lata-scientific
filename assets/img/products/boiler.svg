@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Boiler — dimension schematic</title>
+  <desc id="dsc">Coil boiler made by fusing a number of parallel coils in a glass shell, heated by steam through the coil. Shell bore DN, connections DN1 and DN2, length L and L1.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M20 178H420"/>
+  <path class="body" d="M96 108h240v140H96z"/>
+  <path class="line" d="M96 108v140M336 108v140"/>
+  <rect class="metal" x="82" y="94" width="16" height="168" rx="2"/>
+  <rect class="metal" x="334" y="94" width="16" height="168" rx="2"/>
+  <path class="line" d="M116 124C131.7 124 131.7 176 144.6 176C128.9 176 128.9 124 144.6 124C160.3 124 160.3 176 173.1 176C157.4 176 157.4 124 173.1 124C188.9 124 188.9 176 201.7 176C186.0 176 186.0 124 201.7 124C217.4 124 217.4 176 230.3 176C214.6 176 214.6 124 230.3 124C246.0 124 246.0 176 258.9 176C243.1 176 243.1 124 258.9 124C274.6 124 274.6 176 287.4 176C271.7 176 271.7 124 287.4 124C303.1 124 303.1 176 316.0 176C300.3 176 300.3 124 316.0 124"/>
+  <path class="line" d="M116 188C131.7 188 131.7 232 144.6 232C128.9 232 128.9 188 144.6 188C160.3 188 160.3 232 173.1 232C157.4 232 157.4 188 173.1 188C188.9 188 188.9 232 201.7 232C186.0 232 186.0 188 201.7 188C217.4 188 217.4 232 230.3 232C214.6 232 214.6 188 230.3 188C246.0 188 246.0 232 258.9 232C243.1 232 243.1 188 258.9 188C274.6 188 274.6 232 287.4 232C271.7 232 271.7 188 287.4 188C303.1 188 303.1 232 316.0 232C300.3 232 300.3 188 316.0 188"/>
+  <path class="metal" d="M186 62h56v32h-56z"/><path class="line" d="M196 94v14"/>
+  <path class="metal" d="M30 152h52v52H30z"/>
+  <path class="metal" d="M350 158h44v40h-44z"/>
+  <path class="dim" d="M82 294h268"/><text class="t" x="208" y="314">L</text>
+  <path class="ext" d="M82 264v34M350 264v34"/>
+  <path class="dim" d="M186 40h56"/><text class="s" x="204" y="34">L1</text>
+  <path class="ext" d="M186 44v20M242 44v20"/>
+  <path class="dim" d="M64 108V248"/><text class="s" x="40" y="100">DN</text>
+  <text class="s" x="190" y="82">DN1</text>
+  <text class="s" x="358" y="150">DN2</text>
+  <text class="s" x="140" y="278">Parallel coils in glass shell</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Rotary Film Evaporator — assembly schematic</title>
+  <desc id="dsc">Rotary film evaporator with heating bath, rotating evaporating flask, drive head, vertical condenser and receiver flask.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M40 210H400"/>
+  <rect class="metal" x="40" y="150" width="86" height="120" rx="6"/>
+  <circle class="body" cx="83" cy="186" r="12"/>
+  <rect class="metal" x="60" y="212" width="46" height="14" rx="3"/>
+  <path class="line" d="M126 214h34"/>
+  <path class="metal" d="M126 96h20v118h-20z"/>
+  <rect class="metal" x="150" y="118" width="62" height="44" rx="6"/>
+  <path class="line" d="M212 130h22v20h-22z"/>
+  <path class="body" d="M234 122c44-26 78 8 78 40s-38 62-78 34z" transform="translate(-8 6)"/>
+  <path class="metal" d="M150 96h150v14H150z"/>
+  <path class="body" d="M312 40h34v128h-34z"/>
+  <path class="line" d="M312 40v128M346 40v128"/>
+  <path class="line" d="M318 86C320.4 86 320.4 122 322.4 122C320.0 122 320.0 86 322.4 86C324.8 86 324.8 122 326.8 122C324.4 122 324.4 86 326.8 86C329.2 86 329.2 122 331.2 122C328.8 122 328.8 86 331.2 86C333.6 86 333.6 122 335.6 122C333.2 122 333.2 86 335.6 86C338.0 86 338.0 122 340.0 122C337.6 122 337.6 86 340.0 86"/>
+  <path class="line" d="M300 96h12M329 168v22"/>
+  <path class="body" d="M312 190c0 44 34 44 34 0z" transform="translate(-17 0)"/>
+  <path class="line" d="M366 62h-20M366 146h-20"/>
+  <text class="s" x="42" y="140">Control panel</text>
+  <text class="s" x="150" y="88">Drive head</text>
+  <text class="s" x="222" y="252">Evaporating flask</text>
+  <text class="s" x="358" y="66">Coolant</text>
+  <text class="s" x="270" y="30">Condenser</text>
+  <text class="s" x="252" y="288">Receiver flask</text>
+  <path class="ext" d="M296 274h16v-40"/>
+  <path class="metal" d="M150 270h120v18H150z" opacity="0"/>
+  <path class="line" d="M83 270v34M300 268v0"/>
+  <path class="metal" d="M56 304h56v14H56z"/>
+  <text class="s" x="118" y="316">Heating bath</text>
+</svg>

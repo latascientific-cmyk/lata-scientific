@@ -35,9 +35,9 @@ import { linedValves, linedSightFlow } from "./products-lined-valves.mjs";
 import { doubleWindow, tubular } from "./products-sightglass.mjs";
 import { pilotPlant } from "./products-pilot-plant.mjs";
 import { rotaryEvaporator } from "./products-rotary-evaporator.mjs";
-import { bellows, flangesAdaptors } from "./products-coupling.mjs";
+import { bellows, flangesAdaptors, gaskets } from "./products-coupling.mjs";
 import { structureTube, structureFittings, columnSupports } from "./products-tubular-structure.mjs";
-import { heatExchangers } from "./products-heat-exchanger.mjs";
+import { heatExchangers, coilExchangers, hxAccessories } from "./products-heat-exchanger.mjs";
 import { FLANGE_TABLE, TOLERANCES, TORQUE_TABLE, STUD_TABLE, LINER_THICKNESS } from "./ptfe-shared.mjs";
 import { FLANGE_STANDARDS, ASG_DRILLING } from "./sightglass-shared.mjs";
 import {
@@ -80,6 +80,7 @@ export const categories = [
     subcategories: [
       { slug: "ptfe-bellows", name: "PTFE Bellows", products: bellows },
       { slug: "flanges-inserts-adaptors", name: "Flanges, Inserts & Adaptors", products: flangesAdaptors },
+      { slug: "gaskets-seals", name: "Gaskets & Seals", products: gaskets },
     ],
   },
   {
@@ -107,9 +108,13 @@ export const categories = [
   {
     slug: "heat-exchanger", name: "Heat Exchanger", group: "glass",
     tagline: "Coil, shell-and-tube and block",
-    blurb: "Shell and tube heat exchangers for heating, cooling and condensing duty — twelve models from 3 m² to 25 m² on 150, 225 and 300 DN shells, with nozzles changed to your requirement.",
+    blurb: "Shell and tube heat exchangers, coil boilers and product coolers for heating, cooling, vapourising and condensing duty — 0.10 m² to 25 m², in glass, metal and FRP combinations.",
     brochure: "heat-exchanger.pdf",
-    products: heatExchangers,
+    subcategories: [
+      { slug: "shell-and-tube", name: "Shell & Tube Heat Exchangers", products: heatExchangers },
+      { slug: "coil-heat-exchangers", name: "Coil Boilers & Product Coolers", products: coilExchangers },
+      { slug: "heat-exchanger-accessories", name: "Heat Exchanger Accessories", products: hxAccessories },
+    ],
   },
   {
     slug: "pilot-plant", name: "Pilot Plant Series", group: "glass",

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Supporting Clamp — dimension schematic</title>
+  <desc id="dsc">Supporting clamp for horizontal installation of a shell and tube heat exchanger with a glass shell. Shell bore DN, arm length L, height H, plate thickness T and bolt size d.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M220 24V320"/><path class="ctr" d="M96 132H344"/>
+  <circle class="ext" cx="220" cy="132" r="78"/>
+  <path class="metal" d="M142 132a78 78 0 0 1 156 0v14a92 92 0 0 0-156 0z"/>
+  <circle class="body" cx="152" cy="150" r="7"/>
+  <circle class="body" cx="288" cy="150" r="7"/>
+  <circle class="body" cx="220" cy="56" r="7"/>
+  <path class="metal" d="M186 160h20v130h-20zM234 160h20v130h-20z"/>
+  <path class="metal" d="M160 290h120v20H160z"/>
+  <path class="dim" d="M160 330h120"/><text class="t" x="212" y="346">L</text>
+  <path class="ext" d="M160 312v20M280 312v20"/>
+  <path class="dim" d="M368 54V310"/><text class="t" x="376" y="188">H</text>
+  <path class="ext" d="M298 54h74M284 310h88"/>
+  <path class="dim" d="M110 290V310"/><text class="s" x="86" y="306">T</text>
+  <path class="dim" d="M220 42h0"/><text class="s" x="228" y="46">d</text>
+  <text class="s" x="60" y="126">DN</text>
+</svg>

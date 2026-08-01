@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Structure Equal Bracket — dimension schematic</title>
+  <desc id="dsc">Cast iron equal bracket joining two structure tubes of the same nominal bore, with a bolt hole for hanging or fixing.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M40 200H400"/><path class="ctr" d="M160 60V300"/>
+  <path class="line" d="M50 176h280M50 224h280"/><path class="line" d="M50 176v48M330 176v48"/>
+  <rect class="metal" x="112" y="162" width="96" height="76" rx="6"/>
+  <rect class="metal" x="136" y="86" width="48" height="78" rx="5"/>
+  <rect class="metal" x="126" y="74" width="68" height="14" rx="4"/>
+  <circle class="metal" cx="248" cy="200" r="22"/>
+  <circle class="body" cx="248" cy="200" r="8"/>
+  <rect class="metal" x="206" y="190" width="22" height="20" rx="3"/>
+  <path class="dim" d="M112 288h96"/><text class="t" x="152" y="308">L</text>
+  <path class="ext" d="M112 242v50M208 242v50"/>
+  <path class="dim" d="M126 44h68"/><text class="s" x="150" y="38">L1</text>
+  <path class="ext" d="M126 48v24M194 48v24"/>
+  <path class="dim" d="M360 74V162"/><text class="t" x="368" y="122">h</text>
+  <path class="ext" d="M196 74h168M210 162h154"/>
+  <text class="s" x="68" y="166">NB</text>
+</svg>

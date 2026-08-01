@@ -21,6 +21,9 @@ export const rotaryEvaporator = [
   {
     slug: "rotary-evaporator",
     name: "Rotary Film Evaporator",
+    image: "assets/img/products/rotary-evaporator.svg",
+    drawing: "assets/img/products/rotary-evaporator.svg",
+    alt: "Assembly schematic of a rotary film evaporator with heating bath, rotating flask, drive head, condenser and receiver flask",
     subtitle: "ARE series, 1 L to 100 L rotating flask",
     desc: "Thin-film rotary evaporator for gentle solvent recovery under full vacuum — eight models from a 1 L bench unit to a 100 L pilot unit, with a PTFE vacuum seal and IP-55 protected drive.",
     long: [

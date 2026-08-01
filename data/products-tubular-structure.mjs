@@ -37,6 +37,9 @@ export const structureTube = [
   {
     slug: "structure-tube-galvanised",
     name: "Structure Tube, Galvanised",
+    image: "assets/img/products/structure-tube-galvanised.svg",
+    drawing: "assets/img/products/structure-tube-galvanised.svg",
+    alt: "Dimension schematic of a galvanised structure tube with rubber plugs at both ends, showing outside diameter and cut length",
     subtitle: "TBG series, 1/2\" to 2\" NB",
     desc: "\"B\" class galvanised mild steel tube in five bore sizes, supplied in standard cut lengths with rubber plugs at both ends — the member every tubular structure is built from.",
     long: [
@@ -121,6 +124,9 @@ export const structureFittings = [
   {
     slug: "structure-base",
     name: "Structure Base",
+    image: "assets/img/products/structure-base.svg",
+    drawing: "assets/img/products/structure-base.svg",
+    alt: "Dimension schematic of a cast iron structure base showing socket, foundation holes, F1F, ID, H and PCD",
     subtitle: "ABS series, 25 to 50 NB",
     desc: "Cast iron base for the foot of a vertical structure tube — drilled for four foundation bolts and designed to be grouted into a concrete block.",
     long: [
@@ -173,6 +179,9 @@ export const structureFittings = [
   {
     slug: "structure-coupler",
     name: "Structure Coupler",
+    image: "assets/img/products/structure-coupler.svg",
+    drawing: "assets/img/products/structure-coupler.svg",
+    alt: "Dimension schematic of a cast iron structure coupler joining two vertical tubes, showing H and H1",
     subtitle: "ACL series, 25 to 50 NB",
     desc: "Cast iron sleeve for joining two vertical structure tubes end to end where more length is required than a single cut tube provides.",
     long: [
@@ -220,6 +229,9 @@ export const structureFittings = [
   {
     slug: "structure-bend",
     name: "Structure Bend",
+    image: "assets/img/products/structure-bend.svg",
+    drawing: "assets/img/products/structure-bend.svg",
+    alt: "Dimension schematic of a cast iron structure bend forming a corner, showing NB, H and H1",
     subtitle: "ABN series, 25 to 50 NB",
     desc: "Cast iron corner fitting used to build frames on vertical tubes — joins a horizontal member to a vertical at a right angle.",
     long: [
@@ -263,6 +275,9 @@ export const structureFittings = [
   {
     slug: "structure-tee",
     name: "Structure Tee",
+    image: "assets/img/products/structure-tee.svg",
+    drawing: "assets/img/products/structure-tee.svg",
+    alt: "Dimension schematic of a cast iron structure tee on a continuous tube, showing NB, H and H1",
     subtitle: "AT series, 25 to 50 NB",
     desc: "Cast iron tee fitting for branching a member off a continuous structure tube without cutting or welding the run.",
     long: [
@@ -306,6 +321,9 @@ export const structureFittings = [
   {
     slug: "structure-double-bend",
     name: "Structure Double Bend",
+    image: "assets/img/products/structure-double-bend.svg",
+    drawing: "assets/img/products/structure-double-bend.svg",
+    alt: "Dimension schematic of a cast iron structure double bend taking two members off a vertical at a corner",
     subtitle: "ADBN series, 25 to 50 NB",
     desc: "Cast iron fitting taking two members off a vertical at a corner — a bend with a second socket, for framing in two planes at once.",
     long: [
@@ -348,6 +366,9 @@ export const structureFittings = [
   {
     slug: "structure-double-tee",
     name: "Structure Double Tee",
+    image: "assets/img/products/structure-double-tee.svg",
+    drawing: "assets/img/products/structure-double-tee.svg",
+    alt: "Dimension schematic of a cast iron structure double tee branching two members off a continuous run",
     subtitle: "ADT series, 25 to 50 NB",
     desc: "Cast iron fitting branching two members off a continuous tube run in two planes — the double-sided equivalent of the structure tee.",
     long: [
@@ -390,6 +411,9 @@ export const structureFittings = [
   {
     slug: "structure-cross",
     name: "Structure Cross",
+    image: "assets/img/products/structure-cross.svg",
+    drawing: "assets/img/products/structure-cross.svg",
+    alt: "Dimension schematic of a cast iron structure cross clamping two tubes where they cross, showing H and L",
     subtitle: "AX series, 25 to 50 NB",
     desc: "Cast iron cross fitting clamping two structure tubes where they cross, so a continuous member can carry another through the same point.",
     long: [
@@ -437,6 +461,9 @@ export const structureFittings = [
   {
     slug: "structure-equal-bracket",
     name: "Structure Equal Bracket",
+    image: "assets/img/products/structure-equal-bracket.svg",
+    drawing: "assets/img/products/structure-equal-bracket.svg",
+    alt: "Dimension schematic of a cast iron equal bracket showing h, L and L1 with its fixing eye",
     subtitle: "AEBT series, 25 to 50 NB",
     desc: "Cast iron bracket joining two structure tubes of the same bore at a right angle, with a bolt hole for hanging or fixing.",
     long: [
@@ -479,6 +506,9 @@ export const structureFittings = [
   {
     slug: "structure-unequal-bracket",
     name: "Structure Unequal Bracket",
+    image: "assets/img/products/structure-unequal-bracket.svg",
+    drawing: "assets/img/products/structure-unequal-bracket.svg",
+    alt: "Dimension schematic of a cast iron unequal bracket showing NB, NB1, h, L and L1",
     subtitle: "AUBT series, 25/15 to 50/25 NB",
     desc: "Cast iron bracket joining two structure tubes of different bore — a heavier main member picking up a lighter secondary one.",
     long: [
@@ -521,6 +551,9 @@ export const structureFittings = [
   {
     slug: "structure-support",
     name: "Structure Support",
+    image: "assets/img/products/structure-support.svg",
+    drawing: "assets/img/products/structure-support.svg",
+    alt: "Dimension schematic of a cast iron structure support with threaded eye, showing H, L and d",
     subtitle: "ASPT series, 15 to 50 NB",
     desc: "Cast iron support clamp with a 13 mm threaded eye, used with studs to hang or carry glass pipeline and equipment off the structure.",
     long: [
@@ -572,6 +605,9 @@ export const structureFittings = [
   {
     slug: "structure-plug",
     name: "Structure Plug",
+    image: "assets/img/products/structure-plug.svg",
+    drawing: "assets/img/products/structure-plug.svg",
+    alt: "Dimension schematic of a plug closing the open end of a galvanised structure tube",
     subtitle: "APLUG series, 15 to 50 NB",
     desc: "Plug for closing the open ends of galvanised structure tube, in all five bores from 15 to 50 NB.",
     long: [
@@ -623,6 +659,9 @@ export const structureFittings = [
   {
     slug: "structure-stud",
     name: "Structure Stud",
+    image: "assets/img/products/structure-stud.svg",
+    drawing: "assets/img/products/structure-stud.svg",
+    alt: "Dimension schematic of a fully threaded structure stud showing diameter D and length L",
     subtitle: "ASTUD series, 5/16\" to 1/2\"",
     desc: "Screwed rod used with structure supports to hang pipeline and equipment — three references from 5/16\" × 150 mm to 1/2\" × 200 mm.",
     long: [
@@ -675,6 +714,9 @@ export const columnSupports = [
   {
     slug: "column-base-support-frame",
     name: "Column Base Support Frame",
+    image: "assets/img/products/column-base-support-frame.svg",
+    drawing: "assets/img/products/column-base-support-frame.svg",
+    alt: "Dimension schematic of a column base support frame with jacking rods and U bolts, showing PCD, L, L1 and H",
     subtitle: "AFCSH series, PCD 310 to 710",
     desc: "Channel frame used as the fixed support in erection of a glass column — supplied with fully threaded jacking rods and U bolts, PCD 310 to 710.",
     long: [
@@ -733,6 +775,9 @@ export const columnSupports = [
   {
     slug: "counter-balance-support",
     name: "Counter Balance Support",
+    image: "assets/img/products/counter-balance-support.svg",
+    drawing: "assets/img/products/counter-balance-support.svg",
+    alt: "Dimension schematic of a counter balance support acting through two levers on the lower backing flange",
     subtitle: "ALCB series, DN 225 to DN 600",
     desc: "Lever-and-counterweight support that relieves excess column weight from the fixed support — 1:10 maximum lever ratio, DN 225 to DN 600.",
     long: [

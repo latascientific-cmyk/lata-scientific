@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Shell &amp; Tube Heat Exchanger — dimension schematic</title>
+  <desc id="dsc">Shell and tube heat exchanger with a baffled tube bundle and four nozzles. Shell bore DN, nozzles DN1 to DN4 and overall length L.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M20 176H420"/>
+  <path class="body" d="M74 118h292v116H74z"/>
+  <path class="line" d="M74 118v116M366 118v116"/>
+  <rect class="metal" x="60" y="104" width="16" height="144" rx="2"/>
+  <rect class="metal" x="364" y="104" width="16" height="144" rx="2"/>
+  <path class="line" d="M92 132h256M92 160h256M92 192h256M92 220h256"/>
+  <path class="line" d="M128 118v70M186 234v-70M244 118v70M302 234v-70"/>
+  <path class="metal" d="M150 82h44v22h-44z"/><path class="line" d="M158 104v14"/>
+  <path class="metal" d="M252 248h44v22h-44z"/><path class="line" d="M262 234v14"/>
+  <path class="metal" d="M30 150h30v52H30z"/>
+  <path class="metal" d="M380 150h30v52h-30z"/>
+  <path class="dim" d="M60 296h320"/><text class="t" x="212" y="316">L</text>
+  <path class="ext" d="M60 250v50M380 250v50"/>
+  <path class="dim" d="M44 118V234"/><text class="s" x="22" y="110">DN</text>
+  <text class="s" x="150" y="72">DN2</text>
+  <text class="s" x="256" y="286">DN3</text>
+  <text class="s" x="26" y="142">DN1</text>
+  <text class="s" x="384" y="142">DN4</text>
+  <text class="s" x="196" y="256">Baffles</text>
+</svg>

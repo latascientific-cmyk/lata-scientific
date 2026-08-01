@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Counter Balance Support — dimension schematic</title>
+  <desc id="dsc">Counter balance support relieving excess column weight through two levers acting on the lower backing flange, at a maximum lever ratio of 1 to 10.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M220 24V240"/><path class="ctr" d="M40 150H400"/>
+  <path class="line" d="M186 24h68v94h-68z"/>
+  <path class="metal" d="M150 118h140v24H150z"/>
+  <circle class="body" cx="176" cy="130" r="7"/>
+  <circle class="body" cx="264" cy="130" r="7"/>
+  <path class="line" d="M150 150H60M290 150h90"/>
+  <circle class="metal" cx="112" cy="150" r="9"/>
+  <circle class="metal" cx="328" cy="150" r="9"/>
+  <path class="line" d="M72 150v56M368 150v56"/>
+  <rect class="metal" x="52" y="206" width="40" height="52" rx="4"/>
+  <rect class="metal" x="348" y="206" width="40" height="52" rx="4"/>
+  <path class="dim" d="M150 130h140"/><text class="s" x="196" y="112">PCD</text>
+  <path class="dim" d="M72 292h296"/><text class="t" x="212" y="312">L</text>
+  <path class="ext" d="M72 262v34M368 262v34"/>
+  <text class="s" x="34" y="284">Counter weight</text>
+  <text class="s" x="252" y="52">Glass column</text>
+  <text class="s" x="150" y="182">Lower backing flange</text>
+</svg>

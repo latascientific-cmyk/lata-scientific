@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Structure Support — dimension schematic</title>
+  <desc id="dsc">Cast iron support clamped to a structure tube, presenting a threaded eye of diameter d to take a stud for hanging pipeline or equipment.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M40 170H400"/>
+  <path class="line" d="M50 144h300M50 196h300"/><path class="line" d="M50 144v52M350 144v52"/>
+  <rect class="metal" x="134" y="130" width="112" height="80" rx="6"/>
+  <rect class="metal" x="246" y="152" width="46" height="36" rx="6"/>
+  <circle class="body" cx="278" cy="170" r="11"/>
+  <rect class="metal" x="182" y="112" width="14" height="20" rx="2"/>
+  <path class="dim" d="M134 258h112"/><text class="t" x="182" y="278">L</text>
+  <path class="ext" d="M134 214v48M246 214v48"/>
+  <path class="dim" d="M368 130V210"/><text class="t" x="376" y="174">H</text>
+  <path class="ext" d="M294 130h78M294 210h78"/>
+  <path class="dim" d="M278 306V326"/><text class="s" x="288" y="322">d</text>
+  <path class="ext" d="M267 181v130M289 181v130"/>
+  <text class="s" x="66" y="134">NB</text>
+  <text class="s" x="292" y="120">Threaded eye</text>
+</svg>

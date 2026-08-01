@@ -7,7 +7,7 @@
    adaptor backing flange, insert and glass-to-metal adaptor plate.
 
    Catalogue references (AFBN…, AVB…, ABF…, AVBF…, AFBF…, ABFA…,
-   ACFA…, ACN…, AEMP…) are the catalogue's own.
+   ACFA…, ACN…, AEMP…, ACT…, ACF…, ATR…) are the catalogue's own.
 
    All dimensions are in mm unless stated otherwise.
 
@@ -38,6 +38,9 @@ export const bellows = [
   {
     slug: "line-bellow",
     name: "PTFE Line Bellow — Glass to Glass",
+    image: "assets/img/products/line-bellow.svg",
+    drawing: "assets/img/products/line-bellow.svg",
+    alt: "Dimension schematic of a PTFE line bellow between two bellow flanges, showing D, D1, D2 and L",
     subtitle: "AFBN series, DN 15 to DN 300",
     desc: "PTFE bellow for joining glass to glass — takes up odd degrees and length variation, branches a pipeline safely, and withstands 200 °C under normal atmospheric conditions.",
     long: [
@@ -109,6 +112,9 @@ export const bellows = [
   {
     slug: "vacuum-bellow",
     name: "PTFE Vacuum Bellow",
+    image: "assets/img/products/vacuum-bellow.svg",
+    drawing: "assets/img/products/vacuum-bellow.svg",
+    alt: "Dimension schematic of a PTFE vacuum bellow with internal support sleeve, showing D, D1, D2, L, L1 and t",
     subtitle: "AVB series, DN 80 to DN 300",
     desc: "PTFE bellow with an internal support sleeve for pipelines 80 DN and above running under vacuum — holds 200 °C under full vacuum without the convolutions collapsing.",
     long: [
@@ -174,6 +180,9 @@ export const bellows = [
   {
     slug: "ptfe-bellow-glass-to-metal",
     name: "PTFE Bellow — Glass to Metal",
+    image: "assets/img/products/ptfe-bellow-glass-to-metal.svg",
+    drawing: "assets/img/products/ptfe-bellow-glass-to-metal.svg",
+    alt: "Dimension schematic of a PTFE bellow with a glass end and an adaptor bellow flange, showing D and L",
     subtitle: "AFBF series, DN 15 to DN 300",
     desc: "PTFE bellow with an adaptor flange at one end for joining glass to rotating or metallic equipment — damps vibration and absorbs the thermal expansion of the metal side.",
     long: [
@@ -239,8 +248,160 @@ export const bellows = [
 
 export const flangesAdaptors = [
   {
+    slug: "complete-coupling",
+    name: "Complete Coupling",
+    image: "assets/img/products/complete-coupling.svg",
+    drawing: "assets/img/products/complete-coupling.svg",
+    alt: "Assembly schematic of a complete coupling: two backing flanges, two inserts and nut-bolts making one glass joint",
+    subtitle: "ACT series, DN 15 to DN 600",
+    desc: "The complete set of parts needed to make one glass joint — two backing flanges, two inserts and the nut-bolts, supplied together as a single reference from DN 15 to DN 600.",
+    long: [
+      "A complete coupling is a set of two backing flanges with inserts and nut-bolts. It is the complete set of flanges required to make a joint — one reference instead of four separate line items.",
+      "Each coupling carries two backing flanges (ACF) and two inserts (ACN) of the matching size, plus the correct nut-bolts. Bolt diameter steps up through the range: 5/16\" up to DN 150, 3/8\" from DN 225 to DN 400, and 1/2\" at DN 450 and DN 600. Bolt count rises from 3 on the smallest sizes to 12 on the largest.",
+      "Ordering the complete coupling rather than the parts separately is the safer route on site — the flange, the insert and the bolt length are matched by the catalogue rather than by whoever is assembling the line.",
+    ],
+    features: [
+      "Two backing flanges, two inserts and nut-bolts in one reference",
+      "Everything required to make a single glass joint",
+      "DN 15 to DN 600 in twelve catalogue references",
+      "Bolt diameter 5/16\", 3/8\" or 1/2\" by size",
+      "Bolt length 65 mm to 150 mm by size",
+      "3 to 12 bolts per joint depending on bore",
+    ],
+    advantages: [
+      "One part number covers a whole joint — nothing missing on site",
+      "Flange, insert and bolt length matched by the catalogue, not by guesswork",
+      "Simplifies spares holding for a plant with many joints",
+      "Same components as the individual references, so anything can still be replaced singly",
+    ],
+    applications: [
+      "Making up joints during glass plant erection",
+      "Rebuilding a joint after maintenance or a line change",
+      "Stocking joint spares for a borosilicate process line",
+      "Extending or reconfiguring an existing glass pipeline",
+    ],
+    industries: CPL_INDUSTRIES,
+    spec: [
+      ["Product type", "Complete coupling set"],
+      ["Contents", "2 × backing flange (ACF), 2 × insert (ACN), nut-bolts"],
+      ["Nominal bore range", "DN 15 to DN 600"],
+      ["Bolt diameter", "5/16\" to DN 150; 3/8\" DN 225 to DN 400; 1/2\" DN 450 and DN 600"],
+      ["Bolt length", "65 mm to 150 mm"],
+      ["Bolts per joint", "3 to 12, depending on bore"],
+      ["Catalogue reference", "ACT series"],
+    ],
+    dim: {
+      caption: "Complete Coupling — contents by size",
+      cols: [
+        "Cat. Ref.", "DN", "Flange Cat. Ref.", "Flange qty.",
+        "Insert Cat. Ref.", "Insert qty.", "Bolt d", "Bolt L", "Bolt qty.",
+      ],
+      rows: [
+        ["ACT 07", "15", "ACF07", "2 nos", "ACN07", "2 nos", "5/16\"", "65", "3 nos"],
+        ["ACT 1", "25", "ACF1", "2 nos", "ACN1", "2 nos", "5/16\"", "65", "3 nos"],
+        ["ACT 1.5", "40", "ACF1.5", "2 nos", "ACN1.5", "2 nos", "5/16\"", "65", "3 nos"],
+        ["ACT 2", "50", "ACF2", "2 nos", "ACN2", "2 nos", "5/16\"", "75", "3 nos"],
+        ["ACT 3", "80", "ACF3", "2 nos", "ACN3", "2 nos", "5/16\"", "75", "6 nos"],
+        ["ACT 4", "100", "ACF4", "2 nos", "ACN4", "2 nos", "5/16\"", "100", "6 nos"],
+        ["ACT 6", "150", "ACF6", "2 nos", "ACN6", "2 nos", "5/16\"", "100", "6 nos"],
+        ["ACT 9", "225", "ACF9", "2 nos", "ACN9", "2 nos", "3/8\"", "125", "8 nos"],
+        ["ACT 12", "300", "ACF12", "2 nos", "ACN12", "2 nos", "3/8\"", "150", "12 nos"],
+        ["ACT 16", "400", "ACF16", "2 nos", "ACN16", "2 nos", "3/8\"", "150", "12 nos"],
+        ["ACT 18", "450", "ACF18", "2 nos", "ACN18", "2 nos", "1/2\"", "150", "12 nos"],
+        ["ACT 24", "600", "ACF24", "2 nos", "ACN24", "2 nos", "1/2\"", "150", "12 nos"],
+      ],
+      note: MM + " Bolt diameter d is in inches, bolt length L in mm, exactly as printed.",
+    },
+    faqs: [
+      ["What exactly is in a complete coupling?", "Two backing flanges with their inserts, plus the nut-bolts — the complete set of flanges required to make one joint. ACT 4 gives you 2 × ACF4, 2 × ACN4 and six 5/16\" × 100 mm bolts."],
+      ["Why order the set rather than the parts?", "Because the bolt length and count change with bore, and the insert has to match the flange. The set is matched by the catalogue, so nothing is wrong or missing when the joint is made up."],
+      ["Can I still buy the parts individually?", "Yes. The backing flange (ACF) and the insert (ACN) are catalogued separately, so a damaged part can be replaced on its own."],
+    ],
+    related: ["backing-flange", "insert", "ptfe-o-ring-with-locating-collar", "line-bellow"],
+    keywords: "complete coupling, ACT coupling set, glass joint coupling set, backing flange insert nut bolt set, borosilicate pipeline coupling, glass pipe joint kit",
+    featured: true,
+  },
+
+  {
+    slug: "backing-flange",
+    name: "Backing Flange",
+    image: "assets/img/products/backing-flange.svg",
+    drawing: "assets/img/products/backing-flange.svg",
+    alt: "Dimension schematic of a cast iron backing flange, face view and section, showing D, D1, D2, PCD, L and L1",
+    subtitle: "ACF series, DN 15 to DN 600",
+    desc: "Cast iron backing flange for coupling a glass end to another glass end or to a bellow — used with inserts, DN 15 to DN 600 in three profile types.",
+    long: [
+      "The backing flange is used to couple a glass end to a glass end, or to a bellow. It is made of cast iron and is used with inserts — the flange takes the bolt load, and the insert bears on the glass bead so the glass is never clamped directly by metal.",
+      "This is the standard flange of the whole borosilicate pipeline system. Two of them, two inserts and a set of nut-bolts make one joint, which is exactly what the complete coupling supplies as a single reference.",
+      "The range runs DN 15 to DN 600 in twelve references, across three profile types — A, B and C — with the type changing as bore and flange thickness increase. Drilling is given directly in the table as PCD and n × d.",
+    ],
+    features: [
+      "Couples a glass end to a glass end or to a bellow",
+      "Cast iron construction",
+      "Used with inserts, which bear on the glass bead",
+      "DN 15 to DN 600 in twelve catalogue references",
+      "Three profile types — A, B and C",
+      "PCD and drilling tabulated for every size",
+    ],
+    advantages: [
+      "Metal never contacts the glass directly — the insert takes that duty",
+      "Bolted joint can be broken and remade without cutting glass",
+      "One flange family spans DN 15 to DN 600",
+      "Drilling published per size, so mating parts can be checked before assembly",
+    ],
+    applications: [
+      "Joining borosilicate pipe sections, bends, tees and reducers",
+      "Terminating a glass line onto a bellow",
+      "Making and breaking joints for maintenance access",
+      "Building and reconfiguring glass process lines",
+    ],
+    industries: CPL_INDUSTRIES,
+    spec: [
+      ["Product type", "Backing flange for glass ends"],
+      ["Material", "Cast iron"],
+      ["Used with", "Inserts (ACN series)"],
+      ["Couples", "Glass end to glass end, or glass end to bellow"],
+      ["Nominal bore range", "DN 15 to DN 600"],
+      ["PCD range", "50 mm to 710 mm"],
+      ["Profile types", "A, B and C, by size"],
+      ["Catalogue reference", "ACF series"],
+    ],
+    dim: {
+      caption: "Backing Flange — dimensions and drilling",
+      cols: ["Cat. Ref.", "DN", "D", "D1", "D2", "PCD", "n × d", "L", "L1", "Type"],
+      rows: [
+        ["ACF 07", "15", "70", "30", "35", "50", "3 × 6", "10", "6", "A"],
+        ["ACF 1", "25", "95", "43", "51", "70", "3 × 9", "10", "6", "A"],
+        ["ACF 1.5", "40", "110", "58", "66", "86", "3 × 9", "10", "6", "A"],
+        ["ACF 2", "50", "120", "70", "81", "98", "3 × 9", "12", "8", "A"],
+        ["ACF 3", "80", "155", "101", "112", "133", "6 × 9", "12", "9", "A"],
+        ["ACF 4", "100", "200", "134", "148", "178", "6 × 9", "12", "9", "A"],
+        ["ACF 6", "150", "275", "186", "196", "254", "6 × 9", "15", "9", "A"],
+        ["ACF 9", "225", "350", "260", "282", "310", "8 × 11", "28", "7", "B"],
+        ["ACF 12", "300", "425", "342", "363", "395", "12 × 11", "34", "7", "B"],
+        ["ACF 16", "400", "525", "467", "476", "505", "12 × 12", "22", "12", "A"],
+        ["ACF 18", "450", "630", "537", "557", "585", "12 × 14", "37", "7", "B"],
+        ["ACF 24", "600", "755", "643", "690", "710", "12 × 14", "50", "5", "C"],
+      ],
+      note: MM + " n × d is the number of holes × hole diameter. Note that ACF 07 is drilled 3 × 6 where the rest of the small sizes are 3 × 9, and that ACF 16 returns to profile type A between two type B sizes — both are as printed.",
+    },
+    faqs: [
+      ["Why does the flange need an insert?", "So that cast iron never bears directly on the glass bead. The insert is the split ring that sits between them and spreads the bolt load evenly around the bead."],
+      ["What is the difference between this and the adaptor backing flange?", "This one couples glass to glass, or glass to a bellow — both sides use glass-standard drilling. The adaptor backing flange (ACFA) is for coupling a glass end to a flange with a different bolt configuration, such as on a glass-lined reactor."],
+      ["How many bolts does a joint take?", "It follows the n × d column — 3 bolts up to DN 50, 6 from DN 80 to DN 150, 8 at DN 225 and 12 from DN 300 upward."],
+      ["Do I need two per joint?", "Yes — one on each glass end, with an insert each and a set of nut-bolts. That combination is catalogued as the complete coupling (ACT)."],
+    ],
+    related: ["complete-coupling", "insert", "adaptor-backing-flange", "ptfe-o-ring-with-locating-collar"],
+    keywords: "backing flange, ACF backing flange, cast iron glass flange, borosilicate pipeline flange, glass end coupling flange, DN 600 backing flange",
+    featured: true,
+  },
+
+  {
     slug: "bellow-flange",
     name: "Bellow Flange",
+    image: "assets/img/products/bellow-flange.svg",
+    drawing: "assets/img/products/bellow-flange.svg",
+    alt: "Dimension schematic of a cast iron bellow flange with two 18 degree distance locking holes, showing D, L, L1 and D3",
     subtitle: "ABF series, DN 15 to DN 300",
     desc: "Cast iron flange for fitting a bellow to a glass component — supplied with a split ring and two extra holes at 18° for the distance locking bolts.",
     long: [
@@ -320,6 +481,9 @@ export const flangesAdaptors = [
   {
     slug: "vacuum-bellow-flange",
     name: "Vacuum Bellow Flange",
+    image: "assets/img/products/vacuum-bellow-flange.svg",
+    drawing: "assets/img/products/vacuum-bellow-flange.svg",
+    alt: "Dimension schematic of a vacuum bellow flange showing outside diameter D, PCD and length L",
     subtitle: "AVBF series, DN 80 to DN 300",
     desc: "Flange for the vacuum bellow range — supplied undrilled, or drilled to BS 10 Table E, Table F or ASA 150, DN 80 to DN 300.",
     long: [
@@ -375,6 +539,9 @@ export const flangesAdaptors = [
   {
     slug: "adaptor-bellow-flange",
     name: "Adaptor Bellow Flange",
+    image: "assets/img/products/adaptor-bellow-flange.svg",
+    drawing: "assets/img/products/adaptor-bellow-flange.svg",
+    alt: "Dimension schematic of a cast iron adaptor bellow flange supplied undrilled, showing D, D1, D2 and L",
     subtitle: "ABFA series, DN 15 to DN 300",
     desc: "Cast iron flange for fitting a bellow to equipment with a different bolt configuration — used on FBF and VBF type PTFE bellows, supplied with a split ring.",
     long: [
@@ -454,6 +621,9 @@ export const flangesAdaptors = [
   {
     slug: "adaptor-backing-flange",
     name: "Adaptor Backing Flange",
+    image: "assets/img/products/adaptor-backing-flange.svg",
+    drawing: "assets/img/products/adaptor-backing-flange.svg",
+    alt: "Dimension schematic of a cast iron adaptor backing flange with insert, showing D, D1 and L",
     subtitle: "ACFA series, DN 15 to DN 300",
     desc: "Cast iron backing flange for coupling a glass end to a flange with a different bolt configuration — supplied with an insert, undrilled or drilled to Table E, F or ASA 150.",
     long: [
@@ -536,6 +706,9 @@ export const flangesAdaptors = [
   {
     slug: "insert",
     name: "Insert",
+    image: "assets/img/products/insert.svg",
+    drawing: "assets/img/products/insert.svg",
+    alt: "Dimension schematic of a split ring type insert, face view and section, showing D, D1 and L",
     subtitle: "ACN series split ring insert, DN 15 to DN 600",
     desc: "Split ring type insert used with a backing flange — cast iron with asbestos lining, and composite rubber inserts now supplied for 25 to 150 DN.",
     long: [
@@ -601,6 +774,9 @@ export const flangesAdaptors = [
   {
     slug: "glass-to-metal-adaptor-plate",
     name: "Glass to Metal Adaptor Plate",
+    image: "assets/img/products/glass-to-metal-adaptor-plate.svg",
+    drawing: "assets/img/products/glass-to-metal-adaptor-plate.svg",
+    alt: "Dimension schematic of a PTFE enveloped glass to metal adaptor plate, showing D, D1 and L",
     subtitle: "AEMP series for reactors, DN 25 to DN 300",
     desc: "PTFE-enveloped interface spacer for connecting glass or a bellow to a reactor with a curved end nozzle — only PTFE contacts the process fluid.",
     long: [
@@ -660,5 +836,78 @@ export const flangesAdaptors = [
     ],
     related: ["adaptor-backing-flange", "adaptor-bellow-flange", "ptfe-bellow-glass-to-metal", "apps-chemical-reactor"],
     keywords: "glass to metal adaptor plate, AEMP adaptor plate, reactor nozzle adaptor, PTFE enveloped adaptor, curved nozzle spacer, glass lined reactor adaptor plate",
+  },
+];
+
+export const gaskets = [
+  {
+    slug: "ptfe-o-ring-with-locating-collar",
+    name: "PTFE \"O\" Ring with Locating Collar",
+    image: "assets/img/products/ptfe-o-ring-with-locating-collar.svg",
+    drawing: "assets/img/products/ptfe-o-ring-with-locating-collar.svg",
+    alt: "Dimension schematic of a PTFE O ring with locating collar, showing D, D1, d and L",
+    subtitle: "ATR series, DN 15 to DN 600",
+    desc: "PTFE gasket made specifically for glass fittings, with an integral collar that locates it correctly on the glass end — DN 15 to DN 600.",
+    long: [
+      "This PTFE “O” ring is specifically made to use as a gasket in glass fittings. It is the sealing element of a bolted glass joint, sitting between the two glass ends while the backing flanges and inserts carry the bolt load.",
+      "What separates it from a plain gasket is the collar. It is provided with a collar which helps to locate it on the glass end correctly — the gasket cannot creep off centre while the joint is being drawn up, which is exactly when a plain flat gasket tends to move and end up sealing on one side only.",
+      "Section thickness d steps from 3 mm on the small bores to 8 mm at DN 600, and collar length L from 5 mm to 10 mm, so the gasket stays in proportion to the bead it locates on.",
+    ],
+    features: [
+      "Made specifically as a gasket for glass fittings",
+      "Integral collar locates it correctly on the glass end",
+      "PTFE — inert to almost all process media",
+      "DN 15 to DN 600 in twelve catalogue references",
+      "Section 3 mm to 8 mm by bore",
+      "Collar length 5 mm to 10 mm by bore",
+    ],
+    advantages: [
+      "Cannot creep off centre while the joint is bolted up",
+      "Inert PTFE wetted face — no contamination of the batch",
+      "Correct location every time means a repeatable, even seal",
+      "Covers the full pipeline bore range on one reference family",
+    ],
+    applications: [
+      "Sealing bolted joints between borosilicate pipeline components",
+      "Remaking a joint after maintenance",
+      "Any glass fitting where a located, inert gasket is required",
+      "Corrosive acid, alkali and solvent service",
+    ],
+    industries: CPL_INDUSTRIES,
+    spec: [
+      ["Product type", "PTFE “O” ring gasket with locating collar"],
+      ["Material", "PTFE"],
+      ["Nominal bore range", "DN 15 to DN 600"],
+      ["Section (d)", "3 mm to 8 mm depending on bore"],
+      ["Collar length (L)", "5 mm to 10 mm depending on bore"],
+      ["Function", "Gasket for glass fittings; collar locates it on the glass end"],
+      ["Catalogue reference", "ATR series"],
+    ],
+    dim: {
+      caption: "PTFE “O” Ring with Locating Collar — dimensions",
+      cols: ["Cat. Ref.", "DN", "D", "D1", "d", "L"],
+      rows: [
+        ["ATR 07", "15", "29", "23", "3", "5"],
+        ["ATR 1", "25", "42", "33", "3", "5"],
+        ["ATR 1.5", "40", "57", "48", "3", "5"],
+        ["ATR 2", "50", "70", "59", "3", "5"],
+        ["ATR 3", "80", "100", "88", "3", "5"],
+        ["ATR 4", "100", "134", "119", "4", "6"],
+        ["ATR 6", "150", "186", "168", "4", "6"],
+        ["ATR 9", "225", "260", "236", "4", "7"],
+        ["ATR 12", "300", "342", "318", "4", "7"],
+        ["ATR 16", "400", "467", "435", "6", "7"],
+        ["ATR 18", "450", "537", "490", "6", "7"],
+        ["ATR 24", "600", "686", "640", "8", "10"],
+      ],
+      note: MM + " d is the ring section and L the collar length.",
+    },
+    faqs: [
+      ["What does the collar do?", "It locates the gasket on the glass end correctly. Without it a flat gasket can shift while the flanges are being drawn up and end up sealing unevenly; the collar holds it concentric."],
+      ["Do I need a gasket if I am using a bellow?", "No. Where a bellow is used, no gasket is required — the bellow face seals against the glass end itself."],
+      ["Why PTFE?", "It is inert to almost all process media, so the gasket does not contaminate the batch or degrade in aggressive service — the same reason PTFE is used for the bellows and the spindles elsewhere in the range."],
+    ],
+    related: ["backing-flange", "complete-coupling", "insert", "line-bellow"],
+    keywords: "PTFE O ring, ATR gasket, PTFE gasket glass fittings, locating collar gasket, borosilicate joint gasket, glass pipeline PTFE seal",
   },
 ];
