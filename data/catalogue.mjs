@@ -86,7 +86,7 @@ export const categories = [
   {
     slug: "rotary-evaporator", name: "Rotary Evaporator", group: "glass",
     tagline: "Solvent recovery, bench to pilot",
-    blurb: "Rotary film evaporators for gentle solvent recovery under full vacuum — the ARE range, from a 1 L bench unit to a 100 L pilot unit, with PTFE vacuum seals and IP-55 protected drives.",
+    blurb: "Rotary film evaporators for gentle solvent recovery under full vacuum — the LSRE range, from a 1 L bench unit to a 100 L pilot unit, with PTFE vacuum seals and IP-55 protected drives.",
     brochure: "rotary-evaporator.pdf",
     products: rotaryEvaporator,
   },
@@ -119,7 +119,7 @@ export const categories = [
   {
     slug: "pilot-plant", name: "Pilot Plant Series", group: "glass",
     tagline: "See-through reactors, research to pilot scale",
-    blurb: "The APPS pilot plant range — see-through glass and glass lined steel reaction assemblies from 15 to 250 litres, plus a high pressure glass reactor to +5 bar, supplied complete with agitation, heating and instrumentation.",
+    blurb: "The LSPPS pilot plant range — see-through glass and glass lined steel reaction assemblies from 15 to 250 litres, plus a high pressure glass reactor to +5 bar, supplied complete with agitation, heating and instrumentation.",
     brochure: "pilot-plant-series.pdf",
     products: pilotPlant,
   },

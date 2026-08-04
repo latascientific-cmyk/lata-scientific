@@ -1,5 +1,5 @@
 /* =========================================================
-   LATA SCIENTIFIC — pilot plant series (APPS).
+   LATA SCIENTIFIC — pilot plant series (LSPPS).
 
    Transcribed from the supplied "PILOT PLANT SERIES" catalogue
    page. Two reactors are published there, each with its own
@@ -24,16 +24,16 @@ const HEATING = "Heating mantles, oil bath, thermic fluid, steam or hot condensa
 export const pilotPlant = [
   {
     slug: "apps-chemical-reactor",
-    name: "APPS Chemical Reactor",
+    name: "LSPPS Chemical Reactor",
     image: "assets/img/products/apps-chemical-reactor.svg",
     drawing: "assets/img/products/apps-chemical-reactor.svg",
-    alt: "Assembly schematic of an APPS pilot plant chemical reactor with jacketed glass vessel, stirrer, condenser and receiver",
+    alt: "Assembly schematic of an LSPPS pilot plant chemical reactor with jacketed glass vessel, stirrer, condenser and receiver",
     subtitle: "See-through pilot plant reactor, 15 L to 250 L",
     desc: "Pilot plant reaction assembly with a see-through borosilicate glass or glass lined steel vessel — 15 L to 250 L, −25 °C to +200 °C, full vacuum to +0.5 bar.",
     long: [
       "Ablaze pilot plant reactors are equipped with see-through reaction vessels made of borosilicate glass or glass lined steel. Contrary to conventional reaction vessels, the glass used for the upper section enables the chemist to observe the process taking place inside. It also prevents residues from adhering on to the smooth, unheated glass surface.",
       "The reactor is supplied as a working assembly rather than a bare vessel. Stirrer, condenser, reflux divider and feed arrangement are fitted as the duty requires, and further attachments are available for distillation. Instrumentation — pH controller, temperature controller and a speed regulator for the stirrer — is part of the same single-window supply.",
-      "The vision behind the APPS range is to provide a single window source for all equipment and instrumentation of the highest quality, for research and development as well as for pilot plants. The range is also available in spherical vessel options and with auto control.",
+      "The vision behind the LSPPS range is to provide a single window source for all equipment and instrumentation of the highest quality, for research and development as well as for pilot plants. The range is also available in spherical vessel options and with auto control.",
     ],
     features: [
       "See-through reaction vessel — the chemist watches the process, not a gauge",
@@ -73,10 +73,10 @@ export const pilotPlant = [
       ["Heating and cooling", HEATING],
       ["Instrumentation", "pH controller, temperature controller, stirrer speed regulator"],
       ["Attachments", "Stirrer, condenser, reflux divider, feed arrangement; distillation attachments available"],
-      ["Catalogue reference", "APPS Chemical Reactor"],
+      ["Catalogue reference", "LSPPS Chemical Reactor"],
     ],
     dim: {
-      caption: "APPS Chemical Reactor — operating conditions",
+      caption: "LSPPS Chemical Reactor — operating conditions",
       cols: ["Volume", "Temp", "Pressure", "Wetted Material"],
       rows: [
         ["15 to 250 Ltrs.", "−25 to +200 °C", "+0.5 bar to Full Vacuum", "glass / glass lined steel for higher capacity"],
@@ -95,21 +95,21 @@ export const pilotPlant = [
     faqs: [
       ["Why a glass upper section rather than all steel?", "Two reasons the catalogue gives directly: the chemist can observe the process taking place inside, and residues do not adhere to the smooth, unheated glass surface the way they do to a heated steel wall."],
       ["What sizes are available?", "15 to 250 litres. Borosilicate glass is used for the vessel, with glass lined steel offered for the higher capacities in the range."],
-      ["What pressure and temperature can it take?", "+0.5 bar down to full vacuum, over −25 °C to +200 °C. If you need to react at higher pressure, that is the APPS High Pressure Reactor in Glass instead — or a metal reactor for very high pressure."],
+      ["What pressure and temperature can it take?", "+0.5 bar down to full vacuum, over −25 °C to +200 °C. If you need to react at higher pressure, that is the LSPPS High Pressure Reactor in Glass instead — or a metal reactor for very high pressure."],
       ["Which agitator do I get?", "Whichever suits the mixing regime. The range covers lower to higher Reynolds mixing with anchor, tubular and propeller types among others — tell us the viscosity and the duty."],
       ["How is it heated?", "Through heating mantles, oil bath, thermic fluid, steam or hot condensate passed through a glass jacket or glass coils."],
     ],
     related: ["apps-high-pressure-glass-reactor", "rotary-evaporator", "shell-and-tube-heat-exchanger", "glass-to-metal-adaptor-plate"],
-    keywords: "pilot plant reactor, APPS chemical reactor, glass reactor, see through reaction vessel, glass lined steel reactor, 250 litre pilot reactor, borosilicate reactor, pilot plant series",
+    keywords: "pilot plant reactor, LSPPS chemical reactor, glass reactor, see through reaction vessel, glass lined steel reactor, 250 litre pilot reactor, borosilicate reactor, pilot plant series",
     featured: true,
   },
 
   {
     slug: "apps-high-pressure-glass-reactor",
-    name: "APPS High Pressure Reactor in Glass",
+    name: "LSPPS High Pressure Reactor in Glass",
     image: "assets/img/products/apps-high-pressure-glass-reactor.svg",
     drawing: "assets/img/products/apps-high-pressure-glass-reactor.svg",
-    alt: "Assembly schematic of an APPS high pressure glass reactor with bolted closure, stirrer drive and pressure gauge",
+    alt: "Assembly schematic of an LSPPS high pressure glass reactor with bolted closure, stirrer drive and pressure gauge",
     subtitle: "Glass reactor for pressure duty, 1 L to 5 L",
     desc: "High pressure reaction vessel in glass for duty a normal glass reactor cannot hold — 1 to 5 litres, −5 °C to +150 °C, up to +5 bar, with only glass and PTFE wetted.",
     long: [
@@ -147,10 +147,10 @@ export const pilotPlant = [
       ["Agitation", AGITATION],
       ["Heating and cooling", HEATING],
       ["Higher pressure duty", "Metal reactors available for reactions at very high pressure"],
-      ["Catalogue reference", "APPS High Pressure Reactor in Glass"],
+      ["Catalogue reference", "LSPPS High Pressure Reactor in Glass"],
     ],
     dim: {
-      caption: "APPS High Pressure Reactor in Glass — operating conditions",
+      caption: "LSPPS High Pressure Reactor in Glass — operating conditions",
       cols: ["Volume", "Temp.", "Pressure", "Wetted Material"],
       rows: [
         ["1 to 5 Ltrs.", "−5 to +150 °C", "up to +5 bar", "Glass / PTFE"],
@@ -163,12 +163,12 @@ export const pilotPlant = [
       "Metal reactor for pressure beyond +5 bar",
     ],
     faqs: [
-      ["How is this different from the standard pilot plant reactor?", "Pressure. The APPS Chemical Reactor runs from full vacuum to +0.5 bar; this one carries out reaction at higher pressure — up to +5 bar — which the catalogue notes is generally not possible with a normal glass reactor."],
+      ["How is this different from the standard pilot plant reactor?", "Pressure. The LSPPS Chemical Reactor runs from full vacuum to +0.5 bar; this one carries out reaction at higher pressure — up to +5 bar — which the catalogue notes is generally not possible with a normal glass reactor."],
       ["What touches the process?", "Glass and PTFE only. There is no metal in the wetted path."],
       ["What if I need more than 5 bar?", "Metal reactors are available for reactions at very high pressure. Send us the pressure, temperature and media and we will tell you which side of the line your duty falls."],
       ["What sizes does it come in?", "1 to 5 litres, over −5 °C to +150 °C."],
     ],
     related: ["apps-chemical-reactor", "rotary-evaporator", "glass-to-metal-adaptor-plate", "line-bellow"],
-    keywords: "high pressure glass reactor, APPS high pressure reactor, 5 bar glass reactor, pressure reaction vessel glass, PTFE wetted reactor, pilot plant high pressure reactor",
+    keywords: "high pressure glass reactor, LSPPS high pressure reactor, 5 bar glass reactor, pressure reaction vessel glass, PTFE wetted reactor, pilot plant high pressure reactor",
   },
 ];

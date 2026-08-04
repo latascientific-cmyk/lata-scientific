@@ -257,11 +257,20 @@ ${(extra.jsonld || []).map((o) => `  <script type="application/ld+json">${JSON.s
 
 const ctaBand = () => `<section class="section${""}"><div class="container"><div class="cta reveal"><h2>Not sure which spec fits your process?</h2><p>Send your requirement — media, temperature, pressure, dimensions — and we'll recommend the right product or fabricate it.</p><a href="contact.html" class="btn btn--light btn--lg">Talk to an engineer ${arrow}</a></div></div></section>`;
 
+/* ---------- alt text for the main product image ----------
+   `p.alt` describes the dimension SCHEMATIC ("… showing NB, H and H1"), which
+   is right for the drawing in the technical section but wrong once `image` is
+   a photograph. Where the two differ, describe the photo instead. */
+const imgAlt = (p) =>
+  p.image && p.drawing && p.image !== p.drawing
+    ? (p.photoAlt || plain(p.name))
+    : (p.alt || p.name);
+
 /* ---------- product card (used on category pages + related) ---------- */
 // Real supplied photo when `image` is set; otherwise the icon placeholder.
 const media = (p, cat, cls = "ph ph--sm") =>
   p.image
-    ? `<img src="${p.image}"${dimAttrs(p.image)} alt="${esc(p.alt || p.name)}" loading="lazy" decoding="async" />`
+    ? `<img src="${p.image}"${dimAttrs(p.image)} alt="${esc(imgAlt(p))}" loading="lazy" decoding="async" />`
     : `<div class="${cls}">${bigArt(cat.slug)}</div>`;
 
 // `subtitle` is optional — products supplied by name only render without it.
@@ -656,7 +665,7 @@ const productPage = (cat, p) => {
     {
       keywords: p.keywords,
       image: p.image,
-      imageAlt: p.alt || p.name,
+      imageAlt: imgAlt(p),
       ogType: "product",
       ogTitle: `${p.name} | Lata Scientific`,
       jsonld: productSchema(cat, p, sub),
@@ -673,7 +682,7 @@ const productPage = (cat, p) => {
         ` : ""}<b style="color:var(--ink-2)">${p.name}</b>
       </nav>
       <div class="pd">
-        <div class="pd__media">${p.image ? `<img src="${p.image}"${dimAttrs(p.image)} alt="${esc(p.alt || p.name)}" fetchpriority="high" decoding="async" />` : `<div class="ph" role="img" aria-label="${esc(p.name)}">${bigArt(cat.slug)}</div>`}</div>
+        <div class="pd__media">${p.image ? `<img src="${p.image}"${dimAttrs(p.image)} alt="${esc(imgAlt(p))}" fetchpriority="high" decoding="async" />` : `<div class="ph" role="img" aria-label="${esc(p.name)}">${bigArt(cat.slug)}</div>`}</div>
         <div class="pd__copy">
           <span class="pd__tag">${sub ? sub.name : cat.name}</span>
           <h1>${p.name}</h1>

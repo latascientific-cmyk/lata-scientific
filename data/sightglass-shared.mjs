@@ -163,12 +163,12 @@ export const FLANGE_STANDARDS = {
   note: "All dimensions in mm, reproduced as printed in the catalogue. The 250NB BS-10 Table E PCD is printed as 256 — confirm it with us before drilling to that figure.",
 };
 
-/* Tubular sight glass (ASG series) drilling table, from the supplied
+/* Tubular sight glass (LSSG series) drilling table, from the supplied
    DRILLING_TABLE datasheet. Its "Special Feature" notes — 360° viewing and
    a frame in MS / 304–316 S.S. / P.P. / HDPE — identify it as a tubular
    sight glass sheet rather than a pipeline one, so it lives here. */
 export const ASG_DRILLING = {
-  caption: "ASG tubular sight glass — drilling table (BS 10 Table E, Table F and ASA)",
+  caption: "LSSG tubular sight glass — drilling table (BS 10 Table E, Table F and ASA)",
   cols: [
     "Cat. Ref.", "Size", "L1", "L",
     "E — D", "E — P.C.D.", "E — Holes",
@@ -176,13 +176,13 @@ export const ASG_DRILLING = {
     "ASA — D", "ASA — P.C.D.", "ASA — Holes",
   ],
   rows: [
-    ["ASG07", "07", "152", "192", "96", "67", "120 X 4", "96", "67", "120 X 4", "89", "60", "120 X 4"],
-    ["ASG1", "25", "152", "192", "120", "82", "120 X 4", "120", "87", "160 X 4", "120", "79", "160 X 4"],
-    ["ASG1.5", "40", "152", "192", "140", "98", "120 X 4", "140", "105", "160 X 4", "140", "98", "190 X 4"],
-    ["ASG2", "50", "152", "192", "165", "114", "160 X 4", "165", "127", "160 X 4", "165", "121", "190 X 4"],
-    ["ASG3", "80", "152", "192", "205", "146", "160 X 4", "205", "165", "160 X 4", "205", "152", "190 X 4"],
-    ["ASG4", "100", "152", "192", "205", "178", "160 X 4", "225", "190", "160 X 8", "225", "190", "190 X 8"],
-    ["ASG6", "150", "152", "192", "305", "235", "190 X 8", "305", "260", "190 X 8", "305", "241", "190 X 8"],
+    ["LSSG07", "07", "152", "192", "96", "67", "120 X 4", "96", "67", "120 X 4", "89", "60", "120 X 4"],
+    ["LSSG1", "25", "152", "192", "120", "82", "120 X 4", "120", "87", "160 X 4", "120", "79", "160 X 4"],
+    ["LSSG1.5", "40", "152", "192", "140", "98", "120 X 4", "140", "105", "160 X 4", "140", "98", "190 X 4"],
+    ["LSSG2", "50", "152", "192", "165", "114", "160 X 4", "165", "127", "160 X 4", "165", "121", "190 X 4"],
+    ["LSSG3", "80", "152", "192", "205", "146", "160 X 4", "205", "165", "160 X 4", "205", "152", "190 X 4"],
+    ["LSSG4", "100", "152", "192", "205", "178", "160 X 4", "225", "190", "160 X 8", "225", "190", "190 X 8"],
+    ["LSSG6", "150", "152", "192", "305", "235", "190 X 8", "305", "260", "190 X 8", "305", "241", "190 X 8"],
   ],
   note: "All dimensions in mm, transcribed exactly from the datasheet. The Holes column is printed in the form shown — the leading group is the hole diameter with the diameter symbol set as a zero (so “120 X 4” reads as Ø12 × 4 holes, “190 X 8” as Ø19 × 8 holes). Confirm the drilling against your mating flange before manufacture.",
 };
