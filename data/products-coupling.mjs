@@ -250,7 +250,7 @@ export const flangesAdaptors = [
   {
     slug: "complete-coupling",
     name: "Complete Coupling",
-    image: "assets/img/products/complete-coupling.svg",
+    image: "assets/img/products/complete-coupling-photo.jpg",
     drawing: "assets/img/products/complete-coupling.svg",
     alt: "Assembly schematic of a complete coupling: two backing flanges, two inserts and nut-bolts making one glass joint",
     subtitle: "LSCT series, DN 15 to DN 600",
@@ -706,7 +706,7 @@ export const flangesAdaptors = [
   {
     slug: "insert",
     name: "Insert",
-    image: "assets/img/products/insert.svg",
+    image: "assets/img/products/insert-photo.jpg",
     drawing: "assets/img/products/insert.svg",
     alt: "Dimension schematic of a split ring type insert, face view and section, showing D, D1 and L",
     subtitle: "LSCN series split ring insert, DN 15 to DN 600",
@@ -774,7 +774,7 @@ export const flangesAdaptors = [
   {
     slug: "glass-to-metal-adaptor-plate",
     name: "Glass to Metal Adaptor Plate",
-    image: "assets/img/products/glass-to-metal-adaptor-plate.svg",
+    image: "assets/img/products/glass-to-metal-adaptor-plate-photo.jpg",
     drawing: "assets/img/products/glass-to-metal-adaptor-plate.svg",
     alt: "Dimension schematic of a PTFE enveloped glass to metal adaptor plate, showing D, D1 and L",
     subtitle: "LSEMP series for reactors, DN 25 to DN 300",

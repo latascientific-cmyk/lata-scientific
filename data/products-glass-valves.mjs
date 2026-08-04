@@ -57,7 +57,7 @@ export const glassValves = [
     slug: "straight-through-valve",
     name: "Straight Through Valve",
     subtitle: "Glass straight through valve, DN 15 to DN 50",
-    image: img("straight-through"),
+    image: "assets/img/products/straight-through-valve-photo.jpg",
     drawing: img("straight-through"),
     alt: "Dimension schematic of a borosilicate glass straight through valve showing DN, DN1, d, L and H",
     desc: "Borosilicate glass straight through valve with a PTFE spindle — full-bore isolation in a glass line, DN 15 to DN 50, in five catalogue sizes.",

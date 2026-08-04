@@ -36,7 +36,7 @@ import { doubleWindow, tubular } from "./products-sightglass.mjs";
 import { pilotPlant } from "./products-pilot-plant.mjs";
 import { rotaryEvaporator } from "./products-rotary-evaporator.mjs";
 import { bellows, flangesAdaptors, gaskets } from "./products-coupling.mjs";
-import { structureTube, structureFittings, columnSupports } from "./products-tubular-structure.mjs";
+import { structureTube, structureFittings } from "./products-tubular-structure.mjs";
 import { heatExchangers, coilExchangers, hxAccessories } from "./products-heat-exchanger.mjs";
 import { FLANGE_TABLE, TOLERANCES, TORQUE_TABLE, STUD_TABLE, LINER_THICKNESS } from "./ptfe-shared.mjs";
 import { FLANGE_STANDARDS, ASG_DRILLING } from "./sightglass-shared.mjs";
@@ -102,7 +102,9 @@ export const categories = [
     subcategories: [
       { slug: "structure-tube", name: "Structure Tube", products: structureTube },
       { slug: "structure-fittings", name: "Structure Fittings", products: structureFittings },
-      { slug: "column-supports", name: "Column Supports", products: columnSupports },
+      /* "Column Supports" retired — both of its products (Column Base Support
+         Frame, Counter Balance Support) were withdrawn, leaving the
+         subcategory empty. */
     ],
   },
   {
