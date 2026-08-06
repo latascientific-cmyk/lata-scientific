@@ -27,6 +27,7 @@ const PAGES = ["index.html", "about.html", "capabilities.html", "quality.html", 
 const CONTACT = {
   waDigits: "919033630547",
   waDisplay: "+91 90336 30547",
+  waTel: "+919033630547",
   email: "latascientific@gmail.com",
   floatMessage: "Hello Lata Scientific, I would like to enquire about your products.",
 };
@@ -125,6 +126,116 @@ const socialBlock = (html, page) => {
     `  <meta name="twitter:description" content="${ogDesc}" />`,
     `  <meta name="twitter:image" content="${BASE}${SHARE_IMG}" />`,
   ].join("\n");
+};
+
+/* ---------- structured data for the hand-written pages ----------
+   The generated pages get Product / CollectionPage / BreadcrumbList from
+   build.mjs. These five had none, so search engines had no machine-readable
+   description of the organisation, the site search, or what each page is.
+   Everything below is derived from what the page already declares or from
+   the CONTACT block — nothing is invented. */
+const ORG_ID = `${BASE}#organization`;
+const SITE_ID = `${BASE}#website`;
+
+const organisation = () => ({
+  "@type": ["Organization", "LocalBusiness"],
+  "@id": ORG_ID,
+  name: "Lata Scientific",
+  url: BASE,
+  description: "Manufacturer of borosilicate glass process equipment, glass valves, PTFE lined pipes and fittings, sight flow indicators and custom fabricated laboratory and chemical plant apparatus.",
+  email: CONTACT.email,
+  telephone: CONTACT.waTel,
+  areaServed: "Worldwide",
+  logo: { "@type": "ImageObject", url: `${BASE}assets/img/logo/lata-logo.svg` },
+  image: `${BASE}${SHARE_IMG}`,
+  contactPoint: [{
+    "@type": "ContactPoint",
+    contactType: "sales",
+    email: CONTACT.email,
+    telephone: CONTACT.waTel,
+    availableLanguage: ["English", "Hindi"],
+  }],
+  openingHoursSpecification: [{
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "09:00",
+    closes: "18:30",
+  }],
+  knowsAbout: [
+    "Borosilicate glass process equipment", "Glass pipeline components",
+    "Glass valves", "PTFE lined pipes and fittings", "PTFE bellows",
+    "Sight flow indicators", "Glass heat exchangers", "Rotary evaporators",
+    "Custom glass fabrication",
+  ],
+});
+
+/* The site carries a working product search, so declare it. */
+const website = () => ({
+  "@type": "WebSite",
+  "@id": SITE_ID,
+  url: BASE,
+  name: "Lata Scientific",
+  publisher: { "@id": ORG_ID },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: { "@type": "EntryPoint", urlTemplate: `${BASE}products.html?q={search_term_string}` },
+    "query-input": "required name=search_term_string",
+  },
+});
+
+const PAGE_TYPE = {
+  "index.html": "WebPage",
+  "about.html": "AboutPage",
+  "contact.html": "ContactPage",
+  "capabilities.html": "WebPage",
+  "quality.html": "WebPage",
+};
+const CRUMB = {
+  "about.html": "About", "contact.html": "Contact",
+  "capabilities.html": "Capabilities", "quality.html": "Quality",
+};
+
+/* Titles and descriptions are read out of HTML, so they carry entities.
+   JSON-LD wants the decoded text — "&amp;" there would be read literally. */
+const decode = (s) => String(s)
+  .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+  .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, " ");
+
+const pageSchema = (html, page) => {
+  const title = decode(pick(html, /<title>([\s\S]*?)<\/title>/));
+  const desc = decode(pick(html, /<meta\s+name="description"\s+content="([^"]*)"/));
+  if (!title || !desc) return null;
+  const url = page === "index.html" ? BASE : BASE + page;
+
+  const graph = [];
+  /* Organisation and site node live on the homepage; inner pages reference
+     them by @id so the entity is declared once. */
+  if (page === "index.html") graph.push(organisation(), website());
+
+  graph.push({
+    "@type": PAGE_TYPE[page] || "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: title,
+    description: desc,
+    isPartOf: { "@id": SITE_ID },
+    about: { "@id": ORG_ID },
+    inLanguage: "en",
+    primaryImageOfPage: { "@type": "ImageObject", url: `${BASE}${SHARE_IMG}` },
+  });
+
+  if (CRUMB[page]) {
+    graph.push({
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: BASE },
+        { "@type": "ListItem", position: 2, name: CRUMB[page], item: url },
+      ],
+    });
+  }
+
+  const json = JSON.stringify({ "@context": "https://schema.org", "@graph": graph });
+  return `  <script type="application/ld+json" data-seo>${json}</script>`;
 };
 
 let changed = 0;
@@ -239,6 +350,19 @@ for (const page of PAGES) {
   if (block) {
     html = html.replace(/^[ \t]*<meta\s+(?:property="og:[^"]*"|name="twitter:[^"]*")[^>]*>\r?\n/gm, "");
     html = html.replace(/(<link\s+rel="canonical"[^>]*>)/, `$1\n${block}`);
+  }
+
+  /* 0c. Structured data. build.mjs emits JSON-LD on every generated page;
+         these five hand-written pages carried none. Marked with data-seo so
+         the block can be replaced on each run instead of accumulating. */
+  const ld = pageSchema(html, page);
+  if (ld) {
+    /* Drop the block we manage, and the legacy hand-written Organization
+       node on index.html — the @graph below supersedes it, and two
+       Organization entities on one page is a duplicate-entity warning. */
+    html = html.replace(/[ \t]*<script type="application\/ld\+json" data-seo>[\s\S]*?<\/script>\r?\n/g, "");
+    html = html.replace(/[ \t]*<script type="application\/ld\+json">\s*\r?\n?\s*\{"@context":"https:\/\/schema\.org","@type":"Organization"[\s\S]*?<\/script>\r?\n/g, "");
+    html = html.replace(/(<\/head>)/, `${ld}\n$1`);
   }
 
   const usesMenuItem = /class="mega__link"[^>]*role="menuitem"/.test(html);

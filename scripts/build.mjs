@@ -261,7 +261,7 @@ const head = (title, desc, canonical, extra = {}) => `<!DOCTYPE html>
   <meta name="theme-color" content="#0B2540" />
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}" />
-${extra.keywords ? `  <meta name="keywords" content="${esc(extra.keywords)}" />\n` : ""}  <link rel="canonical" href="${BASE_URL}${canonical}" />
+${extra.keywords ? `  <meta name="keywords" content="${esc(extra.keywords)}" />\n` : ""}${extra.robots ? `  <meta name="robots" content="${esc(extra.robots)}" />\n` : ""}  <link rel="canonical" href="${BASE_URL}${canonical}" />
   <meta property="og:type" content="${extra.ogType || "website"}" />
   <meta property="og:site_name" content="Lata Scientific" />
   <meta property="og:url" content="${BASE_URL}${canonical}" />
@@ -695,7 +695,13 @@ const productPage = (cat, p) => {
   const sub = subOf(cat, p);
   const metaDesc = plain(p.desc || `${p.name} — ${sub ? sub.name + ", " : ""}${cat.name} from Lata Scientific. Process components made to your specification.`).slice(0, 158);
   return head(
-    `${p.name} — ${sub ? sub.name : cat.name} | Lata Scientific`,
+    /* Google truncates a result title around 60 characters. Use the full
+       "product — section | brand" form when it fits, and drop the section
+       rather than let the brand fall off the end. */
+    (() => {
+      const full = `${p.name} — ${sub ? sub.name : cat.name} | Lata Scientific`;
+      return full.length <= 60 ? full : `${p.name} | Lata Scientific`;
+    })(),
     metaDesc,
     `product-${p.slug}.html`,
     {
@@ -778,9 +784,36 @@ const overviewGroup = (title, list) => `
       </article>`).join("\n      ")}`;
 
 const overviewPage = () => head(
-  "Products — Glassware, Process Equipment & Fluid Transfer | Lata Scientific",
-  "Browse Lata Scientific's full catalogue: laboratory glassware, reaction & distillation assemblies, glass columns, condensers, scrubbers, PTFE & silicone hoses, sanitary valves, fittings and filter housings.",
-  "products.html"
+  "Products — Glassware & Process Equipment | Lata Scientific",
+  "Browse the full Lata Scientific catalogue: borosilicate glass pipeline, glass valves, PTFE lined pipes and fittings, sight flow indicators, heat exchangers and custom process equipment.",
+  "products.html",
+  {
+    /* The catalogue index is a CollectionPage listing every category. */
+    jsonld: [{
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Products — Lata Scientific",
+      description: "The full Lata Scientific catalogue of borosilicate glass and fluoropolymer lined process equipment.",
+      url: `${BASE_URL}products.html`,
+      isPartOf: { "@type": "WebSite", "@id": `${BASE_URL}#website` },
+      mainEntity: {
+        "@type": "ItemList",
+        itemListElement: categories.map((c, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: plain(c.name),
+          url: `${BASE_URL}cat-${c.slug}.html`,
+        })),
+      },
+    }, {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+        { "@type": "ListItem", position: 2, name: "Products", item: `${BASE_URL}products.html` },
+      ],
+    }],
+  }
 ) + header() + `
 <main id="main">
   <section class="pagehero">
@@ -803,8 +836,47 @@ const overviewPage = () => head(
 </main>
 ` + footer();
 
+/* ---------- custom 404 ----------
+   Built from the same head/header/footer as every other page, so it carries
+   the site chrome and needs no markup or CSS of its own. noindex, because a
+   404 body served at an arbitrary URL must never enter the index. */
+const notFoundPage = () => head(
+  "Page not found | Lata Scientific",
+  "That page could not be found. Browse the product catalogue or contact Lata Scientific for borosilicate glass and lined process equipment.",
+  "404.html",
+  { robots: "noindex, follow" }
+) + header() + `
+<main id="main">
+  <section class="pagehero">
+    <div class="container pagehero__inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><b>Page not found</b></nav>
+      <p class="eyebrow">Error 404</p>
+      <h1>We could not find that page.</h1>
+      <p>The link may be out of date, or the item may have been withdrawn from the catalogue. The quickest routes back are below.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="sec-head"><p class="eyebrow">Where to next</p><h2 class="h2">Try one of these.</h2></div>
+      <div class="ctagrid stagger">
+        <a class="ctacard reveal" href="products.html"><span class="ctacard__ico">${svg("pipeline", 22)}</span><b>Full catalogue</b><small>Every category, with specs and drawings</small></a>
+        <a class="ctacard reveal" href="index.html"><span class="ctacard__ico">${svg("ptfe", 22)}</span><b>Home</b><small>Start from the beginning</small></a>
+        <a class="ctacard reveal" href="capabilities.html"><span class="ctacard__ico">${svg("fittings", 22)}</span><b>Capabilities</b><small>Custom fabrication to your drawing</small></a>
+        <a class="ctacard reveal" href="contact.html"><span class="ctacard__ico">${svg("reaction", 22)}</span><b>Contact us</b><small>Tell us what you are looking for</small></a>
+      </div>
+      <div class="sec-head" style="margin-top:clamp(34px,5vw,54px)"><p class="eyebrow">Browse by category</p><h2 class="h2">Or pick up where you left off.</h2></div>
+      <ul class="chips">
+        ${categories.map((c) => `<li class="chip"><a href="cat-${c.slug}.html">${c.name}</a></li>`).join("\n        ")}
+      </ul>
+    </div>
+  </section>
+  ${ctaBand()}
+</main>
+` + footer();
+
 /* ---------- write everything ---------- */
 let n = 0;
+out("404.html", notFoundPage()); n++;
 out("products.html", overviewPage()); n++;
 for (const cat of categories) {
   out(`cat-${cat.slug}.html`, categoryPage(cat)); n++;
@@ -944,15 +1016,36 @@ const staticPages = [
   ["", "1.0"], ["about.html", "0.7"], ["products.html", "0.9"],
   ["capabilities.html", "0.8"], ["quality.html", "0.7"], ["contact.html", "0.8"],
 ];
+/* Product URLs carry their photograph and dimension drawing as image
+   sitemap entries, so Google Images can index the catalogue artwork. */
+const imgLoc = (rel) => `${BASE}${rel}`;
 const urls = [
-  ...staticPages.map(([u, p]) => ({ loc: BASE + u, pr: p })),
-  ...categories.map((c) => ({ loc: `${BASE}cat-${c.slug}.html`, pr: "0.8" })),
-  ...categories.flatMap((c) => allProducts(c).map((p) => ({ loc: `${BASE}product-${p.slug}.html`, pr: "0.6" }))),
+  ...staticPages.map(([u, p]) => ({ loc: BASE + u, pr: p, imgs: [] })),
+  ...categories.map((c) => {
+    const shot = allProducts(c).find((p) => p.image);
+    return {
+      loc: `${BASE}cat-${c.slug}.html`, pr: "0.8",
+      imgs: shot ? [{ url: imgLoc(shot.image), title: `${plain(c.name)} — Lata Scientific` }] : [],
+    };
+  }),
+  ...categories.flatMap((c) => allProducts(c).map((p) => {
+    const imgs = [];
+    if (p.image) imgs.push({ url: imgLoc(p.image), title: plain(p.name) });
+    if (p.drawing && p.drawing !== p.image) {
+      imgs.push({ url: imgLoc(p.drawing), title: `${plain(p.name)} — dimension drawing` });
+    }
+    return { loc: `${BASE}product-${p.slug}.html`, pr: "0.6", imgs };
+  })),
 ];
 const today = new Date().toISOString().slice(0, 10);
+const xmlEsc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const imgBlock = (imgs) => imgs.map((i) =>
+  `\n    <image:image><image:loc>${xmlEsc(i.url)}</image:loc><image:title>${xmlEsc(i.title)}</image:title></image:image>`).join("");
 out("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((u) => `  <url><loc>${u.loc}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>${u.pr}</priority></url>`).join("\n")}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${urls.map((u) => `  <url><loc>${u.loc}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>${u.pr}</priority>${imgBlock(u.imgs)}</url>`).join("\n")}
 </urlset>
 `);
-console.log(`Wrote sitemap.xml with ${urls.length} URLs.`);
+const imgCount = urls.reduce((a, u) => a + u.imgs.length, 0);
+console.log(`Wrote sitemap.xml with ${urls.length} URLs and ${imgCount} image entries.`);
