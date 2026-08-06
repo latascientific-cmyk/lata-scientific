@@ -137,6 +137,62 @@ const HX_INDUSTRIES = [
 
 export const coilExchangers = [
   {
+    /* Added from the supplied "PTFE Lined Condenser" product sheets. Those
+       sheets are descriptive, not dimensional — they publish no shell size,
+       heat transfer area or catalogue reference — so none is stated here.
+       Add `drawing` and a `dim` table when the dimension page arrives. */
+    slug: "condenser",
+    name: "Condenser",
+    image: "assets/img/products/condenser-photo.jpg",
+    subtitle: "Coil condenser in borosilicate glass",
+    desc: "Coil condenser in borosilicate glass for efficient condensation of vapour — the cooling medium runs through the coil while vapour condenses around it in the shell, and the whole process stays visible.",
+    long: [
+      "The condenser is the counterpart to the boiler in a glass distillation train. A coil is fused into a glass shell; cooling water circulates through the coil, and vapour entering the shell gives up its latent heat to the coil surface and runs off as condensate. Because both the shell and the coil are borosilicate, the operator can watch the condensation front and check that the unit is not flooding or letting vapour through.",
+      "The supplied product sheet describes it as a PTFE lined condenser built from premium borosilicate glass, for efficient condensation and superior chemical resistance — intended for laboratory and industrial duty on corrosive chemicals and high purity processes. The sheet shows the unit in three body sizes, from a slim column-mounted condenser to a wide-bodied unit with flanged connections.",
+      "No dimensional datasheet was supplied for this item, so its shell sizes, coil heat transfer areas and catalogue references are confirmed on enquiry rather than estimated from the neighbouring boiler and product cooler pages.",
+    ],
+    features: [
+      "Coil fused into a borosilicate glass shell",
+      "Cooling medium circulated through the coil",
+      "PTFE lined construction for chemical resistance",
+      "Side connections for cooling water inlet and outlet",
+      "Available in a range of body sizes, from slim to wide-bodied",
+      "Fully transparent — the condensation front stays visible",
+    ],
+    advantages: [
+      "Borosilicate shell and coil keep the whole condensing duty in view",
+      "Inert to almost all process media, so condensate is not contaminated",
+      "Smooth glass coil resists fouling and cleans down easily",
+      "Mounts directly onto a glass column or reactor in the same range",
+      "Suits corrosive service where a metallic condenser would not last",
+    ],
+    applications: [
+      "Condensing overheads from a glass distillation column",
+      "Reflux duty on a glass reactor assembly",
+      "Solvent recovery on corrosive or high purity process streams",
+      "Pilot plant and kilo-lab condensing duty",
+    ],
+    industries: HX_INDUSTRIES,
+    spec: [
+      ["Product type", "Coil condenser in glass shell"],
+      ["Material", "Borosilicate 3.3"],
+      ["Lining", "PTFE lined, as stated on the supplied product sheet"],
+      ["Construction", "Coil fused in a glass shell with side connections"],
+      ["Cooling medium", "Circulated through the coil"],
+      ["Shell size range", "No datasheet supplied for this item — confirmed on enquiry"],
+      ["Heat transfer area", "No datasheet supplied for this item — confirmed on enquiry"],
+      ["Catalogue reference", "Confirmed on enquiry"],
+    ],
+    faqs: [
+      ["What sizes is it made in?", "The supplied product sheet shows three body sizes but publishes no dimensions, so we do not quote a shell size or heat transfer area here. Send us your vapour load and cooling water temperature and we will confirm the right unit against the drawing."],
+      ["How does it differ from the boiler?", "Duty and shell cross section. The boiler vapourises liquid by passing steam through the coil and is built with a bigger shell-side cross section to carry vapour away. The condenser does the opposite — cooling medium in the coil, vapour condensing in the shell."],
+      ["Can it be used on corrosive media?", "Yes. The wetted path is borosilicate glass with PTFE lining, which is why the product sheet calls it out for corrosive chemicals and high purity processes."],
+      ["Do you publish a heat transfer figure?", "Not for this item. The boiler page publishes 350 Kcal/m²hr·°C at 3.5 bar steam because that figure is printed in its catalogue page; no equivalent figure was supplied for the condenser, so none is claimed."],
+    ],
+    related: ["boiler", "product-cooler", "shell-and-tube-heat-exchanger"],
+    keywords: "condenser, glass condenser, borosilicate condenser, condenser assembly, heat exchanger condenser, coil condenser, PTFE lined condenser, glass coil condenser, vapour condenser, reflux condenser glass",
+  },
+  {
     slug: "boiler",
     name: "Boiler",
     image: "assets/img/products/boiler.svg",
@@ -211,7 +267,7 @@ export const coilExchangers = [
       ["What is the difference between Type A and Type B?", "The DN1 connection. Type A has a reduced side connection — 25 mm on LSHEB4, 40 mm on LSHEB6 and LSHEB9. Type B has a full-bore DN1 equal to the shell, which suits a higher vapour load."],
       ["How do I size one?", "On duty. Take the average heat transfer as 350 Kcal/m²hr·°C at 3.5 bar steam, and pick the free actual H.T.A. that meets it — 0.15 m² at the smallest to 1.30 m² on LSHEB12/12. Send us the vapourisation rate and we will confirm."],
     ],
-    related: ["product-cooler", "shell-and-tube-heat-exchanger", "supporting-clamp", "apps-chemical-reactor"],
+    related: ["product-cooler", "shell-and-tube-heat-exchanger", "apps-chemical-reactor"],
     keywords: "glass boiler, LSHEB boiler, coil boiler glass shell, reboiler distillation glass, steam coil vapouriser, 350 kcal heat transfer boiler",
     featured: true,
   },
@@ -219,7 +275,7 @@ export const coilExchangers = [
   {
     slug: "product-cooler",
     name: "Product Cooler",
-    image: "assets/img/products/product-cooler.svg",
+    image: "assets/img/products/product-cooler-photo.jpg",
     drawing: "assets/img/products/product-cooler.svg",
     alt: "Dimension schematic of a product cooler with the product in the coil battery, showing DN, DN1, DN2 and L",
     subtitle: "LSHEC series, 0.10 m² to 1.25 m²",
@@ -279,121 +335,10 @@ export const coilExchangers = [
       ["Why is one area figure flagged?", "LSHEC 6/10 prints as 2.70 m², but the reference numbering implies 1.00 m² and the longer LSHEC 6/15 is listed at 1.25 m². A shorter unit cannot have more than twice the area of a longer one in the same shell, so we have flagged it rather than publish it as fact. Ask us and we will confirm against the master drawing."],
       ["Which model do I need?", "Size on the heat load and the outlet temperature you want. Send us the distillate rate, its inlet temperature and your coolant, and we will confirm the reference."],
     ],
-    related: ["boiler", "shell-and-tube-heat-exchanger", "angled-hose-connector-assembly", "rotary-evaporator"],
+    related: ["boiler", "shell-and-tube-heat-exchanger", "rotary-evaporator"],
     keywords: "product cooler, LSHEC product cooler, distillate cooler glass, coil battery cooler, glass liquid cooler, 25 DN distillate cooler",
   },
 ];
 
-export const hxAccessories = [
-  {
-    slug: "supporting-clamp",
-    name: "Supporting Clamp",
-    image: "assets/img/products/supporting-clamp.svg",
-    drawing: "assets/img/products/supporting-clamp.svg",
-    alt: "Dimension schematic of a supporting clamp for a horizontal shell and tube heat exchanger, showing DN, L, H, T and d",
-    subtitle: "LSRSP series, DN 150 to DN 300",
-    desc: "Clamp for horizontal installation of a shell and tube heat exchanger — three sizes covering DN 150, 225 and 300 glass shells.",
-    long: [
-      "This clamp is used for horizontal installations of shell and tube heat exchanger with a glass shell. A horizontal exchanger has to be carried along its length rather than hung from its nozzles, and the clamp is what takes that weight without loading the glass at the flanges.",
-      "It is one of three accessories the catalogue recommends for use with the shell and tube heat exchanger, alongside a PTFE bellow on all nozzles and a pressure relief valve.",
-      "Three references cover the three shell sizes in the range — DN 150, DN 225 and DN 300. Plate thickness T is 10 mm and bolt size d is 30 mm across all three; L and H grow with the shell.",
-    ],
-    features: [
-      "For horizontal installation of shell and tube heat exchangers",
-      "Suits glass shells DN 150, DN 225 and DN 300",
-      "10 mm plate thickness across the range",
-      "Recommended accessory for the shell and tube range",
-    ],
-    advantages: [
-      "Carries the exchanger along its length instead of loading the nozzle flanges",
-      "Sized directly to the three shell diameters — no selection beyond DN",
-      "Allows a horizontal installation where headroom is limited",
-    ],
-    applications: [
-      "Horizontal mounting of a glass shell and tube heat exchanger",
-      "Supporting an exchanger inside a tubular structure",
-      "Retrofitting support to a horizontally installed exchanger",
-    ],
-    industries: HX_INDUSTRIES,
-    spec: [
-      ["Product type", "Supporting clamp for shell and tube heat exchanger"],
-      ["Application", "Horizontal installations, glass shell"],
-      ["Shell sizes", "DN 150, DN 225 and DN 300"],
-      ["Plate thickness (T)", "10 mm"],
-      ["Bolt size (d)", "30 mm"],
-      ["Catalogue reference", "LSRSP series"],
-    ],
-    dim: {
-      caption: "Supporting Clamp — dimensions",
-      cols: ["Cat. Ref.", "DN", "L", "H", "T", "d"],
-      rows: [
-        ["LSRSP6/30", "150", "150", "487", "10", "30"],
-        ["LSRSP9/30", "225", "220", "525", "10", "30"],
-        ["LSRSP12/30", "300", "300", "565", "10", "30"],
-      ],
-      note: MM,
-    },
-    faqs: [
-      ["Do I need one for a vertical exchanger?", "The catalogue specifies this clamp for horizontal installations. For a vertical installation, ask us what support arrangement suits your structure."],
-      ["What else is recommended with a shell and tube exchanger?", "A PTFE bellow on all nozzles and a pressure relief valve, alongside this clamp — those are the three accessories the catalogue recommends."],
-    ],
-    related: ["shell-and-tube-heat-exchanger", "line-bellow", "structure-support", "boiler"],
-    keywords: "supporting clamp, LSRSP clamp, heat exchanger support clamp, horizontal shell and tube support, glass shell clamp",
-  },
-
-  {
-    slug: "angled-hose-connector-assembly",
-    name: "Angled Hose Connector Assembly",
-    image: "assets/img/products/angled-hose-connector-assembly.svg",
-    drawing: "assets/img/products/angled-hose-connector-assembly.svg",
-    alt: "Dimension schematic of an angled hose connector assembly with metal flange and rubber gasket, showing DN, d and L",
-    subtitle: "LSPMC series, 25 DN",
-    desc: "Metal or plastic angled hose connector for joining flexible hose to a condenser — supplied complete with metal flange, rubber gasket and nut bolt.",
-    long: [
-      "A metal or plastic angled hose connector assembly is available to connect the flexible hose to the condenser. Coolant lines are almost always flexible hose, and this is the fitting that takes them onto a glass nozzle at an angle rather than straight out.",
-      "It is provided with a metal flange, a rubber gasket and nut bolt — a complete assembly, so nothing else has to be sourced to make the connection.",
-      "One reference covers the range: LSPMC1/1.75, a 25 DN connection with a 22 mm hose spigot and 70 mm length.",
-    ],
-    features: [
-      "Connects flexible hose to a condenser",
-      "Available in metal or plastic",
-      "Angled, for hose runs that cannot leave straight off the nozzle",
-      "Supplied with metal flange, rubber gasket and nut bolt",
-      "25 DN connection with 22 mm hose spigot",
-    ],
-    advantages: [
-      "Complete assembly — flange, gasket and bolt included",
-      "Angled outlet keeps hose runs tidy and unkinked",
-      "Metal or plastic option to suit the coolant and the environment",
-    ],
-    applications: [
-      "Connecting coolant hose to a glass condenser",
-      "Cooling water supply and return on heat exchangers",
-      "Flexible service connections on a glass process line",
-    ],
-    industries: HX_INDUSTRIES,
-    spec: [
-      ["Product type", "Angled hose connector assembly"],
-      ["Material", "Metal or plastic"],
-      ["Connection", "25 DN"],
-      ["Hose spigot (d)", "22 mm"],
-      ["Length (L)", "70 mm"],
-      ["Supplied with", "Metal flange, rubber gasket and nut bolt"],
-      ["Catalogue reference", "LSPMC series"],
-    ],
-    dim: {
-      caption: "Angled Hose Connector Assembly — dimensions",
-      cols: ["Cat. Ref.", "DN", "d", "L"],
-      rows: [
-        ["LSPMC1/1.75", "25", "22", "70"],
-      ],
-      note: MM,
-    },
-    faqs: [
-      ["What comes with it?", "A metal flange, a rubber gasket and nut bolt — it is supplied as a complete assembly ready to make the connection."],
-      ["Metal or plastic?", "Both are available. Choose on the coolant and the surrounding environment; tell us the duty and we will advise."],
-    ],
-    related: ["product-cooler", "shell-and-tube-heat-exchanger", "boiler", "supporting-clamp"],
-    keywords: "angled hose connector, LSPMC hose connector, condenser hose connector, flexible hose glass connector, coolant hose fitting glass",
-  },
-];
+/* `hxAccessories` removed — Supporting Clamp and Angled Hose Connector
+   Assembly were both withdrawn, so the subcategory no longer exists. */

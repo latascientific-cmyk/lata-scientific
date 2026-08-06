@@ -248,6 +248,60 @@ export const bellows = [
 
 export const flangesAdaptors = [
   {
+    /* Added from the supplied Angle Support product sheet. That sheet is
+       descriptive, not dimensional — it publishes no bore, angle range or
+       catalogue reference — so none is stated here. Add `drawing` and a
+       `dim` table when the dimension page arrives. */
+    slug: "angle-support",
+    name: "Angle Support",
+    image: "assets/img/products/angle-support-photo.jpg",
+    subtitle: "Adjustable-angle support coupler, cast metal",
+    desc: "Cast metal support coupler with a bolted knuckle joint — the bore swivels against the socket so a member can be carried at any angle and locked there with a grub screw.",
+    long: [
+      "The angle support carries a member off a structure or an assembly at an angle that is not square. A bored eye sits on a bolted knuckle above a socketed body; slackening the hex bolt lets the eye swing to the angle wanted, and tightening it locks the joint. The socket beneath is fixed to its member with a grub screw, so the whole fitting is slidable and can be repositioned later without cutting or welding.",
+      "The supplied product sheet describes it as manufactured from high quality metal for secure support and alignment in laboratory and industrial assemblies, with corrosion resistance and long service life. The blue coating on the sheet's two views is the finish it is supplied in.",
+      "No dimensional datasheet was supplied for this item, so its bore sizes, angle range and catalogue reference are confirmed on enquiry rather than estimated from the neighbouring pages.",
+    ],
+    features: [
+      "Bolted knuckle joint — the bore swivels to the angle required",
+      "Locked at angle by tightening the knuckle bolt",
+      "Grub screw fixing in the socket, so the fitting stays slidable",
+      "Cast metal construction with a protective coating",
+      "Fixed and repositioned without cutting or welding",
+    ],
+    advantages: [
+      "Carries a member at any angle a square fitting cannot reach",
+      "One component replaces a fabricated bracket",
+      "Coated finish suits the corrosive atmosphere around a chemical plant",
+      "Can be slackened and re-set if the assembly is reconfigured",
+    ],
+    applications: [
+      "Supporting a member that runs at an angle off a structure",
+      "Bracing and alignment on laboratory and pilot plant assemblies",
+      "Angled support for glass equipment carried on a frame",
+      "Reconfiguring an existing assembly without refabrication",
+    ],
+    industries: CPL_INDUSTRIES,
+    spec: [
+      ["Product type", "Adjustable-angle support coupler"],
+      ["Material", "Cast metal, as stated on the supplied product sheet"],
+      ["Finish", "Protective coating"],
+      ["Adjustment", "Bolted knuckle joint, locked by the hex bolt"],
+      ["Fixing", "Grub screw in the socket — slidable to any position"],
+      ["Bore size range", "No datasheet supplied for this item — confirmed on enquiry"],
+      ["Angle range", "No datasheet supplied for this item — confirmed on enquiry"],
+      ["Catalogue reference", "Confirmed on enquiry"],
+    ],
+    faqs: [
+      ["What angles will it hold?", "The supplied product sheet publishes no angle range, so we do not quote one here. Tell us the angle and the member size you need to carry and we will confirm it against the drawing."],
+      ["How is it fixed?", "Two fixings. The socket clamps onto its member with a grub screw, so the fitting slides to position. The bored eye is set by the hex bolt through the knuckle, which locks the angle once tightened."],
+      ["What sizes is it made in?", "No dimensional datasheet was supplied for this item, so we have not published a bore table. Send us your tube or member size and we will confirm availability."],
+      ["Can it be re-set after installation?", "Yes. Slacken the knuckle bolt to change the angle, or the grub screw to slide it along the member. Nothing is cut or welded, so an assembly can be reconfigured later."],
+    ],
+    related: ["complete-coupling", "backing-flange", "glass-to-metal-adaptor-plate"],
+    keywords: "angle support, adjustable angle coupler, swivel support fitting, cast metal angle support, knuckle joint support, laboratory assembly support, angled support bracket",
+  },
+  {
     slug: "complete-coupling",
     name: "Complete Coupling",
     image: "assets/img/products/complete-coupling-photo.jpg",
@@ -317,7 +371,7 @@ export const flangesAdaptors = [
       ["Why order the set rather than the parts?", "Because the bolt length and count change with bore, and the insert has to match the flange. The set is matched by the catalogue, so nothing is wrong or missing when the joint is made up."],
       ["Can I still buy the parts individually?", "Yes. The backing flange (LSCF) and the insert (LSCN) are catalogued separately, so a damaged part can be replaced on its own."],
     ],
-    related: ["backing-flange", "insert", "ptfe-o-ring-with-locating-collar", "line-bellow"],
+    related: ["backing-flange", "insert", "line-bellow"],
     keywords: "complete coupling, LSCT coupling set, glass joint coupling set, backing flange insert nut bolt set, borosilicate pipeline coupling, glass pipe joint kit",
     featured: true,
   },
@@ -391,7 +445,7 @@ export const flangesAdaptors = [
       ["How many bolts does a joint take?", "It follows the n × d column — 3 bolts up to DN 50, 6 from DN 80 to DN 150, 8 at DN 225 and 12 from DN 300 upward."],
       ["Do I need two per joint?", "Yes — one on each glass end, with an insert each and a set of nut-bolts. That combination is catalogued as the complete coupling (LSCT)."],
     ],
-    related: ["complete-coupling", "insert", "adaptor-backing-flange", "ptfe-o-ring-with-locating-collar"],
+    related: ["complete-coupling", "insert", "adaptor-backing-flange"],
     keywords: "backing flange, LSCF backing flange, cast iron glass flange, borosilicate pipeline flange, glass end coupling flange, DN 600 backing flange",
     featured: true,
   },
@@ -481,7 +535,9 @@ export const flangesAdaptors = [
   {
     slug: "vacuum-bellow-flange",
     name: "Vacuum Bellow Flange",
-    image: "assets/img/products/vacuum-bellow-flange.svg",
+    /* Shares the Bellow Flange photograph — same part, vacuum duty.
+       `drawing` below stays on this product's own dimension schematic. */
+    image: "assets/img/products/bellow-flange-photo.jpg",
     drawing: "assets/img/products/vacuum-bellow-flange.svg",
     alt: "Dimension schematic of a vacuum bellow flange showing outside diameter D, PCD and length L",
     subtitle: "LSVBF series, DN 80 to DN 300",
@@ -621,7 +677,9 @@ export const flangesAdaptors = [
   {
     slug: "adaptor-backing-flange",
     name: "Adaptor Backing Flange",
-    image: "assets/img/products/adaptor-backing-flange.svg",
+    /* Shares the Adaptor Bellow Flange photograph.
+       `drawing` below stays on this product's own dimension schematic. */
+    image: "assets/img/products/adaptor-bellow-flange-photo.jpg",
     drawing: "assets/img/products/adaptor-backing-flange.svg",
     alt: "Dimension schematic of a cast iron adaptor backing flange with insert, showing D, D1 and L",
     subtitle: "LSCFA series, DN 15 to DN 300",
@@ -839,75 +897,5 @@ export const flangesAdaptors = [
   },
 ];
 
-export const gaskets = [
-  {
-    slug: "ptfe-o-ring-with-locating-collar",
-    name: "PTFE \"O\" Ring with Locating Collar",
-    image: "assets/img/products/ptfe-o-ring-with-locating-collar.svg",
-    drawing: "assets/img/products/ptfe-o-ring-with-locating-collar.svg",
-    alt: "Dimension schematic of a PTFE O ring with locating collar, showing D, D1, d and L",
-    subtitle: "LSTR series, DN 15 to DN 600",
-    desc: "PTFE gasket made specifically for glass fittings, with an integral collar that locates it correctly on the glass end — DN 15 to DN 600.",
-    long: [
-      "This PTFE “O” ring is specifically made to use as a gasket in glass fittings. It is the sealing element of a bolted glass joint, sitting between the two glass ends while the backing flanges and inserts carry the bolt load.",
-      "What separates it from a plain gasket is the collar. It is provided with a collar which helps to locate it on the glass end correctly — the gasket cannot creep off centre while the joint is being drawn up, which is exactly when a plain flat gasket tends to move and end up sealing on one side only.",
-      "Section thickness d steps from 3 mm on the small bores to 8 mm at DN 600, and collar length L from 5 mm to 10 mm, so the gasket stays in proportion to the bead it locates on.",
-    ],
-    features: [
-      "Made specifically as a gasket for glass fittings",
-      "Integral collar locates it correctly on the glass end",
-      "PTFE — inert to almost all process media",
-      "DN 15 to DN 600 in twelve catalogue references",
-      "Section 3 mm to 8 mm by bore",
-      "Collar length 5 mm to 10 mm by bore",
-    ],
-    advantages: [
-      "Cannot creep off centre while the joint is bolted up",
-      "Inert PTFE wetted face — no contamination of the batch",
-      "Correct location every time means a repeatable, even seal",
-      "Covers the full pipeline bore range on one reference family",
-    ],
-    applications: [
-      "Sealing bolted joints between borosilicate pipeline components",
-      "Remaking a joint after maintenance",
-      "Any glass fitting where a located, inert gasket is required",
-      "Corrosive acid, alkali and solvent service",
-    ],
-    industries: CPL_INDUSTRIES,
-    spec: [
-      ["Product type", "PTFE “O” ring gasket with locating collar"],
-      ["Material", "PTFE"],
-      ["Nominal bore range", "DN 15 to DN 600"],
-      ["Section (d)", "3 mm to 8 mm depending on bore"],
-      ["Collar length (L)", "5 mm to 10 mm depending on bore"],
-      ["Function", "Gasket for glass fittings; collar locates it on the glass end"],
-      ["Catalogue reference", "LSTR series"],
-    ],
-    dim: {
-      caption: "PTFE “O” Ring with Locating Collar — dimensions",
-      cols: ["Cat. Ref.", "DN", "D", "D1", "d", "L"],
-      rows: [
-        ["LSTR 07", "15", "29", "23", "3", "5"],
-        ["LSTR 1", "25", "42", "33", "3", "5"],
-        ["LSTR 1.5", "40", "57", "48", "3", "5"],
-        ["LSTR 2", "50", "70", "59", "3", "5"],
-        ["LSTR 3", "80", "100", "88", "3", "5"],
-        ["LSTR 4", "100", "134", "119", "4", "6"],
-        ["LSTR 6", "150", "186", "168", "4", "6"],
-        ["LSTR 9", "225", "260", "236", "4", "7"],
-        ["LSTR 12", "300", "342", "318", "4", "7"],
-        ["LSTR 16", "400", "467", "435", "6", "7"],
-        ["LSTR 18", "450", "537", "490", "6", "7"],
-        ["LSTR 24", "600", "686", "640", "8", "10"],
-      ],
-      note: MM + " d is the ring section and L the collar length.",
-    },
-    faqs: [
-      ["What does the collar do?", "It locates the gasket on the glass end correctly. Without it a flat gasket can shift while the flanges are being drawn up and end up sealing unevenly; the collar holds it concentric."],
-      ["Do I need a gasket if I am using a bellow?", "No. Where a bellow is used, no gasket is required — the bellow face seals against the glass end itself."],
-      ["Why PTFE?", "It is inert to almost all process media, so the gasket does not contaminate the batch or degrade in aggressive service — the same reason PTFE is used for the bellows and the spindles elsewhere in the range."],
-    ],
-    related: ["backing-flange", "complete-coupling", "insert", "line-bellow"],
-    keywords: "PTFE O ring, LSTR gasket, PTFE gasket glass fittings, locating collar gasket, borosilicate joint gasket, glass pipeline PTFE seal",
-  },
-];
+/* `gaskets` removed — PTFE "O" Ring with Locating Collar was its only
+   product and has been withdrawn, so the subcategory no longer exists. */

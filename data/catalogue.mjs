@@ -35,9 +35,9 @@ import { linedValves, linedSightFlow } from "./products-lined-valves.mjs";
 import { doubleWindow, tubular } from "./products-sightglass.mjs";
 import { pilotPlant } from "./products-pilot-plant.mjs";
 import { rotaryEvaporator } from "./products-rotary-evaporator.mjs";
-import { bellows, flangesAdaptors, gaskets } from "./products-coupling.mjs";
+import { bellows, flangesAdaptors } from "./products-coupling.mjs";
 import { structureTube, structureFittings } from "./products-tubular-structure.mjs";
-import { heatExchangers, coilExchangers, hxAccessories } from "./products-heat-exchanger.mjs";
+import { heatExchangers, coilExchangers } from "./products-heat-exchanger.mjs";
 import { columnComponents } from "./products-column-component.mjs";
 import { vessels, SPHERICAL_GENERAL_DATA } from "./products-vessel.mjs";
 import { FLANGE_TABLE, TOLERANCES, TORQUE_TABLE, STUD_TABLE, LINER_THICKNESS } from "./ptfe-shared.mjs";
@@ -82,7 +82,8 @@ export const categories = [
     subcategories: [
       { slug: "ptfe-bellows", name: "PTFE Bellows", products: bellows },
       { slug: "flanges-inserts-adaptors", name: "Flanges, Inserts & Adaptors", products: flangesAdaptors },
-      { slug: "gaskets-seals", name: "Gaskets & Seals", products: gaskets },
+      /* "Gaskets & Seals" retired — its only product, the PTFE "O" Ring with
+         Locating Collar, was withdrawn, leaving the subcategory empty. */
     ],
   },
   {
@@ -117,7 +118,9 @@ export const categories = [
     subcategories: [
       { slug: "shell-and-tube", name: "Shell & Tube Heat Exchangers", products: heatExchangers },
       { slug: "coil-heat-exchangers", name: "Coil Boilers & Product Coolers", products: coilExchangers },
-      { slug: "heat-exchanger-accessories", name: "Heat Exchanger Accessories", products: hxAccessories },
+      /* "Heat Exchanger Accessories" retired — both of its products
+         (Supporting Clamp, Angled Hose Connector Assembly) were withdrawn,
+         leaving the subcategory empty. */
     ],
   },
   {
