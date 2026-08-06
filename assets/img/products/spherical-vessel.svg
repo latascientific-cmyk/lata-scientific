@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 350" width="470" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Spherical Vessel — dimension schematic</title>
+  <desc id="dsc">Borosilicate spherical vessel in both catalogue builds. Left, the single neck AVSA build with neck DN and overall height L. Right, the AVSM build with centre neck DN, two side necks DN1, bottom outlet DN2 and overall height L.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+
+  <path class="ctr" d="M118 62V300"/>
+  <circle class="body" cx="118" cy="200" r="76"/>
+  <path class="body" d="M100 78h36v46h-36z"/>
+  <path class="line" d="M96 78h44"/>
+  <text class="s" x="144" y="102">DN</text>
+  <path class="dim" d="M34 78V276"/><text class="t" x="18" y="182">L</text>
+  <path class="ext" d="M98 78H38M118 276H38"/>
+  <text class="s" x="62" y="322">Single neck — AVSA</text>
+
+  <path class="ctr" d="M330 56V320"/>
+  <circle class="body" cx="330" cy="196" r="72"/>
+  <path class="body" d="M312 68h36v58h-36z"/>
+  <path class="line" d="M308 68h44"/>
+  <path class="body" d="M272 100h24v42h-24z"/>
+  <path class="line" d="M269 100h30"/>
+  <path class="body" d="M364 100h24v42h-24z"/>
+  <path class="line" d="M361 100h30"/>
+  <path class="body" d="M318 262h24v38h-24z"/>
+  <path class="line" d="M315 300h30"/>
+  <text class="s" x="316" y="60">DN</text>
+  <text class="s" x="236" y="120">DN1</text>
+  <text class="s" x="396" y="120">DN1</text>
+  <text class="s" x="352" y="292">DN2</text>
+  <path class="dim" d="M438 68V300"/><text class="t" x="446" y="190">L</text>
+  <path class="ext" d="M350 68h92M346 300h96"/>
+  <text class="s" x="248" y="332">Three neck &amp; bottom outlet — AVSM</text>
+</svg>

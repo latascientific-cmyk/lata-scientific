@@ -38,6 +38,8 @@ import { rotaryEvaporator } from "./products-rotary-evaporator.mjs";
 import { bellows, flangesAdaptors, gaskets } from "./products-coupling.mjs";
 import { structureTube, structureFittings } from "./products-tubular-structure.mjs";
 import { heatExchangers, coilExchangers, hxAccessories } from "./products-heat-exchanger.mjs";
+import { columnComponents } from "./products-column-component.mjs";
+import { vessels, SPHERICAL_GENERAL_DATA } from "./products-vessel.mjs";
 import { FLANGE_TABLE, TOLERANCES, TORQUE_TABLE, STUD_TABLE, LINER_THICKNESS } from "./ptfe-shared.mjs";
 import { FLANGE_STANDARDS, ASG_DRILLING } from "./sightglass-shared.mjs";
 import {
@@ -67,8 +69,8 @@ export const categories = [
   },
   {
     slug: "glass-valves", name: "Glass Valves", group: "glass",
-    tagline: "Straight, angle, drain, vent and three way",
-    blurb: "Borosilicate glass valves with PTFE spindles — straight through, drain, angle, vent, bottom outlet and three way patterns for isolating, draining, venting and diverting a glass process line, DN 15 to DN 50.",
+    tagline: "Straight, angle, drain, vent and bottom outlet",
+    blurb: "Borosilicate glass valves with PTFE spindles — straight through, drain, angle, vent and bottom outlet patterns for isolating, draining and venting a glass process line, DN 15 to DN 50.",
     brochure: "glass-valves.pdf",
     products: glassValves,
   },
@@ -130,7 +132,18 @@ export const categories = [
     tagline: "Sections, internals and distributors",
     blurb: "Column sections and internals — packing supports, distributors, sieve plates and flanged sections for fractionating and absorption columns.",
     brochure: "column-component.pdf",
-    products: [],
+    products: columnComponents,
+  },
+  {
+    slug: "vessel", name: "Vessel", group: "glass",
+    tagline: "Spherical and triple wall jacketed",
+    blurb: "Borosilicate process vessels — spherical vessels from 5 to 200 litres in a single neck build and a three neck build with bottom outlet, and triple wall jacketed vessels for heating, cooling and mixing duty.",
+    brochure: "vessel.pdf",
+    /* Capacity and pressure depend on the size of the sphere, not on the neck
+       arrangement, so the general data governs the whole range and is shown
+       once here rather than repeated per build. */
+    refTables: [SPHERICAL_GENERAL_DATA],
+    products: vessels,
   },
   /* ---------------- FLUID TRANSFER & FITTINGS ---------------- */
   {

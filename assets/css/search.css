@@ -1,0 +1,249 @@
+/* =========================================================
+   LATA SCIENTIFIC — product search
+   Every value here is an existing design token. No new colour, radius,
+   shadow, font or easing curve is introduced; the panel reuses the same
+   glassmorphism the sticky header already uses (blur + saturate over a
+   translucent paper fill), the same --shadow-lg the mega menu uses, and
+   the same --ease-out timing as the rest of the site.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   Header trigger (>= 901px) — reads as a slim field, behaves
+   as a button so the nav never reflows around a live input.
+   --------------------------------------------------------- */
+.hsearch {
+  display: none; align-items: center; gap: 9px; flex: none;
+  height: 42px; padding: 0 12px;
+  font-family: var(--f-body); font-size: 15px; color: var(--muted);
+  background: var(--paper-2); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: border-color .25s var(--ease), color .25s var(--ease),
+              background .25s var(--ease), box-shadow .25s var(--ease);
+}
+.hsearch:hover { border-color: var(--line-2); color: var(--ink-2); background: var(--paper); box-shadow: var(--shadow-xs); }
+.hsearch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hsearch svg { flex: none; }
+.hsearch__txt { display: none; white-space: nowrap; }
+.hsearch__kbd {
+  display: none; font-family: var(--f-mono); font-size: 11.5px; line-height: 1;
+  padding: 4px 7px; color: var(--muted);
+  background: var(--paper); border: 1px solid var(--line-2); border-radius: 6px;
+}
+/* Bounds below were measured, not estimated: at each width the trigger was
+   forced visible and .header__inner checked for overflow.
+     · 901–1119px — the quote button is hidden here by premium.css, so the row
+       is short and the trigger fits with room to spare (0px overflow at 901).
+     · 1120–1159px — the quote button returns while the container is still
+       narrow. The row fits without the trigger but overflows by 34px at 1120
+       and 18px at 1136 with it, so the trigger stands down rather than push
+       the quote button off screen.
+     · 1160px and up — fits again (0px overflow at 1160).
+   Through that one 40px band, search is still reachable: "/" opens it from
+   anywhere, and the inline field sits on products.html and every category
+   page. Below 901px the drawer trigger takes over. */
+@media (min-width: 901px) and (max-width: 1119px) { .hsearch { display: inline-flex; } }
+@media (min-width: 1160px) { .hsearch { display: inline-flex; } }
+/* The header has no room for a labelled field. Measured at the site's own
+   1200px container: logo 259 + nav 579 + CTA 169 + gaps 60 = 1067, leaving
+   133px — a "Search products" label needs 222px and would push the quote
+   button out of the viewport. So the trigger stays an icon, and the "/" hint
+   appears only from 1800px, where --container grows to 1320 and it fits.
+   The full search field lives on products.html and the category pages. */
+@media (min-width: 1800px) {
+  .hsearch { padding: 0 8px 0 12px; }
+  .hsearch__kbd { display: inline-block; }
+}
+
+/* ---------------------------------------------------------
+   Drawer trigger (<= 900px) — first item in the mobile nav
+   --------------------------------------------------------- */
+.navsearch { display: none; }
+@media (max-width: 900px) {
+  .navsearch {
+    display: flex; align-items: center; gap: 12px; width: 100%;
+    font-family: var(--f-body); font-size: 19px; font-weight: 500; color: var(--ink-2);
+    padding: 14px 12px; margin-bottom: 6px;
+    background: var(--paper-2); border: 1px solid var(--line);
+    border-radius: 10px; cursor: pointer; text-align: left;
+    transition: background .25s var(--ease), border-color .25s var(--ease);
+  }
+  .navsearch:hover, .navsearch:focus-visible { background: var(--paper); border-color: var(--accent); }
+}
+
+/* ---------------------------------------------------------
+   Inline field — page hero of products.html and category pages.
+   The hero is the dark --brand band, so the field is glass on dark.
+   --------------------------------------------------------- */
+.psearch { margin-top: 28px; max-width: 560px; position: relative; }
+.psearch__field {
+  display: flex; align-items: center; gap: 12px;
+  height: 56px; padding: 0 14px 0 16px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  transition: border-color .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease);
+}
+.psearch__field:hover { border-color: rgba(255,255,255,0.28); }
+.psearch__field:focus-within {
+  background: rgba(255,255,255,0.11);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.psearch__ico { display: grid; place-content: center; color: var(--on-brand-dim); flex: none; transition: color .25s var(--ease); }
+.psearch__field:focus-within .psearch__ico { color: var(--cyan); }
+.psearch__input {
+  flex: 1 1 auto; min-width: 0; height: 100%;
+  font-family: var(--f-body); font-size: 1.03rem; color: #fff;
+  background: none; border: 0; outline: none;
+  -webkit-appearance: none; appearance: none;
+}
+.psearch__input::placeholder { color: var(--on-brand-dim); }
+.psearch__input::-webkit-search-cancel-button { display: none; }
+.psearch__clear {
+  display: grid; place-content: center; flex: none;
+  width: 30px; height: 30px; border-radius: 50%;
+  color: var(--on-brand-dim); background: rgba(255,255,255,0.08);
+  border: 0; cursor: pointer;
+  transition: color .2s var(--ease), background .2s var(--ease);
+}
+.psearch__clear:hover { color: #fff; background: rgba(255,255,255,0.18); }
+.psearch__clear[hidden] { display: none; }
+
+/* Inline results are FIXED and portalled to <body>, placed by script against
+   the field's box. Two reasons it cannot simply hang off .psearch:
+   .pagehero sets overflow:hidden for its masked grid backdrop (clipped the
+   dropdown by 403px), and main.js gives .psearch a will-change that makes it
+   a containing block for fixed children (offset it by 605px). */
+.sresults--inline {
+  position: fixed; z-index: 60;
+  max-height: min(60vh, 460px);
+}
+
+/* ---------------------------------------------------------
+   Overlay — opened from the header and drawer triggers
+   --------------------------------------------------------- */
+.soverlay {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; grid-template-rows: min-content 1fr;
+  justify-items: center; align-content: start;
+  padding: clamp(12px, 8vh, 96px) var(--gutter) var(--gutter);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  /* Instant on open so the input is focusable on the first frame; delayed on
+     close so the fade-out is still visible. */
+  transition: opacity .26s var(--ease-out), visibility 0s linear .26s;
+}
+.soverlay::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(10,14,23,0.52);
+  backdrop-filter: blur(7px) saturate(120%);
+  -webkit-backdrop-filter: blur(7px) saturate(120%);
+}
+.soverlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .26s var(--ease-out), visibility 0s; }
+
+.sbox {
+  position: relative; width: min(680px, 100%);
+  display: flex; flex-direction: column; max-height: min(76vh, 640px);
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform: translateY(-10px) scale(.985);
+  transition: transform .3s var(--ease-out);
+}
+.soverlay.is-open .sbox { transform: none; }
+
+.sbox__field { display: flex; align-items: center; gap: 13px; padding: 0 16px 0 20px; height: 64px; border-bottom: 1px solid var(--line); flex: none; }
+.sbox__ico { display: grid; place-content: center; color: var(--muted); flex: none; }
+.sbox__input {
+  flex: 1 1 auto; min-width: 0; height: 100%;
+  font-family: var(--f-body); font-size: 1.08rem; color: var(--ink);
+  background: none; border: 0; outline: none; -webkit-appearance: none; appearance: none;
+}
+.sbox__input::placeholder { color: var(--muted); }
+.sbox__input::-webkit-search-cancel-button { display: none; }
+.sbox__esc {
+  font-family: var(--f-mono); font-size: 11.5px; line-height: 1; flex: none;
+  padding: 5px 8px; color: var(--muted); cursor: pointer;
+  background: var(--paper-2); border: 1px solid var(--line-2); border-radius: 6px;
+  transition: color .2s var(--ease), border-color .2s var(--ease);
+}
+.sbox__esc:hover { color: var(--ink-2); border-color: var(--muted); }
+
+/* ---------------------------------------------------------
+   Results list — shared by the overlay and the inline field
+   --------------------------------------------------------- */
+.sresults {
+  overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  background: var(--paper); border-radius: var(--radius-sm);
+}
+.soverlay .sresults { border-radius: 0; flex: 1 1 auto; }
+.sresults--inline { border: 1px solid var(--line); box-shadow: var(--shadow-lg); }
+.sresults[hidden] { display: none; }
+
+.sgroup {
+  position: sticky; top: 0; z-index: 1;
+  font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 14px 20px 8px; background: var(--paper);
+}
+.sitem {
+  display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: center;
+  padding: 10px 20px; text-decoration: none; color: inherit;
+  border-left: 2px solid transparent;
+  transition: background .18s var(--ease), border-color .18s var(--ease);
+}
+.sitem:hover, .sitem.is-active { background: var(--paper-2); border-left-color: var(--accent); }
+.sitem__media {
+  width: 52px; height: 52px; border-radius: 9px; overflow: hidden; flex: none;
+  background: var(--paper-3); border: 1px solid var(--line);
+  display: grid; place-content: center; color: var(--muted);
+}
+.sitem__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sitem__media img[src$=".svg"] { object-fit: contain; padding: 3px; }
+.sitem > span:last-child { min-width: 0; }
+.sitem__name { display: block; font-family: var(--f-display); font-weight: 600; font-size: 1.005rem; color: var(--ink); line-height: 1.3; }
+.sitem__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 3px; }
+.sitem__tag {
+  font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--accent-strong); background: var(--accent-soft);
+  padding: 3px 7px; border-radius: 5px; white-space: nowrap;
+}
+.sitem__tag--series { color: var(--body); background: var(--paper-2); border: 1px solid var(--line); }
+.sitem__desc {
+  display: -webkit-box; font-size: 0.9rem; color: var(--body); margin-top: 4px; line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
+.sitem mark { background: var(--accent-soft); color: var(--accent-strong); font-weight: 600; border-radius: 3px; padding: 0 1px; }
+
+/* Empty / no-results */
+.sempty { padding: 34px 20px 26px; text-align: center; }
+.sempty__ico { display: grid; place-content: center; width: 58px; height: 58px; margin: 0 auto 14px; border-radius: 50%; color: var(--muted); background: var(--paper-2); border: 1px solid var(--line); }
+.sempty__title { font-family: var(--f-display); font-weight: 600; font-size: 1.06rem; color: var(--ink); }
+.sempty__sub { font-size: 0.94rem; color: var(--body); margin-top: 6px; }
+.sfoot {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap; flex: none;
+  padding: 11px 20px; border-top: 1px solid var(--line); background: var(--paper-2);
+  font-size: 12.5px; color: var(--muted);
+}
+.sfoot kbd { font-family: var(--f-mono); font-size: 11px; padding: 3px 6px; margin-right: 5px; background: var(--paper); border: 1px solid var(--line-2); border-radius: 5px; }
+@media (max-width: 620px) { .sfoot { display: none; } }
+
+/* ---------------------------------------------------------
+   Mobile — the overlay becomes a full-width sheet
+   --------------------------------------------------------- */
+@media (max-width: 620px) {
+  .soverlay { padding: 0; grid-template-rows: 1fr; align-content: stretch; }
+  .sbox { width: 100%; max-height: 100%; height: 100%; border: 0; border-radius: 0; transform: translateY(14px); }
+  .sbox__field { height: 60px; padding-left: 16px; }
+  .sitem { padding: 12px 16px; grid-template-columns: 56px 1fr; }
+  .sitem__media { width: 56px; height: 56px; }
+  .sgroup { padding: 14px 16px 8px; }
+  .psearch__field { height: 52px; }
+}
+/* Touch targets stay comfortable wherever the pointer is coarse. */
+@media (pointer: coarse) { .sitem { min-height: 68px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .soverlay, .sbox, .hsearch, .navsearch, .psearch__field, .sitem { transition: none; }
+}

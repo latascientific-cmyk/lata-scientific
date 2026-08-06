@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">PTFE Redistributor — dimension schematic</title>
+  <desc id="dsc">PTFE redistributor clamped between two column sections to prevent channeling. Front view showing the central opening d inside the column bore DN, and a section view showing the conical skirt of height L.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M18 172H244"/><path class="ctr" d="M131 68V276"/>
+  <circle class="metal" cx="131" cy="172" r="72"/>
+  <circle class="ext" cx="131" cy="172" r="56" fill="none"/>
+  <circle class="body" cx="131" cy="172" r="40"/>
+  <path class="dim" d="M59 76h144"/><text class="t" x="112" y="70">DN</text>
+  <path class="ext" d="M59 98V80M203 98V80"/>
+  <path class="dim" d="M91 290h80"/><text class="t" x="126" y="310">d</text>
+  <path class="ext" d="M91 214v80M171 214v80"/>
+  <path class="ctr" d="M286 172H430"/>
+  <path class="metal" d="M298 92h14v18h-14z"/>
+  <path class="metal" d="M298 234h14v18h-14z"/>
+  <path class="metal" d="M300 96 330 146 330 160 300 110z"/>
+  <path class="metal" d="M300 248 330 198 330 184 300 234z"/>
+  <path class="dim" d="M300 74h30"/><text class="s" x="308" y="68">L</text>
+  <path class="ext" d="M300 90V78M330 144V78"/>
+  <path class="dim" d="M364 146V198"/><text class="t" x="370" y="176">d</text>
+  <path class="ext" d="M332 146h30M332 198h30"/>
+  <path class="dim" d="M414 92V252"/><text class="t" x="398" y="84">DN</text>
+  <path class="ext" d="M314 92h96M314 252h96"/>
+  <text class="s" x="286" y="286">Clamped between two column</text>
+  <text class="s" x="286" y="302">sections, no gasket required</text>
+</svg>

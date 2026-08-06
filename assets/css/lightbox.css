@@ -1,0 +1,129 @@
+/* =========================================================
+   LATA SCIENTIFIC — product image viewer
+   Same tokens as the rest of the site: --brand for the scrim, --radius
+   family for corners, --ease-out for motion, --f-mono for the counter.
+   The viewer is an overlay only — it adds no box to any page, so nothing
+   above it can shift and no existing rule is touched.
+   ========================================================= */
+
+/* The affordance on the page: a soft zoom cursor and a barely-there lift.
+   No layout property is animated, so nothing reflows on hover. */
+[data-zoomable] { cursor: zoom-in; }
+@media (hover: none) { [data-zoomable] { cursor: default; } }
+
+.lbox {
+  position: fixed; inset: 0; z-index: 300;
+  display: grid; grid-template-rows: auto 1fr auto;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  /* visibility flips instantly on open so the close button is focusable on
+     the first frame, and is delayed on close so the fade-out is still seen.
+     Transitioning it symmetrically would leave the dialog unfocusable for
+     half the duration, which breaks focus management for keyboard users. */
+  transition: opacity .28s var(--ease-out), visibility 0s linear .28s;
+  touch-action: none; user-select: none; -webkit-user-select: none;
+}
+.lbox::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(10,14,23,0.88);
+  backdrop-filter: blur(9px) saturate(120%);
+  -webkit-backdrop-filter: blur(9px) saturate(120%);
+}
+.lbox.is-open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .28s var(--ease-out), visibility 0s; }
+
+/* ---------- chrome ---------- */
+.lbox__bar {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px clamp(12px, 3vw, 22px);
+  color: var(--on-brand);
+}
+.lbox__title {
+  flex: 1 1 auto; min-width: 0;
+  font-family: var(--f-display); font-weight: 600; font-size: 1rem; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lbox__count { font-family: var(--f-mono); font-size: 12.5px; color: var(--on-brand-dim); flex: none; }
+.lbox__btn {
+  display: grid; place-content: center; flex: none;
+  width: 42px; height: 42px; border-radius: var(--radius-sm);
+  color: var(--on-brand); background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14); cursor: pointer;
+  transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease), opacity .2s var(--ease);
+}
+.lbox__btn:hover { background: rgba(255,255,255,0.17); color: #fff; border-color: rgba(255,255,255,0.3); }
+.lbox__btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.lbox__btn[disabled] { opacity: .32; cursor: default; }
+.lbox__btn[disabled]:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.14); }
+
+/* ---------- stage ---------- */
+.lbox__stage {
+  position: relative; z-index: 1;
+  display: grid; place-items: center;
+  overflow: hidden; min-height: 0;
+  padding: 0 clamp(8px, 2vw, 20px);
+}
+.lbox__img {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  box-shadow: var(--shadow-lg);
+  transform-origin: 0 0;
+  transition: transform .26s var(--ease-out), opacity .2s var(--ease);
+  will-change: transform;
+}
+.lbox__img.is-panning { transition: none; cursor: grabbing; }
+.lbox__img.is-zoomed { cursor: grab; }
+.lbox.is-swapping .lbox__img { opacity: 0; }
+
+/* Prev / next sit over the stage on desktop, under the thumbs on phones. */
+.lbox__nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+  width: 46px; height: 46px;
+}
+.lbox__nav--prev { left: clamp(6px, 2vw, 18px); }
+.lbox__nav--next { right: clamp(6px, 2vw, 18px); }
+.lbox__nav[hidden] { display: none; }
+
+/* ---------- footer: thumbnails + zoom ---------- */
+.lbox__foot {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  flex-wrap: wrap;
+  padding: 12px clamp(12px, 3vw, 22px) clamp(14px, 3vw, 22px);
+}
+.lbox__thumbs { display: flex; gap: 8px; overflow-x: auto; max-width: 100%; padding: 2px; scrollbar-width: none; }
+.lbox__thumbs::-webkit-scrollbar { display: none; }
+.lbox__thumbs[hidden] { display: none; }
+.lbox__thumb {
+  width: 58px; height: 58px; flex: none; padding: 0;
+  border-radius: 9px; overflow: hidden; cursor: pointer;
+  background: rgba(255,255,255,0.9);
+  border: 2px solid transparent; opacity: .55;
+  transition: opacity .2s var(--ease), border-color .2s var(--ease);
+}
+.lbox__thumb img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.lbox__thumb:hover { opacity: .85; }
+.lbox__thumb.is-current { opacity: 1; border-color: var(--accent); }
+.lbox__thumb:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+.lbox__zoom { display: flex; align-items: center; gap: 8px; }
+.lbox__pct { font-family: var(--f-mono); font-size: 12px; color: var(--on-brand-dim); min-width: 46px; text-align: center; }
+
+.lbox__hint {
+  position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%);
+  font-size: 12px; color: var(--on-brand-dim); white-space: nowrap; pointer-events: none;
+}
+@media (max-width: 760px) { .lbox__hint { display: none; } }
+
+@media (max-width: 620px) {
+  .lbox__bar { padding: 10px 12px; }
+  .lbox__btn { width: 44px; height: 44px; }
+  .lbox__nav { width: 44px; height: 44px; }
+  .lbox__thumb { width: 52px; height: 52px; }
+  .lbox__foot { gap: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lbox, .lbox__img, .lbox__btn, .lbox__thumb { transition: none; }
+}

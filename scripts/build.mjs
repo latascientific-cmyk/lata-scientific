@@ -10,7 +10,7 @@
    edit data/catalogue.mjs (or this template) and re-run.
    ========================================================= */
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { categories } from "../data/catalogue.mjs";
@@ -113,6 +113,8 @@ const ICON = {
   "tubular-structure": '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
   "heat-exchanger": '<path d="M3 6h14a4 4 0 0 1 0 12H3"/><path d="M6 6v12M10 6v12M14 6v12"/>',
   "column-component": '<rect x="8" y="2" width="8" height="20" rx="1.6"/><path d="M8 7h8M8 12h8M8 17h8"/><path d="M5 12h3M16 12h3"/>',
+  /* Spherical vessel — the bulb with its neck, the shape the whole range shares */
+  vessel: '<path d="M9.5 3h5"/><path d="M10.5 3v4.2M13.5 3v4.2"/><circle cx="12" cy="14" r="6.5"/>',
   /* Pilot plant series — a stirred reaction vessel with its drive */
   "pilot-plant": '<path d="M12 3v3"/><path d="M8 4h8"/><path d="M6 9h12v6a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z"/><path d="M12 6v9"/><path d="M9.5 14.5h5"/>',
 };
@@ -123,6 +125,32 @@ const bigArt = (slug) =>
   `<svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(36 36) scale(2)">${ICON[slug] || ""}</g></svg>`;
 
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+/* ---------- product search ----------
+   Two mount points, one engine (assets/js/search.js):
+     · a trigger in the header (and one in the mobile drawer) that opens the
+       overlay — the header is already tight between 901 and 1119px, so a live
+       input cannot live there without reflowing the nav;
+     · a real inline field in the page hero of products.html and every category
+       page, where there is room for one.
+   The index itself is fetched on first intent, so no page pays for search in
+   its initial load. */
+const searchIco = (w = 18) =>
+  `<svg viewBox="0 0 24 24" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>`;
+
+const headerSearchBtn = () =>
+  `<button class="hsearch" type="button" data-search-open aria-haspopup="dialog" aria-label="Search products">${searchIco(18)}<span class="hsearch__txt">Search products</span><kbd class="hsearch__kbd">/</kbd></button>`;
+
+const drawerSearchBtn = () =>
+  `<button class="navsearch" type="button" data-search-open aria-haspopup="dialog">${searchIco(20)}<span>Search products</span></button>`;
+
+const inlineSearch = (placeholder) => `<div class="psearch" data-search-inline>
+        <div class="psearch__field">
+          <span class="psearch__ico">${searchIco(20)}</span>
+          <input class="psearch__input" type="search" placeholder="${esc(placeholder)}" aria-label="Search products" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-expanded="false" aria-autocomplete="list" />
+          <button class="psearch__clear" type="button" aria-label="Clear search" hidden><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </div>
+      </div>`;
 const glass = categories.filter((c) => c.group === "glass");
 const fluid = categories.filter((c) => c.group === "fluid");
 const find = (slug) => categories.find((c) => c.slug === slug);
@@ -157,6 +185,7 @@ const header = () => `<div class="topbar">
   <div class="container header__inner">
     <a class="logo" href="index.html" aria-label="Lata Scientific home"><span class="logo__mark" aria-hidden="true"><svg viewBox="0 0 32 40" width="22" height="28"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9v15a5 5 0 0 0 5 5h3"/><path d="M27 14a4.5 4.5 0 0 0-4.5-4h-.5a4.8 4.8 0 0 0 0 9.6h1.5a4.8 4.8 0 0 1 0 9.6h-.8a4.5 4.5 0 0 1-4.3-3.6"/></g><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".75"><path d="M5.5 13h2.5M5.5 17h2.5M5.5 21h2.5"/></g></svg></span><span class="logo__text"><span class="logo__name">Lata<span>Scientific</span></span><span class="logo__tag">Glass · Process · Fluid</span></span></a>
     <nav class="mainnav" id="mainnav" aria-label="Primary">
+      ${drawerSearchBtn()}
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <div class="has-mega">
@@ -170,6 +199,7 @@ ${megaCol("Fluid Transfer &amp; Fittings", fluid)}
       <a href="capabilities.html">Capabilities</a>
       <a href="quality.html">Quality</a>
       <a href="contact.html">Contact</a>
+      ${headerSearchBtn()}
       <a href="contact.html" class="btn btn--primary only-drawer">Request a quote</a>
     </nav>
     <div class="header__cta"><a href="contact.html" class="btn btn--primary">Request a quote</a></div>
@@ -204,6 +234,9 @@ const footer = () => `<footer class="site-footer footer">
 <script src="assets/js/product-index.js" defer></script>
 <script src="assets/js/enquiry.js" defer></script>
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/search.js" defer></script>
+<script src="assets/js/lightbox.js" defer></script>
+<script src="assets/js/cards.js" defer></script>
 <script type="module" src="assets/js/premium.js"></script>
 </body>
 </html>`;
@@ -246,6 +279,8 @@ ${extra.image ? `  <meta name="twitter:image" content="${BASE_URL}${extra.image}
   <link rel="stylesheet" href="assets/css/premium.css" />
   <link rel="stylesheet" href="assets/css/catalogue.css" />
   <link rel="stylesheet" href="assets/css/enquiry.css" />
+  <link rel="stylesheet" href="assets/css/search.css" />
+  <link rel="stylesheet" href="assets/css/lightbox.css" />
   <!-- Fonts load without blocking first paint; display=swap keeps text visible. -->
   <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" /></noscript>
@@ -339,6 +374,7 @@ const categoryPage = (cat) => head(
       <p class="eyebrow">${cat.group === "glass" ? "Glass &amp; process equipment" : "Fluid transfer &amp; fittings"}</p>
       <h1>${cat.name}</h1>
       <p>${cat.blurb}</p>
+      ${inlineSearch("Search products — name, series or catalogue code")}
     </div>
   </section>
 
@@ -753,6 +789,7 @@ const overviewPage = () => head(
       <p class="eyebrow">Full catalogue</p>
       <h1>Everything your process line needs, from one supplier.</h1>
       <p>Two catalogues under one quality standard — precision borosilicate glass and hygienic fluid-transfer components. Pick a category to see its products, specs and brochures.</p>
+      ${inlineSearch("Search the catalogue — product, category, series or code")}
     </div>
   </section>
 
@@ -787,6 +824,115 @@ out("assets/js/product-index.js",
 window.LATA_PRODUCTS = ${JSON.stringify(productIndex, null, 0)};
 `);
 console.log(`Wrote assets/js/product-index.js with ${Object.keys(productIndex).length} products.`);
+
+/* ---------- search index ----------
+   Emitted as JavaScript, not JSON, and pulled in with a <script> tag on first
+   search intent. That keeps the lazy load — no page pays for search until it
+   is used — while working from file:// as well as http://, which a fetch()
+   cannot: every browser blocks fetch on the file: scheme, and the failure is
+   silent, so a visitor opening the site straight off disk saw "No matching
+   products found" for every query.
+
+   Fields are single letters because this file is downloaded, not read:
+     s slug · n name · c category · cs category slug · p parent group
+     g series (subcategory) · d short description · i image
+     r catalogue codes · k keywords · x long description
+     a applications · f features · sp specifications
+     dl download titles · dt dimension table titles · pop featured flag */
+/* Standards, units and material abbreviations read like catalogue codes to a
+   regex but are not ones — indexing "DN" as a product code would rank half the
+   catalogue against a bore-size query. */
+const NOT_A_CODE = new Set([
+  "DN", "NB", "PN", "MM", "ID", "OD", "NPS", "NPT", "BSP", "SWG",
+  "PTFE", "PFA", "FEP", "PP", "PVC", "FRP", "SS", "MS", "GI", "CI", "CS",
+  "ASA", "ASME", "ANSI", "BS", "ISO", "ASTM", "EN", "DIN", "GMP", "HTA",
+  "IP", "HP", "UV", "OK", "PVDF", "HDPE",
+]);
+const codesOf = (p) => {
+  const out = new Set();
+  // First column of every dimension table is the catalogue reference — this is
+  // the authoritative source, so it is taken as printed.
+  for (const t of [p.dim, p.matTable]) {
+    if (!t || !t.rows) continue;
+    for (const r of t.rows) {
+      const v = plain(r[0]).trim();
+      if (v && /[A-Za-z]/.test(v) && /\d/.test(v)) out.add(v);
+    }
+  }
+  // Series names printed in the spec table ("LSPV series, e.g. LSPV1.5 = DN 40").
+  for (const [k, v] of p.spec || []) {
+    if (!/catalogue reference|series/i.test(k)) continue;
+    for (const m of plain(v).matchAll(/\b[A-Z]{2,}[A-Z0-9]*(?:[./-][A-Z0-9]+)*\b/g)) {
+      const code = m[0];
+      if (NOT_A_CODE.has(code)) continue;
+      out.add(code);
+    }
+  }
+  return [...out];
+};
+
+const GROUP_LABEL = {
+  glass: "Glass & Process Equipment",
+  fluid: "Fluid Transfer & Fittings",
+};
+
+/* The bulk text fields are only ever used as lowercase haystacks for substring
+   matching, never displayed, so they ship as a deduplicated word list rather
+   than prose. Every query term is matched independently, so losing word order
+   costs nothing — and it takes the index from 390 KB to a fraction of that.
+   Fields that ARE displayed (name, category, series, description) keep their
+   real text. */
+const bag = (s) => [...new Set(
+  plain(s).toLowerCase().normalize("NFKD").replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, " ").trim().split(" ").filter(Boolean)
+)].join(" ");
+
+const searchIndex = {
+  categories: categories.map((c) => ({
+    s: c.slug, n: plain(c.name), t: plain(c.tagline), b: plain(c.blurb),
+    g: c.group, p: GROUP_LABEL[c.group] || "", q: allProducts(c).length,
+    i: (allProducts(c).find((x) => x.image) || {}).image || "",
+    /* Every subcategory name, so searching a series finds its category too. */
+    sub: (subsOf(c) || []).map((s) => plain(s.name)).join(" · "),
+  })),
+  products: [],
+};
+for (const c of categories) {
+  for (const p of allProducts(c)) {
+    const sub = subOf(c, p);
+    searchIndex.products.push({
+      s: p.slug,
+      n: plain(p.name),
+      c: plain(c.name),
+      cs: c.slug,
+      p: GROUP_LABEL[c.group] || "",
+      g: sub ? plain(sub.name) : "",
+      d: plain(p.subtitle || p.desc || "").slice(0, 150),
+      i: p.image || "",
+      r: codesOf(p),
+      k: bag(p.keywords || ""),
+      x: bag([p.desc, ...(p.long || [])].filter(Boolean).join(" ")),
+      a: bag((p.applications || []).concat(p.industries || []).join(" ")),
+      f: bag((p.features || []).concat(p.advantages || []).join(" ")),
+      sp: bag((p.spec || []).concat(p.specs || [])
+        .map(([k, v]) => k + " " + v).join(" ")),
+      dl: bag((p.downloads || []).map((d) => d.label).join(" ")),
+      dt: bag([p.dim, p.matTable].filter(Boolean)
+        .map((t) => t.caption + " " + (t.cols || []).join(" ")).join(" ")),
+      /* Featured items are what the empty and no-results states offer. */
+      pop: p.featured ? 1 : 0,
+    });
+  }
+}
+out("assets/js/search-index.js",
+  `/* Generated by scripts/build.mjs — do not edit by hand.
+   Every product and category in data/catalogue.mjs, rebuilt on every run, so
+   anything added to the catalogue is searchable without touching search.js.
+   Delivered as a script rather than JSON so it also loads from file://. */
+window.LATA_SEARCH_INDEX = ${JSON.stringify(searchIndex)};
+`);
+const idxKb = Math.round(JSON.stringify(searchIndex).length / 1024);
+console.log(`Wrote assets/js/search-index.js — ${searchIndex.products.length} products, ${searchIndex.categories.length} categories (${idxKb} KB, loaded on demand).`);
 if (missingPdfs.size) {
   console.log(`\nBrochures not yet supplied (pages ask for them by email instead of linking to a 404):`);
   for (const f of [...missingPdfs].sort()) console.log(`  assets/pdfs/${f}`);

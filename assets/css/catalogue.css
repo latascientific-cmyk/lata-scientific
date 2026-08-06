@@ -75,9 +75,14 @@
    --------------------------------------------------------- */
 .dtable { margin: 28px 0 0; }
 .dtable:first-of-type { margin-top: 0; }
+/* The caption names the table, and on pages carrying two or three of them it
+   is the only thing telling one apart from the next — so it is set as a small
+   heading (display face, full ink, bold) rather than the faint grey mono label
+   it used to be, which was easy to skim straight past. */
 .dtable__cap {
-  font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.09em;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+  font-family: var(--f-display); font-size: 1.15rem; font-weight: 600;
+  letter-spacing: -0.01em; line-height: 1.25;
+  color: var(--ink); margin-bottom: 12px;
 }
 .dtable__scroll {
   overflow-x: auto; -webkit-overflow-scrolling: touch;

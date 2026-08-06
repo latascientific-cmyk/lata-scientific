@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 350" width="440" height="350" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">PTFE Perforated Plate — dimension schematic</title>
+  <desc id="dsc">PTFE perforated plate used as a packing retainer in a glass column. Front view showing the perforated face of diameter d, and a side view showing thickness L. DN is the nominal diameter of the column.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 1.6 10 5 0 8.4z" fill="#8A8F9A"/>
+    </marker>
+    <style>
+    .body{fill:#F4F8FD;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .line{fill:none;stroke:#2C3340;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+    .metal{fill:#DCE6F1;stroke:#2C3340;stroke-width:2.2;stroke-linejoin:round}
+    .ctr{fill:none;stroke:#1E6BFF;stroke-width:1.1;stroke-dasharray:9 4 2 4;opacity:.65}
+    .dim{fill:none;stroke:#8A8F9A;stroke-width:1;marker-start:url(#a);marker-end:url(#a)}
+    .ext{fill:none;stroke:#8A8F9A;stroke-width:.8;stroke-dasharray:3 3}
+    .t{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:14px;font-weight:600;fill:#111}
+    .s{font-family:ui-sans-serif,system-ui,'Segoe UI',Inter,Arial,sans-serif;font-size:12.5px;fill:#545B68}</style>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <path class="ctr" d="M18 172H244"/><path class="ctr" d="M131 66V278"/>
+  <circle class="metal" cx="131" cy="172" r="74"/>
+  <circle class="body" cx="113" cy="118" r="4.5"/><circle class="body" cx="131" cy="118" r="4.5"/><circle class="body" cx="149" cy="118" r="4.5"/>
+  <circle class="body" cx="95" cy="136" r="4.5"/><circle class="body" cx="113" cy="136" r="4.5"/><circle class="body" cx="131" cy="136" r="4.5"/><circle class="body" cx="149" cy="136" r="4.5"/><circle class="body" cx="167" cy="136" r="4.5"/>
+  <circle class="body" cx="77" cy="154" r="4.5"/><circle class="body" cx="95" cy="154" r="4.5"/><circle class="body" cx="113" cy="154" r="4.5"/><circle class="body" cx="131" cy="154" r="4.5"/><circle class="body" cx="149" cy="154" r="4.5"/><circle class="body" cx="167" cy="154" r="4.5"/><circle class="body" cx="185" cy="154" r="4.5"/>
+  <circle class="body" cx="77" cy="172" r="4.5"/><circle class="body" cx="95" cy="172" r="4.5"/><circle class="body" cx="113" cy="172" r="4.5"/><circle class="body" cx="149" cy="172" r="4.5"/><circle class="body" cx="167" cy="172" r="4.5"/><circle class="body" cx="185" cy="172" r="4.5"/>
+  <circle class="body" cx="77" cy="190" r="4.5"/><circle class="body" cx="95" cy="190" r="4.5"/><circle class="body" cx="113" cy="190" r="4.5"/><circle class="body" cx="131" cy="190" r="4.5"/><circle class="body" cx="149" cy="190" r="4.5"/><circle class="body" cx="167" cy="190" r="4.5"/><circle class="body" cx="185" cy="190" r="4.5"/>
+  <circle class="body" cx="95" cy="208" r="4.5"/><circle class="body" cx="113" cy="208" r="4.5"/><circle class="body" cx="131" cy="208" r="4.5"/><circle class="body" cx="149" cy="208" r="4.5"/><circle class="body" cx="167" cy="208" r="4.5"/>
+  <circle class="body" cx="113" cy="226" r="4.5"/><circle class="body" cx="131" cy="226" r="4.5"/><circle class="body" cx="149" cy="226" r="4.5"/>
+  <path class="dim" d="M57 292h148"/><text class="t" x="124" y="312">d</text>
+  <path class="ext" d="M57 248v50M205 248v50"/>
+  <path class="ctr" d="M286 172H430"/>
+  <path class="metal" d="M306 98h18v148h-18z"/>
+  <path class="ext" d="M306 118h18M306 136h18M306 154h18M306 190h18M306 208h18M306 226h18"/>
+  <path class="dim" d="M306 80h18"/><text class="s" x="330" y="84">L</text>
+  <path class="ext" d="M306 96V84M324 96V84"/>
+  <path class="dim" d="M400 98V246"/><text class="t" x="408" y="176">d</text>
+  <path class="ext" d="M326 98h78M326 246h78"/>
+  <text class="s" x="286" y="284">Clamped between two</text>
+  <text class="s" x="286" y="300">components, no gasket</text>
+  <text class="s" x="26" y="334">DN is the nominal diameter of the column</text>
+</svg>

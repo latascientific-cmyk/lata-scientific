@@ -3,7 +3,7 @@
 
    Every dimension table below is transcribed row-for-row from the supplied
    catalogue pages. Catalogue references (LSPV…, LSPVD…, LSPVE…, LSPVL…,
-   LSBAL…, LSPVT…) are the catalogue's own.
+   LSBAL…) are the catalogue's own.
 
    ⚠️  The catalogue pages are dimensional only. They state no pressure or
    temperature rating for this range, so none is claimed here. The one
@@ -15,7 +15,11 @@
    Angle Valve's D column is an ANGLE in degrees, not a diameter.
    ========================================================= */
 
+/* `img` is the dimension schematic, `photo` the supplied product shot. Where a
+   photo exists it becomes `image` and the schematic stays as `drawing`, so the
+   card and hero show the real valve and the dimension table keeps its drawing. */
 const img = (s) => `assets/img/products/glass-valve-${s}.svg`;
+const photo = (s) => `assets/img/products/${s}-photo.jpg`;
 
 export const GV = {
   material: "Borosilicate 3.3",
@@ -104,7 +108,7 @@ export const glassValves = [
       ["What is LSPV1.5/1?", "A reducing build: DN 40 on the line side and DN 25 on the branch, at the same 225 mm face-to-face as the full-bore DN 40 (LSPV1.5)."],
       ["What pressure is it rated for?", "The catalogue page is dimensional and publishes no pressure or temperature figure, so we do not quote one. Send us your duty and we will confirm it against the drawing."],
     ],
-    related: ["angle-valve", "three-way-valve", "drain-valve", "pipe-section"],
+    related: ["angle-valve", "vent-valve", "drain-valve", "pipe-section"],
     keywords: "borosilicate glass straight through valve, glass isolation valve, PTFE spindle glass valve, LSPV valve, DN 15 to DN 50 glass valve",
     featured: true,
   },
@@ -113,9 +117,10 @@ export const glassValves = [
     slug: "drain-valve",
     name: "Drain Valve",
     subtitle: "Glass drain valve, DN 15 to DN 50",
-    image: img("drain"),
+    image: photo("drain-valve"),
     drawing: img("drain"),
     alt: "Dimension schematic of a borosilicate glass drain valve showing DN, DN1, d, L, H and outlet diameter D",
+    photoAlt: "PTFE lined borosilicate glass drain valve with a stainless steel spindle assembly, bolted backing flanges and a tapered drain leg",
     desc: "Borosilicate glass drain valve for emptying the low point of a glass line or vessel — DN 15 to DN 50 with a tapered drain outlet from 14 mm to 50 mm.",
     long: [
       "A drain valve sits at the low point of a run or under a vessel and empties it completely. It shares the body, bore and face-to-face dimensions of the straight through valve, but adds a tapered drain leg below the seat — the D dimension in the table — so the contents fall clear instead of pooling above a horizontal outlet.",
@@ -171,9 +176,10 @@ export const glassValves = [
     slug: "angle-valve",
     name: "Angle Valve",
     subtitle: "Glass angle valve, DN 15 to DN 50, 90° and 80°",
-    image: img("angle"),
+    image: photo("angle-valve"),
     drawing: img("angle"),
     alt: "Dimension schematic of a borosilicate glass angle valve showing DN, DN1, d, L, H and the included angle D",
+    photoAlt: "PTFE lined borosilicate glass angle valve with a stainless steel spindle assembly, bolted backing flanges and a side outlet",
     desc: "Borosilicate glass angle valve combining a direction change and isolation in one body — DN 15 to DN 50, in 90° and 80° builds.",
     long: [
       "An angle valve turns the line and shuts it off in a single component, which removes a bend, a joint and a length of pipe from the layout. On a glass line that matters twice over: fewer joints means fewer potential leak paths and less glass to support.",
@@ -224,7 +230,7 @@ export const glassValves = [
       ["Is D a diameter?", "No. On this table D is the included angle in degrees. The diameter columns here are DN, DN1 and d."],
       ["What is the 80° version for?", "The same purpose as the 80° bends in the pipeline range: it puts a slight fall into a horizontal run so it drains."],
     ],
-    related: ["straight-through-valve", "three-way-valve", "bend-45", "drain-valve"],
+    related: ["straight-through-valve", "y-piece", "bend-45", "drain-valve"],
     keywords: "borosilicate glass angle valve, 90 degree glass valve, 80 degree glass valve, LSPVE valve, glass corner isolation valve",
     featured: true,
   },
@@ -351,61 +357,7 @@ export const glassValves = [
     featured: true,
   },
 
-  {
-    slug: "three-way-valve",
-    name: "Three Way Valve",
-    subtitle: "Glass three way valve, DN 25 to DN 50",
-    image: img("three-way"),
-    drawing: img("three-way"),
-    alt: "Dimension schematic of a borosilicate glass three way valve showing DN, DN1, d, L, L1, L2 and H",
-    desc: "Borosilicate glass three way valve for diverting flow between two routes without breaking the line — DN 25 to DN 50, with 80° and 10° branch options.",
-    long: [
-      "A three way valve sends flow down one of two paths from a single inlet, so a line can be switched between a receiver and a recycle leg, or between duty and standby equipment, without breaking a joint or fitting a second valve and a tee.",
-      "Four dimensions are published for each size and all four are needed to set the valve out: L along the straight run, L1 and L2 locating the branch, and H to the top of the handwheel. The catalogue also notes that <em>DN is also available in 80° and 10°</em>, so the branch angle can be varied from the standard build.",
-      "Three references cover DN 25 to DN 50, all full-bore — DN and DN1 are equal on every row.",
-    ],
-    features: [
-      "Diverts flow between two routes from one inlet",
-      "Full bore — DN and DN1 equal on every size",
-      "Branch also available in 80° and 10°, per the catalogue note",
-      "Four setting-out dimensions published: L, L1, L2 and H",
-      "DN 25 to DN 50, borosilicate 3.3 with PTFE spindle",
-    ],
-    advantages: [
-      "One valve instead of two plus a tee — fewer joints and less glass to support",
-      "Switch routes without breaking the line",
-      ...GV_ADV.slice(0, 4),
-    ],
-    applications: [
-      "Diverting between receivers on a distillation train",
-      "Duty and standby equipment changeover",
-      "Recycle and product take-off selection",
-      "Sampling without interrupting the main flow",
-    ],
-    industries: GV_INDUSTRIES,
-    spec: SPEC({
-      "Product type": "Glass three way valve",
-      "Nominal bore range": "DN 25 to DN 50, full bore",
-      "Face to face L": "180 mm to 250 mm",
-      "Branch angle": "Standard build; also available in 80° and 10°",
-      "Catalogue reference": "LSPVT series, e.g. LSPVT1.5 = DN 40",
-    }),
-    dim: {
-      caption: "Three Way Valve — dimensions",
-      cols: ["Cat. Ref.", "DN", "DN1", "d", "L", "L1", "L2", "H"],
-      rows: [
-        ["LSPVT1", "25", "25", "18", "180", "170", "100", "175"],
-        ["LSPVT1.5", "40", "40", "26", "220", "215", "150", "200"],
-        ["LSPVT2", "50", "50", "38", "250", "250", "150", "220"],
-      ],
-      note: MM + " The catalogue adds a note to this table: “dn is also available in 80° &amp; 10°”, reproduced here as printed.",
-    },
-    faqs: [
-      ["What do L1 and L2 measure?", "They locate the branch relative to the straight run — L1 down the branch and L2 along the run to it. Both are needed with L and H to set the valve out in an isometric."],
-      ["Can the branch angle be changed?", "Yes. The catalogue notes the item is also available in 80° and 10°. State the angle you need on the enquiry."],
-      ["Is it full bore?", "Yes — DN and DN1 are equal on all three references, so the branch is the same size as the run."],
-    ],
-    related: ["straight-through-valve", "angle-valve", "y-piece", "equal-tee"],
-    keywords: "borosilicate glass three way valve, glass diverter valve, LSPVT valve, glass changeover valve, DN 50 three way glass valve",
-  },
+  /* "Three Way Valve" (LSPVT series) was withdrawn from the range. Its entry,
+     page, drawing and inbound related-product links were removed together so
+     nothing links to a product that no longer exists. */
 ];

@@ -28,6 +28,8 @@
   <link rel="stylesheet" href="assets/css/premium.css" />
   <link rel="stylesheet" href="assets/css/catalogue.css" />
   <link rel="stylesheet" href="assets/css/enquiry.css" />
+  <link rel="stylesheet" href="assets/css/search.css" />
+  <link rel="stylesheet" href="assets/css/lightbox.css" />
   <!-- Fonts load without blocking first paint; display=swap keeps text visible. -->
   <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" /></noscript>
@@ -51,6 +53,7 @@
   <div class="container header__inner">
     <a class="logo" href="index.html" aria-label="Lata Scientific home"><span class="logo__mark" aria-hidden="true"><svg viewBox="0 0 32 40" width="22" height="28"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9v15a5 5 0 0 0 5 5h3"/><path d="M27 14a4.5 4.5 0 0 0-4.5-4h-.5a4.8 4.8 0 0 0 0 9.6h1.5a4.8 4.8 0 0 1 0 9.6h-.8a4.5 4.5 0 0 1-4.3-3.6"/></g><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".75"><path d="M5.5 13h2.5M5.5 17h2.5M5.5 21h2.5"/></g></svg></span><span class="logo__text"><span class="logo__name">Lata<span>Scientific</span></span><span class="logo__tag">Glass · Process · Fluid</span></span></a>
     <nav class="mainnav" id="mainnav" aria-label="Primary">
+      <button class="navsearch" type="button" data-search-open aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg><span>Search products</span></button>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
       <div class="has-mega">
@@ -59,13 +62,14 @@
 
           <div class="mega__group"><h4>Glass &amp; Process Equipment</h4>
             <a class="mega__link" href="cat-pipeline.html"><span class="mega__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9h5v6H2zM17 9h5v6h-5"/><path d="M7 12h10"/></svg></span><span><b>Pipeline Components</b><small>Pipe sections, bends, tees and closures</small></span></a>
-            <a class="mega__link" href="cat-glass-valves.html"><span class="mega__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h5M16 12h5"/><path d="M8 8h8v8H8z"/><path d="M12 8V4M9 4h6"/><path d="M10.5 12h3"/></svg></span><span><b>Glass Valves</b><small>Straight, angle, drain, vent and three way</small></span></a>
+            <a class="mega__link" href="cat-glass-valves.html"><span class="mega__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h5M16 12h5"/><path d="M8 8h8v8H8z"/><path d="M12 8V4M9 4h6"/><path d="M10.5 12h3"/></svg></span><span><b>Glass Valves</b><small>Straight, angle, drain, vent and bottom outlet</small></span></a>
             <a class="mega__link" href="cat-coupling.html"><span class="mega__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h7v4H3zM14 10h7v4h-7"/><path d="M10 7.5v9M14 7.5v9"/></svg></span><span><b>Coupling</b><small>Joints that hold the line together</small></span></a>
             <a class="mega__link" href="cat-rotary-evaporator.html"><span class="mega__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h6M7 5v5"/><path d="M7 10 4.5 17a3.2 3.2 0 0 0 3 4.4h-.9"/><circle cx="15.5" cy="16" r="4.6"/><path d="M11 9.5h6.5a2.5 2.5 0 0 1 2.5 2.5v1"/></svg></span><span><b>Rotary Evaporator</b><small>Solvent recovery, bench to pilot</small></span></a>
             <a class="mega__link" href="cat-tubular-structure.html"><span class="mega__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></span><span><b>Tubular Structure</b><small>Framed glass assemblies and skids</small></span></a>
             <a class="mega__link" href="cat-heat-exchanger.html"><span class="mega__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h14a4 4 0 0 1 0 12H3"/><path d="M6 6v12M10 6v12M14 6v12"/></svg></span><span><b>Heat Exchanger</b><small>Coil, shell-and-tube and block</small></span></a>
             <a class="mega__link" href="cat-pilot-plant.html"><span class="mega__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3"/><path d="M8 4h8"/><path d="M6 9h12v6a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z"/><path d="M12 6v9"/><path d="M9.5 14.5h5"/></svg></span><span><b>Pilot Plant Series</b><small>See-through reactors, research to pilot scale</small></span></a>
             <a class="mega__link" href="cat-column-component.html"><span class="mega__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="20" rx="1.6"/><path d="M8 7h8M8 12h8M8 17h8"/><path d="M5 12h3M16 12h3"/></svg></span><span><b>Column Component</b><small>Sections, internals and distributors</small></span></a>
+            <a class="mega__link" href="cat-vessel.html"><span class="mega__ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3h5"/><path d="M10.5 3v4.2M13.5 3v4.2"/><circle cx="12" cy="14" r="6.5"/></svg></span><span><b>Vessel</b><small>Spherical and triple wall jacketed</small></span></a>
           </div>
 
           <div class="mega__group"><h4>Fluid Transfer &amp; Fittings</h4>
@@ -79,6 +83,7 @@
       <a href="capabilities.html">Capabilities</a>
       <a href="quality.html">Quality</a>
       <a href="contact.html">Contact</a>
+      <button class="hsearch" type="button" data-search-open aria-haspopup="dialog" aria-label="Search products"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg><span class="hsearch__txt">Search products</span><kbd class="hsearch__kbd">/</kbd></button>
       <a href="contact.html" class="btn btn--primary only-drawer">Request a quote</a>
     </nav>
     <div class="header__cta"><a href="contact.html" class="btn btn--primary">Request a quote</a></div>
@@ -299,6 +304,9 @@
 <script src="assets/js/product-index.js" defer></script>
 <script src="assets/js/enquiry.js" defer></script>
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/search.js" defer></script>
+<script src="assets/js/lightbox.js" defer></script>
+<script src="assets/js/cards.js" defer></script>
 <script type="module" src="assets/js/premium.js"></script>
 </body>
 </html>

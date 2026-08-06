@@ -58,6 +58,7 @@ const ICON = {
   "tubular-structure": '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
   "heat-exchanger": '<path d="M3 6h14a4 4 0 0 1 0 12H3"/><path d="M6 6v12M10 6v12M14 6v12"/>',
   "column-component": '<rect x="8" y="2" width="8" height="20" rx="1.6"/><path d="M8 7h8M8 12h8M8 17h8"/><path d="M5 12h3M16 12h3"/>',
+  vessel: '<path d="M9.5 3h5"/><path d="M10.5 3v4.2M13.5 3v4.2"/><circle cx="12" cy="14" r="6.5"/>',
   "ptfe-lined": '<path d="M3 8h18v8H3z"/><path d="M6 10.5h12v3H6z"/><path d="M3 8v8M21 8v8"/>',
   "lined-valves": '<path d="M3 12h5M16 12h5"/><path d="M8 7h8v10H8z"/><circle cx="12" cy="12" r="2.2"/><path d="M12 7V4M10 4h4"/>',
   "sight-flow": '<path d="M2 10h4v4H2zM18 10h4v4h-4"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1.6"/>',
@@ -65,6 +66,16 @@ const ICON = {
 };
 const svg = (slug, w = 20) =>
   `<svg viewBox="0 0 24 24" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICON[slug] || ""}</svg>`;
+
+/* ---------- search triggers ----------
+   Byte-for-byte what build.mjs emits, so the header is identical on the
+   generated and the hand-written pages. */
+const searchIco = (w = 18) =>
+  `<svg viewBox="0 0 24 24" width="${w}" height="${w}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>`;
+const headerSearchBtn = () =>
+  `<button class="hsearch" type="button" data-search-open aria-haspopup="dialog" aria-label="Search products">${searchIco(18)}<span class="hsearch__txt">Search products</span><kbd class="hsearch__kbd">/</kbd></button>`;
+const drawerSearchBtn = () =>
+  `<button class="navsearch" type="button" data-search-open aria-haspopup="dialog">${searchIco(20)}<span>Search products</span></button>`;
 
 const glass = categories.filter((c) => c.group === "glass");
 const fluid = categories.filter((c) => c.group === "fluid");
@@ -159,6 +170,52 @@ for (const page of PAGES) {
       `<script src="assets/js/product-index.js" defer></script>\n<script src="assets/js/enquiry.js" defer></script>\n$1`
     );
   }
+
+  /* 0d. Product search + image viewer. Same assets, same order as build.mjs. */
+  if (!/assets\/css\/search\.css/.test(html)) {
+    html = html.replace(
+      /([ \t]*<link rel="stylesheet" href="assets\/css\/enquiry\.css"[^>]*>)/,
+      `$1\n  <link rel="stylesheet" href="assets/css/search.css" />`
+    );
+  }
+  if (!/assets\/css\/lightbox\.css/.test(html)) {
+    html = html.replace(
+      /([ \t]*<link rel="stylesheet" href="assets\/css\/search\.css"[^>]*>)/,
+      `$1\n  <link rel="stylesheet" href="assets/css/lightbox.css" />`
+    );
+  }
+  if (!/assets\/js\/search\.js/.test(html)) {
+    html = html.replace(
+      /([ \t]*<script src="assets\/js\/main\.js"[^>]*><\/script>)/,
+      `$1\n<script src="assets/js/search.js" defer></script>\n<script src="assets/js/lightbox.js" defer></script>`
+    );
+  }
+  if (!/assets\/js\/cards\.js/.test(html)) {
+    html = html.replace(
+      /([ \t]*<script src="assets\/js\/lightbox\.js"[^>]*><\/script>)/,
+      `$1\n<script src="assets/js/cards.js" defer></script>`
+    );
+  }
+
+  /* 0e. Search triggers — one in the header, one at the top of the drawer.
+         Both are replaced wholesale each run so a markup change in build.mjs
+         propagates here instead of drifting. */
+  /* The trigger sits INSIDE .mainnav, not beside it: as a direct child of
+     .header__inner it added a 20px flex gap and the header overflowed by 6px
+     at exactly 1120px, the width where the quote button reappears. Inside the
+     nav it costs the nav's own 4px gap instead. */
+  html = html.replace(/[ \t]*<button class="hsearch"[\s\S]*?<\/button>\r?\n?/, "");
+  html = html.replace(
+    /([ \t]*<a href="contact\.html" class="btn btn--primary only-drawer">)/,
+    `      ${headerSearchBtn()}\n$1`
+  );
+
+  const dRe = /[ \t]*<button class="navsearch"[\s\S]*?<\/button>\r?\n?/;
+  if (dRe.test(html)) html = html.replace(dRe, `      ${drawerSearchBtn()}\n`);
+  else html = html.replace(
+    /(<nav class="mainnav"[^>]*>\r?\n)/,
+    `$1      ${drawerSearchBtn()}\n`
+  );
 
   /* 0c. Contact details — one number and one address for the whole site. */
   const topRe = /<div class="topbar__contacts">[\s\S]*?<\/div>/;

@@ -216,58 +216,15 @@ export const structureFittings = [
       note: MM,
     },
     faqs: [
-      ["What is the difference between a bend and a tee?", "A bend closes a corner — two members meeting at a right angle. A tee lets a third member branch off a continuous run. Their dimensions are identical size for size."],
       ["Can I move it after assembly?", "Yes. It is slidable on the tube and held by grub screws, so the frame can be repositioned without hammering or welding."],
     ],
-    related: ["structure-tee", "structure-double-bend", "structure-tube-galvanised"],
+    related: ["structure-double-bend", "structure-support", "structure-tube-galvanised"],
     keywords: "structure bend, LSBN bend fitting, cast iron corner fitting, tubular structure elbow, frame corner fitting glass plant",
   },
 
-  {
-    slug: "structure-tee",
-    name: "Structure Tee",
-    image: "assets/img/products/structure-tee.svg",
-    drawing: "assets/img/products/structure-tee.svg",
-    alt: "Dimension schematic of a cast iron structure tee on a continuous tube, showing NB, H and H1",
-    subtitle: "LST series, 25 to 50 NB",
-    desc: "Cast iron tee fitting for branching a member off a continuous structure tube without cutting or welding the run.",
-    long: [
-      "The tee lets a member branch off a continuous run of tube. Where the bend closes a corner, the tee keeps the main tube running through and takes a third member at right angles to it.",
-      "Cast iron and slidable, fixed with grub screws — the branch can be positioned anywhere along the run and moved later if the layout changes.",
-      "Dimensions match the bend size for size, so tees and bends can be mixed on the same frame without any change in setting-out.",
-    ],
-    features: [
-      "Branches a member off a continuous tube run",
-      "Cast iron, fixed with grub screws",
-      "25 to 50 NB in four catalogue references",
-      "Dimensionally matched to the bend",
-    ],
-    advantages: FITTING_ADV,
-    applications: FITTING_APPS,
-    industries: TS_INDUSTRIES,
-    spec: SPEC({
-      "Product type": "Structure tee",
-      "Suits tube size": "25 to 50 NB",
-      "Catalogue reference": "LST series",
-    }),
-    dim: {
-      caption: "Tee — dimensions",
-      cols: ["Cat. Ref.", "NB", "H", "H1"],
-      rows: [
-        ["LST 25", "25", "50", "55"],
-        ["LST 30", "30", "65", "70"],
-        ["LST 40", "40", "70", "80"],
-        ["LST 50", "50", "85", "95"],
-      ],
-      note: MM,
-    },
-    faqs: [
-      ["Do I have to cut the main tube to fit a tee?", "No. The tee slides onto the running tube and clamps with grub screws; the run stays continuous."],
-      ["Are tee and bend dimensions the same?", "Yes, size for size — H and H1 are identical, so the two can be mixed on one frame without re-setting out."],
-    ],
-    related: ["structure-bend", "structure-tube-galvanised"],
-    keywords: "structure tee, LST tee fitting, cast iron tee tubular structure, branch fitting galvanised tube, glass plant frame tee",
-  },
+  /* "Structure Tee" (LST series) was withdrawn from the range. Its entry,
+     page, drawing and inbound related-product links were removed together so
+     nothing links to a product that no longer exists. */
 
   {
     slug: "structure-double-bend",

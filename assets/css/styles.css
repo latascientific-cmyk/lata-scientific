@@ -332,6 +332,22 @@ strong { color: var(--ink-2); }
 .pcard__count { font-family: var(--f-mono); font-size: 13.5px; color: var(--muted); }
 .pcard__arrow { display: grid; place-content: center; width: 34px; height: 34px; border-radius: 9px; color: var(--accent-strong); background: var(--accent-soft); transition: transform .3s var(--ease), background .3s, color .3s; }
 .pcard:hover .pcard__arrow { background: var(--grad); color: #fff; transform: translateX(3px); }
+/* ---- Whole card is the link ----
+   The arrow anchor was already the card's one link, so its ::after is
+   stretched across the card instead of adding a second link or a wrapper.
+   That keeps one link per card (no duplicate stops for screen readers or
+   crawlers), needs no markup change, and Enter already works because the
+   anchor itself is still what takes focus. The existing hover animation is
+   untouched — it was keyed off .pcard:hover from the start. */
+.pcard { position: relative; }
+.pcard:has(.pcard__arrow[href]) { cursor: pointer; }
+.pcard__arrow[href]::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+/* Focus ring is drawn around the whole card, since the whole card is the
+   target. Without :has() support the anchor keeps its own default ring. */
+.pcard:has(.pcard__arrow:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.pcard:has(.pcard__arrow:focus-visible) .pcard__arrow { outline: none; }
+/* Anything genuinely interactive inside a card has to sit above the overlay. */
+.pcard a:not(.pcard__arrow), .pcard button { position: relative; z-index: 2; }
 
 /* Feature card (icon) */
 .fcard { padding: 26px 24px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); transition: transform .35s var(--ease), box-shadow .35s, border-color .35s; }
