@@ -32,6 +32,31 @@ const CONTACT = {
 const waHref = (msg) =>
   `https://wa.me/${CONTACT.waDigits}?text=${encodeURIComponent(msg)}`;
 
+/* ---------- registered address, defined once ----------
+   One NAP (name / address / phone) for the whole site: the footer on every
+   page, the contact card, and the LocalBusiness schema all read from here,
+   so Google never sees two different spellings of the same address.
+   scripts/sync-nav.mjs carries an identical copy for the hand-written pages. */
+const ADDRESS = {
+  street: "A/24, Yamuna Park, Opp. Poonam Complex, Waghodiya Road",
+  locality: "Vadodara",
+  region: "Gujarat",
+  postalCode: "390019",
+  country: "India",
+  countryCode: "IN",
+  /* Footer rendering — line breaks chosen to match how the address is written
+     on letterheads, not to fit the column. */
+  html: "A/24, Yamuna Park, Opp. Poonam Complex,<br />Waghodiya Road, Vadodara – 390019,<br />Gujarat, India",
+};
+const postalAddress = () => ({
+  "@type": "PostalAddress",
+  streetAddress: ADDRESS.street,
+  addressLocality: ADDRESS.locality,
+  addressRegion: ADDRESS.region,
+  postalCode: ADDRESS.postalCode,
+  addressCountry: ADDRESS.countryCode,
+});
+
 /* ---------- intrinsic image size ----------
    Emitting width/height on every <img> reserves the box before the file
    arrives, so lazy-loaded product shots cannot shift the layout as they
@@ -213,6 +238,7 @@ const footer = () => `<footer class="site-footer footer">
     <div>
       <a class="logo" href="index.html" aria-label="Lata Scientific home"><span class="logo__mark" aria-hidden="true"><svg viewBox="0 0 32 40" width="22" height="28"><g fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9v15a5 5 0 0 0 5 5h3"/><path d="M27 14a4.5 4.5 0 0 0-4.5-4h-.5a4.8 4.8 0 0 0 0 9.6h1.5a4.8 4.8 0 0 1 0 9.6h-.8a4.5 4.5 0 0 1-4.3-3.6"/></g><g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".75"><path d="M5.5 13h2.5M5.5 17h2.5M5.5 21h2.5"/></g></svg></span><span class="logo__text"><span class="logo__name">Lata<span>Scientific</span></span><span class="logo__tag">Glass · Process · Fluid</span></span></a>
       <p class="footer__blurb">Precision borosilicate glassware, glass process equipment and fluid-transfer components — engineered to the tolerance your method demands.</p>
+      <p class="footer__blurb">${ADDRESS.html}</p>
       <div class="footer__contact">
         <a href="${waHref(CONTACT.floatMessage)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.55 2 2.1 6.44 2.1 11.92c0 1.75.46 3.45 1.33 4.95L2 22l5.27-1.38a9.9 9.9 0 0 0 4.77 1.21h.01c5.48 0 9.94-4.45 9.94-9.93A9.87 9.87 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 8.24 8.23c0 4.54-3.7 8.24-8.24 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.8-.22-.09-.39-.13-.55.12-.17.25-.64.8-.79.97-.14.16-.29.19-.54.06-.24-.12-1.04-.38-1.99-1.22-.73-.65-1.23-1.46-1.37-1.7-.15-.25-.02-.38.11-.51.11-.11.24-.29.37-.43.12-.15.16-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.6.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg><span>${CONTACT.waDisplay}</span></a>
         <a href="mailto:${CONTACT.email}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg><span>${CONTACT.email}</span></a>
@@ -270,7 +296,14 @@ ${extra.keywords ? `  <meta name="keywords" content="${esc(extra.keywords)}" />\
 ${extra.image ? `  <meta property="og:image" content="${BASE_URL}${extra.image}" />\n  <meta property="og:image:alt" content="${esc(extra.imageAlt || title)}" />\n` : ""}  <meta name="twitter:card" content="${extra.image ? "summary_large_image" : "summary"}" />
   <meta name="twitter:title" content="${esc(extra.ogTitle || title)}" />
   <meta name="twitter:description" content="${esc(desc)}" />
-${extra.image ? `  <meta name="twitter:image" content="${BASE_URL}${extra.image}" />\n` : ""}  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+${extra.image ? `  <meta name="twitter:image" content="${BASE_URL}${extra.image}" />\n` : ""}  <meta name="geo.region" content="IN-GJ" />
+  <meta name="geo.placename" content="${ADDRESS.locality}" />
+  <meta property="business:contact_data:street_address" content="${esc(ADDRESS.street)}" />
+  <meta property="business:contact_data:locality" content="${ADDRESS.locality}" />
+  <meta property="business:contact_data:region" content="${ADDRESS.region}" />
+  <meta property="business:contact_data:postal_code" content="${ADDRESS.postalCode}" />
+  <meta property="business:contact_data:country_name" content="${ADDRESS.country}" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -633,7 +666,7 @@ const productSchema = (cat, p, sub) => {
     url: `${BASE_URL}product-${p.slug}.html`,
     ...(p.image ? { image: `${BASE_URL}${p.image}` } : {}),
     brand: { "@type": "Brand", name: "Lata Scientific" },
-    manufacturer: { "@type": "Organization", name: "Lata Scientific", url: BASE_URL },
+    manufacturer: { "@type": "Organization", name: "Lata Scientific", url: BASE_URL, address: postalAddress() },
     ...(p.spec ? {
       additionalProperty: p.spec.map(([name, value]) => ({
         "@type": "PropertyValue", name, value: plain(value),
@@ -645,7 +678,7 @@ const productSchema = (cat, p, sub) => {
       availability: "https://schema.org/InStock",
       priceCurrency: "INR",
       availableDeliveryMethod: "https://schema.org/ParcelService",
-      seller: { "@type": "Organization", name: "Lata Scientific" },
+      seller: { "@type": "Organization", name: "Lata Scientific", address: postalAddress() },
     },
   }, {
     "@context": "https://schema.org",
@@ -784,10 +817,11 @@ const overviewGroup = (title, list) => `
       </article>`).join("\n      ")}`;
 
 const overviewPage = () => head(
-  "Products — Glassware & Process Equipment | Lata Scientific",
-  "Browse the full Lata Scientific catalogue: borosilicate glass pipeline, glass valves, PTFE lined pipes and fittings, sight flow indicators, heat exchangers and custom process equipment.",
+  "Products — Industrial Glassware & Process Equipment, Vadodara | Lata Scientific",
+  "Browse the full Lata Scientific catalogue: borosilicate glass pipeline, glass valves, PTFE lined pipes and fittings, sight flow indicators, heat exchangers and custom process equipment. Supplied from Vadodara, Gujarat across India.",
   "products.html",
   {
+    keywords: "industrial glass equipment Vadodara, borosilicate glass manufacturer Vadodara, PTFE products Vadodara, laboratory glassware Gujarat, industrial process equipment India, scientific equipment supplier Vadodara",
     /* The catalogue index is a CollectionPage listing every category. */
     jsonld: [{
       "@context": "https://schema.org",
