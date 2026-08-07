@@ -145,7 +145,13 @@ const organisation = () => ({
   description: "Manufacturer of borosilicate glass process equipment, glass valves, PTFE lined pipes and fittings, sight flow indicators and custom fabricated laboratory and chemical plant apparatus.",
   email: CONTACT.email,
   telephone: CONTACT.waTel,
-  areaServed: "Worldwide",
+  foundingDate: "2021",
+  areaServed: { "@type": "Country", name: "India" },
+  taxID: "24AQQPP2220F1Z1",
+  identifier: [
+    { "@type": "PropertyValue", name: "GSTIN", value: "24AQQPP2220F1Z1" },
+    { "@type": "PropertyValue", name: "MSME/UAM", value: "GJ240227049" },
+  ],
   logo: { "@type": "ImageObject", url: `${BASE}assets/img/logo/lata-logo.svg` },
   image: `${BASE}${SHARE_IMG}`,
   contactPoint: [{
