@@ -208,9 +208,9 @@
         if (/Too many reviews/i.test(body)) {
           showStatus("You have already submitted several reviews today. Please try again tomorrow.", "err");
         } else if (res.status === 401 || res.status === 403) {
-          showStatus("We could not accept the review just now. Please email latascientific@gmail.com and we will add it for you.", "err");
+          showStatus("We could not accept the review just now. Please email sales@latascientific.com and we will add it for you.", "err");
         } else {
-          showStatus("Something went wrong sending your review. Please try again, or email latascientific@gmail.com.", "err");
+          showStatus("Something went wrong sending your review. Please try again, or email sales@latascientific.com.", "err");
         }
         console.warn("[review-form] submit failed", res.status, body);
       }

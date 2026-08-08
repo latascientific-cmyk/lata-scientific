@@ -28,7 +28,7 @@ const CONTACT = {
   waDigits: "919033630547",
   waDisplay: "+91 90336 30547",
   waTel: "+919033630547",
-  email: "latascientific@gmail.com",
+  email: "sales@latascientific.com",
   floatMessage: "Hello Lata Scientific, I would like to enquire about your products.",
 };
 const waHref = (msg) => `https://wa.me/${CONTACT.waDigits}?text=${encodeURIComponent(msg)}`;

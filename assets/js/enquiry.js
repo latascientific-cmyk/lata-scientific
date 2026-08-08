@@ -26,7 +26,7 @@
     waDigits: "919033630547",
     waDisplay: "+91 90336 30547",
     waTel: "+919033630547",
-    email: "latascientific@gmail.com",
+    email: "sales@latascientific.com",
     floatMessage: "Hello Lata Scientific, I would like to enquire about your products."
   };
   window.LATA_CONTACT = CONTACT;

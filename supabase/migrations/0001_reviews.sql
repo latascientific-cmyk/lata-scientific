@@ -17,6 +17,10 @@ create table if not exists public.admins (
 );
 alter table public.admins enable row level security;
 
+/* HISTORICAL — left exactly as it was executed. 0002_status_published.sql
+   drops public.admins entirely, so this seed no longer exists in the database
+   and the address below is not a live contact address. The site's contact
+   address is sales@latascientific.com, defined once in scripts/build.mjs. */
 insert into public.admins (email) values ('latascientific@gmail.com')
   on conflict (email) do nothing;
 
