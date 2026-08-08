@@ -1046,9 +1046,12 @@ if (missingPdfs.size) {
 
 /* ---------- sitemap ---------- */
 const BASE = "https://www.latascientific.com/";
+/* review.html is the public "Share your experience" form. Reviews are moderated
+   in the Supabase dashboard, so there is no admin page to exclude here. */
 const staticPages = [
   ["", "1.0"], ["about.html", "0.7"], ["products.html", "0.9"],
   ["capabilities.html", "0.8"], ["quality.html", "0.7"], ["contact.html", "0.8"],
+  ["review.html", "0.5"],
 ];
 /* Product URLs carry their photograph and dimension drawing as image
    sitemap entries, so Google Images can index the catalogue artwork. */

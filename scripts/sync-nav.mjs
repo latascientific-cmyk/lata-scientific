@@ -19,7 +19,7 @@ import { dirname, resolve } from "node:path";
 import { categories } from "../data/catalogue.mjs";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const PAGES = ["index.html", "about.html", "capabilities.html", "quality.html", "contact.html"];
+const PAGES = ["index.html", "about.html", "capabilities.html", "quality.html", "contact.html", "review.html"];
 
 /* ---------- contact details ----------
    Must stay identical to CONTACT in scripts/build.mjs and to the CONTACT
@@ -114,6 +114,42 @@ const footerCol = () =>
   `<nav class="footer__col" aria-label="Products"><h4>Products</h4>${
     categories.slice(0, 6).map((c) => `<a href="cat-${c.slug}.html">${c.name.replace(/&/g, "&amp;")}</a>`).join("")
   }</nav>`;
+
+/* ---------- home page "Featured products" showcase ----------
+   index.html shipped with an empty <div id="showcaseTrack"> and a comment
+   saying cards would be injected "as real products are supplied". They were
+   supplied long ago — 34 catalogue items carry `featured: true` — so the strip
+   rendered as a blank band with a heading and two arrows and read as an
+   unfinished site.
+
+   One card per category rather than all 34: twelve photos on the home page
+   instead of thirty-four, and a spread across every range instead of four
+   pipeline items in a row. assets/js/main.js needs more cards than CLONES (4)
+   for the infinite wrap, so twelve is comfortably above the floor.
+   Markup mirrors the .scard rules in styles.css: media box with the photo and
+   a category tag, then a clamped title and subtitle. */
+const escHtml = (s) => String(s ?? "")
+  .replace(/&(?!(?:amp|lt|gt|quot|#\d+|#x[0-9a-fA-F]+);)/g, "&amp;")
+  .replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const stripTags = (s) => String(s ?? "").replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+const productsOf = (cat) =>
+  cat.subcategories ? cat.subcategories.flatMap((s) => s.products || []) : (cat.products || []);
+
+const showcaseCards = () =>
+  categories
+    .map((cat) => ({ cat, p: productsOf(cat).find((p) => p.featured && p.image) }))
+    .filter((x) => x.p)
+    .map(({ cat, p }) => `        <article class="scard">
+          <div class="scard__media">
+            <img src="${p.image}" alt="${escHtml(stripTags(p.photoAlt || p.name))}" loading="lazy" decoding="async" />
+            <span class="scard__tag">${escHtml(cat.name)}</span>
+          </div>
+          <div class="scard__body">
+            <h3>${escHtml(stripTags(p.name))}</h3>
+            <p>${escHtml(stripTags(p.subtitle || p.desc || ""))}</p>
+          </div>
+        </article>`)
+    .join("\n");
 
 /* ---------- social / structured metadata ----------
    The generated pages get Open Graph, Twitter cards and JSON-LD from
@@ -215,10 +251,12 @@ const PAGE_TYPE = {
   "contact.html": "ContactPage",
   "capabilities.html": "WebPage",
   "quality.html": "WebPage",
+  "review.html": "WebPage",
 };
 const CRUMB = {
   "about.html": "About", "contact.html": "Contact",
   "capabilities.html": "Capabilities", "quality.html": "Quality",
+  "review.html": "Share your experience",
 };
 
 /* Titles and descriptions are read out of HTML, so they carry entities.
@@ -419,6 +457,16 @@ for (const page of PAGES) {
   const footRe = /<nav class="footer__col" aria-label="Products">[\s\S]*?<\/nav>/;
   if (footRe.test(html)) html = html.replace(footRe, footerCol());
   else console.warn(`  ! ${page}: footer Products nav not found — left untouched`);
+
+  /* 3. Featured products showcase (index.html only).
+        Anchored on the closing tags plus the showcase__nav that follows,
+        because the cards contain nested <div>s — a lazy match to the first
+        </div> would eat its own output on the second run. */
+  if (page === "index.html") {
+    const showRe = /(<div class="showcase__track" id="showcaseTrack">)[\s\S]*?(\n      <\/div>\s*\n    <\/div>\s*\n    <div class="showcase__nav">)/;
+    if (showRe.test(html)) html = html.replace(showRe, (_m, open, close) => `${open}\n${showcaseCards()}${close}`);
+    else console.warn(`  ! ${page}: showcase track not found — left untouched`);
+  }
 
   if (html !== before) { writeFileSync(file, html, "utf8"); changed++; console.log(`  updated ${page}`); }
   else console.log(`  unchanged ${page}`);

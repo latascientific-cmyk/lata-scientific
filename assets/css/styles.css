@@ -549,6 +549,10 @@ strong { color: var(--ink-2); }
 .showcase__track { display: flex; gap: 22px; will-change: transform; }
 .scard { flex: 0 0 calc((100% - 66px) / 4); background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-xs); pointer-events: none; -webkit-user-select: none; user-select: none; }
 .scard__media { aspect-ratio: 4 / 3; position: relative; background: var(--paper-3); }
+/* Same fill rule every other media box in the sheet already uses
+   (.pcard__media img, .featcat__media img, .split__media img). It was missing
+   only because the showcase track shipped empty, so no image ever landed here. */
+.scard__media img { width: 100%; height: 100%; object-fit: cover; }
 .scard__tag { position: absolute; top: 12px; left: 12px; font-family: var(--f-mono); font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-strong); background: rgba(255,255,255,0.92); padding: 5px 10px; border-radius: 7px; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 .scard__body { padding: 15px 18px 18px; }
 /* Titles/subtitles are clamped and height-reserved so uneven text lengths

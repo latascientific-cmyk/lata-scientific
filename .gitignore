@@ -1,0 +1,7 @@
+# Real environment values. `.env.example` documents the shape; this holds the
+# actual ones and stays out of the repository.
+.env
+
+# OS / editor noise
+Thumbs.db
+.DS_Store
