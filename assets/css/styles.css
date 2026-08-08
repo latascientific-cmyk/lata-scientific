@@ -203,6 +203,13 @@ strong { color: var(--ink-2); }
   border-radius: 18px; box-shadow: var(--shadow-lg); padding: 22px; opacity: 0; visibility: hidden;
   transition: opacity .25s var(--ease), transform .25s var(--ease), visibility .25s; z-index: 120;
   display: grid; grid-template-columns: 1fr 1fr 0.9fr; gap: 10px 26px;
+  /* The panel opens ~136px down the page, so on a 900px-tall laptop its full
+     972px could not fit: the last two categories fell past the viewport with
+     no way to reach them. Cap it to what is actually on screen and let it
+     scroll. On a tall window the cap is never hit and nothing looks different.
+     The mobile rule below re-declares max-height, so this does not affect the
+     accordion. */
+  max-height: calc(100vh - 150px); overflow-y: auto;
 }
 .has-mega.is-open .mega { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 .mega__group h4 { font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin: 6px 10px 10px; }

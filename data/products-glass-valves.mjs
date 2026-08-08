@@ -352,9 +352,70 @@ export const glassValves = [
       ["Can it be fitted to my vessel?", "The catalogue states it can be incorporated in any spherical or cylindrical vessel. Send us the vessel drawing and nozzle detail and we will confirm the arrangement."],
       ["Why is the bottom outlet DN 25 on both sizes?", "That is how the table is printed — DN2 is 25 for both LSBAL1.5 and LSBAL2. The vessel connection DN and side outlet DN1 are what change between them."],
     ],
-    related: ["drain-valve", "straight-through-valve", "u-bend-bottom-outlet", "ptfe-lined-flush-bottom-valve"],
+    related: ["zero-holdup-bottom-outlet-valve", "drain-valve", "straight-through-valve", "u-bend-bottom-outlet"],
     keywords: "borosilicate glass bottom outlet valve, glass vessel outlet valve, LSBAL valve, flush bottom glass valve, reactor bottom outlet",
     featured: true,
+  },
+
+  /* Zero Holdup Bottom Outlet Valve — made to order rather than sold to a
+     fixed size list, so this entry deliberately carries no `dim` table, no
+     catalogue reference and no DN range. "Dimensions: customised according to
+     requirements" is the stated position, not a placeholder. Everything else
+     below is either visible in the supplied photo or true of the range as a
+     whole. */
+  {
+    slug: "zero-holdup-bottom-outlet-valve",
+    name: "Zero Holdup Bottom Outlet Valve",
+    subtitle: "Glass bottom outlet valve that drains a vessel completely",
+    image: photo("zero-holdup-bottom-outlet-valve"),
+    alt: "Zero holdup bottom outlet valve with a borosilicate glass body and side outlet, mounted above blue anodised adjusting collars and a black knurled handwheel",
+    desc: "Borosilicate glass bottom outlet valve that seats flush with the vessel floor, so no product is left standing in the outlet when the vessel is drained.",
+    long: [
+      "A bottom outlet valve exists so a vessel can be emptied properly. <em>Zero holdup</em> names the thing that separates this build from an ordinary outlet valve: the plug closes flush with the inside of the vessel floor, so when the valve is shut there is no cavity underneath holding product back.",
+      "That matters most on batch work. Any pocket below the vessel floor keeps a little of the last charge — it settles, it degrades, and it carries into the next batch. Zero holdup removes the pocket rather than trying to flush it out afterwards, which is why this build gets specified on reactors running actives, colour-critical products, or anything where batch-to-batch carryover has to be ruled out rather than merely reduced.",
+      "The body is borosilicate, so the seat and the outlet stay visible in service — an operator can see that the valve has actually cleared instead of inferring it from flow. It is operated by hand from below, with no actuator or air supply to route under the vessel.",
+      "This valve is not built to a fixed size list. Dimensions are customised according to requirements, so the vessel connection, the side outlet and the seat are made to suit the vessel it goes on. Send us the nozzle detail and the duty and we will confirm the build.",
+    ],
+    features: [
+      "Plug seats flush with the vessel floor — no cavity left to hold product back",
+      "Complete drainage between batches, so nothing carries into the next charge",
+      "Borosilicate glass body — the seat and the outlet stay visible in service",
+      "Side outlet carries the discharge line away from directly under the vessel",
+      "Hand operated from below; no actuator or air supply required",
+      "Dimensions customised according to requirements — built to suit the vessel it goes on",
+    ],
+    advantages: [
+      "No residual volume at the vessel outlet — carryover is designed out, not washed out",
+      "Nothing settles or degrades in a dead pocket between batches",
+      ...GV_ADV.slice(0, 3),
+    ],
+    applications: [
+      "Reactor and receiver draining where no residue may remain",
+      "Batch processes with strict cross-contamination limits",
+      "Slurries and crystallising products that would settle in an outlet",
+      "Bottom sampling and complete discharge from a glass vessel",
+    ],
+    industries: GV_INDUSTRIES,
+    spec: SPEC({
+      "Product type": "Glass bottom outlet valve, zero holdup",
+      "Holdup volume": "Zero — the plug seats flush with the vessel floor",
+      "Operation": "Manual, knurled handwheel with adjusting collars",
+      "Dimensions": "Customised according to requirements",
+      /* Left blank on purpose — filtered out by SPEC() until the catalogue
+         page for this valve is supplied. */
+      "Spindle": "",
+      "Nominal bore range": "",
+      "End connection": "",
+      "Flange drilling": "",
+      "Catalogue reference": "",
+    }),
+    faqs: [
+      ["What does “zero holdup” actually mean?", "That there is no cavity below the vessel floor when the valve is closed. The plug seats flush with the inside of the vessel, so no product is left standing in the outlet once the vessel has been drained."],
+      ["How is this different from the standard bottom outlet valve?", "Both close at the vessel rather than below it, so neither leaves a dead leg under the nozzle. This is the zero holdup build, specified where no residual volume at all is acceptable. If you are choosing between the two, send us the vessel detail and the duty and we will advise."],
+      ["What sizes does it come in?", "There is no fixed size list for this valve — dimensions are customised according to requirements. Tell us the vessel nozzle size, the outlet you need and the duty, and we will build it to suit."],
+    ],
+    related: ["bottom-outlet-valve", "drain-valve", "ptfe-lined-flush-bottom-valve", "spherical-vessel"],
+    keywords: "zero holdup bottom outlet valve, glass bottom outlet valve, flush bottom valve, zero dead volume valve, reactor drain valve, borosilicate glass valve Vadodara",
   },
 
   /* "Three Way Valve" (LSPVT series) was withdrawn from the range. Its entry,

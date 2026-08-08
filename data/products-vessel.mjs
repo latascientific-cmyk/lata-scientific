@@ -52,7 +52,7 @@ export const vessels = [
     image: "assets/img/products/spherical-vessel-photo.jpg",
     drawing: "assets/img/products/spherical-vessel.svg",
     alt: "Dimension schematic of a borosilicate spherical vessel in both catalogue builds — single neck with DN and overall height L, and three neck with bottom outlet showing DN, DN1, DN2 and L",
-    photoAlt: "Borosilicate spherical vessel graduated to 10 litres with three necks, shown beside a second vessel packed for shipping",
+    photoAlt: "Borosilicate spherical vessel with three necks, graduated to 10 litres, shown on a Lata Scientific product information sheet",
     desc: "Borosilicate spherical vessel from 5 to 200 litres, in a single neck build and a three neck build with bottom outlet — for reaction, receiving and storage duty on a glass plant.",
     long: [
       "The sphere is the strongest shape glass can be blown into, and it is why the vessels in this range hold more pressure for their wall thickness than any cylindrical equivalent. There is no corner to concentrate stress and no flat end to bow, so the load spreads evenly through the whole wall. That is also why the catalogue's maximum pressure figure falls as the vessels get bigger — the same wall has to carry a much larger sphere.",
